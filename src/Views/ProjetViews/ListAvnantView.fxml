@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ProjetControllers.ListAvnantController">
+   <content>
+      <BorderPane>
+         <center>
+            <VBox prefHeight="400.0" prefWidth="600.0">
+               <children>
+                   <AnchorPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #FFF;">
+                       <children>
+                           <ImageView fitHeight="26.0" fitWidth="29.0" layoutX="950.0" layoutY="11.0" onMousePressed="#ActionRefresh" pickOnBounds="true" preserveRatio="true">
+                               <image>
+                                   <Image url="@../../Icons/refresh.jpeg" />
+                               </image>
+                           </ImageView>
+                           <ImageView fitHeight="29.0" fitWidth="35.0" layoutX="904.0" layoutY="9.0" onMousePressed="#ActionSearch" pickOnBounds="true" preserveRatio="true">
+                               <image>
+                                   <Image url="@../../Icons/recherche.png.png" />
+                               </image>
+                           </ImageView>
+                           <TextField fx:id="tfRecherche" layoutX="583.0" layoutY="8.0" prefHeight="30.0" prefWidth="292.0" promptText="Recherche">
+                               <font>
+                                   <Font name="System Bold" size="13.0" />
+                               </font>
+                           </TextField>
+                        <ImageView fitHeight="31.0" fitWidth="24.0" layoutX="47.0" layoutY="11.0" onMousePressed="#ActionDeleteAvnant" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Icons/invoiceSub.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="8.0" layoutY="10.0" onMousePressed="#ActionUpdateAvnant" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Icons/invoiceUpd.png" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                       </children>
+                   </AnchorPane>
+                  <TableView fx:id="tvAvnant" prefHeight="450.0" prefWidth="600.0">
+                     <columns>
+                         <TableColumn fx:id="idColumn" prefWidth="200.0" text="id" visible="false" />
+                        <TableColumn fx:id="dateColumn" prefWidth="200.0" text="Date" />
+                        <TableColumn fx:id="MontantColumn" prefWidth="297.0" text="Montant" />
+                        <TableColumn fx:id="coutColumn" prefWidth="280.0" text="Cout Apliqué" />
+                        <TableColumn fx:id="typeColumn" prefWidth="200.0" text="Type" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </content>
+   <header>
+      <AnchorPane prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #EFF;"> 
+         <children>
+            <Button layoutX="904.0" layoutY="3.0" mnemonicParsing="false" onMousePressed="#ActionAnnuler" prefHeight="34.0" prefWidth="100.0" style="-fx-background-color: #FFF; -fx-border-color: #dd0000;" text="Close" textFill="#dd0000">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/delete.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label layoutX="14.0" layoutY="19.0" text="List des avnant">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </header>
+</DialogPane>

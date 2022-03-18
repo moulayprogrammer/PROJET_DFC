@@ -1,0 +1,442 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: Mar 18, 2022 at 10:13 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.2.31
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `dfc_projet`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `AVENANT_COUT`
+--
+
+CREATE TABLE `AVENANT_COUT` (
+  `ID` int(11) NOT NULL,
+  `ID_COUT` int(11) NOT NULL,
+  `DATE` varchar(100) NOT NULL,
+  `TYPE` varchar(100) NOT NULL,
+  `MONTANT` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `AVENANT_COUT`
+--
+
+INSERT INTO `AVENANT_COUT` (`ID`, `ID_COUT`, `DATE`, `TYPE`, `MONTANT`) VALUES
+(6, 9, '01/01/2013', 'SUPLEMENTAIRE', 105335244.82),
+(7, 9, '01/02/2013', 'SUPLEMENTAIRE', 27112307.29);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `AVENANT_MAR_CON_BC`
+--
+
+CREATE TABLE `AVENANT_MAR_CON_BC` (
+  `ID` int(11) NOT NULL,
+  `ID_MAR_CON_BC` int(11) NOT NULL,
+  `TYPE` varchar(100) NOT NULL,
+  `DATE` varchar(100) NOT NULL,
+  `MONTANT` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `AVENANT_MAR_CON_BC`
+--
+
+INSERT INTO `AVENANT_MAR_CON_BC` (`ID`, `ID_MAR_CON_BC`, `TYPE`, `DATE`, `MONTANT`) VALUES
+(4, 3, 'SUPLEMENTAIRE', '19/10/2014', 1974777.66),
+(5, 4, 'SUPLEMENTAIRE', '02/03/2014', 980877.03);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `COUT`
+--
+
+CREATE TABLE `COUT` (
+  `ID` int(11) NOT NULL,
+  `ID_PROJET` int(11) NOT NULL,
+  `TYPE` varchar(100) NOT NULL,
+  `MONTANT` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `COUT`
+--
+
+INSERT INTO `COUT` (`ID`, `ID_PROJET`, `TYPE`, `MONTANT`) VALUES
+(7, 4, 'réalisation', 923618599.56),
+(8, 4, 'étud', 23815928.08),
+(9, 4, 'VRD', 42000000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `FACTURE`
+--
+
+CREATE TABLE `FACTURE` (
+  `ID` int(11) NOT NULL,
+  `ID_MAR_CON_BC` int(11) NOT NULL,
+  `NUMERO` varchar(100) NOT NULL,
+  `DATE` date NOT NULL,
+  `MONTANT` double NOT NULL,
+  `ARCHIVE` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `FACTURE`
+--
+
+INSERT INTO `FACTURE` (`ID`, `ID_MAR_CON_BC`, `NUMERO`, `DATE`, `MONTANT`, `ARCHIVE`) VALUES
+(5, 3, '01/14', '2014-05-25', 6093742.34, 0),
+(6, 3, '02/14', '2014-06-25', 9913260.57, 0),
+(7, 3, '03/14', '2014-07-24', 6837967.68, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `MAR_CON_BC`
+--
+
+CREATE TABLE `MAR_CON_BC` (
+  `ID` int(11) NOT NULL,
+  `ID_PROJET` int(11) NOT NULL,
+  `ID_ORGANISME` int(11) NOT NULL,
+  `NOM` varchar(100) DEFAULT NULL,
+  `TYPE` varchar(100) NOT NULL,
+  `NUMERO` varchar(100) NOT NULL,
+  `HT` double NOT NULL,
+  `TVA` double NOT NULL,
+  `TTC` double NOT NULL,
+  `COMPTE_NUMERO` varchar(100) NOT NULL,
+  `COMPTE_BANCK` varchar(100) NOT NULL,
+  `COMPTE_AGENCE` varchar(100) NOT NULL,
+  `NUMBER_LOGTS` int(11) NOT NULL,
+  `DATE` varchar(50) NOT NULL,
+  `ARCHIVE` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `MAR_CON_BC`
+--
+
+INSERT INTO `MAR_CON_BC` (`ID`, `ID_PROJET`, `ID_ORGANISME`, `NOM`, `TYPE`, `NUMERO`, `HT`, `TVA`, `TTC`, `COMPTE_NUMERO`, `COMPTE_BANCK`, `COMPTE_AGENCE`, `NUMBER_LOGTS`, `DATE`, `ARCHIVE`) VALUES
+(3, 4, 3, 'PROJET REALISATION DE 50/350/1500LOGT PQQ A GEUT EL-OUED', 'realisation', '012/2014', 117597645, 0, 117597645, '1245789630000', 'BNA', 'TAMANRASSET', 50, '02/02/2014', 0),
+(4, 4, 4, 'REALISATION PROJET DE 50/350/1500LOGT PQQ A GEUT EL-OUED', 'realisation', '013/2014', 129310405.5, 0, 129310405.5, '125487963211', 'BDL', 'TAMANRASSET', 50, '02/02/2014', 0),
+(5, 4, 3, 'jkhbghfg', 'realisation', 'bygtdc', 215487963.32, 19, 256430676.35, '865645845', 'jhgvyu', 'gbuhb', 50, '02/02/2014', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ORDRE_PAIEMENT`
+--
+
+CREATE TABLE `ORDRE_PAIEMENT` (
+  `ID` int(11) NOT NULL,
+  `ID_FACTURE` int(11) NOT NULL,
+  `NUMERO` varchar(100) NOT NULL,
+  `DATE` date NOT NULL,
+  `MONTANT` double NOT NULL,
+  `PINALITE_ROUTARD` double NOT NULL DEFAULT 0,
+  `RETUNE_GARANTE` double NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ORDRE_PAIEMENT`
+--
+
+INSERT INTO `ORDRE_PAIEMENT` (`ID`, `ID_FACTURE`, `NUMERO`, `DATE`, `MONTANT`, `PINALITE_ROUTARD`, `RETUNE_GARANTE`) VALUES
+(8, 5, '001/2014', '2014-05-29', 5789055.223, 0, 304687.12),
+(9, 6, '002/2014', '2014-10-19', 9417597.5415, 0, 495663.03),
+(10, 7, '003/2014', '2014-12-14', 6496069.296, 0, 341898.38);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ORGANISME`
+--
+
+CREATE TABLE `ORGANISME` (
+  `ID` int(255) NOT NULL,
+  `RAISON_SOCIAL` varchar(100) NOT NULL,
+  `ADRESSE` varchar(100) DEFAULT NULL,
+  `TEL` varchar(50) DEFAULT NULL,
+  `RC` varchar(50) DEFAULT NULL,
+  `NIF` varchar(30) DEFAULT NULL,
+  `ARCHIVE` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ORGANISME`
+--
+
+INSERT INTO `ORGANISME` (`ID`, `RAISON_SOCIAL`, `ADRESSE`, `TEL`, `RC`, `NIF`, `ARCHIVE`) VALUES
+(3, 'ETB SI-SALEM YAHIYA', 'ELSSALAM', '0600000000', '22 A 1032456', '12548796321458745236', 0),
+(4, 'ETB BOUILOUTA  HASSINA', 'TAHAGGARET', '0500000000', '12 A 125487', '5689321478532698', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PROGRAMME`
+--
+
+CREATE TABLE `PROGRAMME` (
+  `ID` int(11) NOT NULL,
+  `CODE` varchar(100) NOT NULL,
+  `NOM_PROGRAMME` varchar(100) NOT NULL,
+  `NOMBRE_LOGTS` int(11) NOT NULL,
+  `NUMERO_CD` varchar(100) NOT NULL,
+  `DATE_INSCRIPTION` varchar(20) NOT NULL,
+  `ARCHIVE` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `PROGRAMME`
+--
+
+INSERT INTO `PROGRAMME` (`ID`, `CODE`, `NOM_PROGRAMME`, `NOMBRE_LOGTS`, `NUMERO_CD`, `DATE_INSCRIPTION`, `ARCHIVE`) VALUES
+(7, '001/2011', 'PROGRAMME 1500 LOGTS  PQQ Tranche 2011  A LA WILAYA DE TAMANRASSET', 1500, 'PLS/110/81/05/2011', '2011', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `PROJET`
+--
+
+CREATE TABLE `PROJET` (
+  `ID` int(11) NOT NULL,
+  `ID_PROGRAMME` int(11) NOT NULL,
+  `NOM` varchar(100) NOT NULL,
+  `SITE` varchar(100) NOT NULL,
+  `NUMBER_LOGTS` int(11) NOT NULL,
+  `NUMERO_CF` varchar(100) NOT NULL,
+  `DATE_INSCRIPTION` varchar(20) DEFAULT NULL,
+  `ARCHIVE` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `PROJET`
+--
+
+INSERT INTO `PROJET` (`ID`, `ID_PROGRAMME`, `NOM`, `SITE`, `NUMBER_LOGTS`, `NUMERO_CF`, `DATE_INSCRIPTION`, `ARCHIVE`) VALUES
+(4, 7, '350/1500 LOGTS GUETA-ELOUED', 'GUETA-ELOUED', 350, 'PLS 110 81 05 2011 01 11 01 2013', '2013', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `USER`
+--
+
+CREATE TABLE `USER` (
+  `ID` int(11) NOT NULL,
+  `USERNAME` varchar(30) NOT NULL,
+  `PASSWORD` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `AVENANT_COUT`
+--
+ALTER TABLE `AVENANT_COUT`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_COUT` (`ID_COUT`);
+
+--
+-- Indexes for table `AVENANT_MAR_CON_BC`
+--
+ALTER TABLE `AVENANT_MAR_CON_BC`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_MAR_CON_BC` (`ID_MAR_CON_BC`);
+
+--
+-- Indexes for table `COUT`
+--
+ALTER TABLE `COUT`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_PROJET` (`ID_PROJET`);
+
+--
+-- Indexes for table `FACTURE`
+--
+ALTER TABLE `FACTURE`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `FACTURE_ibfk_2` (`ID_MAR_CON_BC`);
+
+--
+-- Indexes for table `MAR_CON_BC`
+--
+ALTER TABLE `MAR_CON_BC`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_PROJET` (`ID_PROJET`),
+  ADD KEY `ID_ORGANISME` (`ID_ORGANISME`);
+
+--
+-- Indexes for table `ORDRE_PAIEMENT`
+--
+ALTER TABLE `ORDRE_PAIEMENT`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_FACTURE` (`ID_FACTURE`);
+
+--
+-- Indexes for table `ORGANISME`
+--
+ALTER TABLE `ORGANISME`
+  ADD PRIMARY KEY (`ID`) USING BTREE;
+
+--
+-- Indexes for table `PROGRAMME`
+--
+ALTER TABLE `PROGRAMME`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `PROJET`
+--
+ALTER TABLE `PROJET`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_PROGRAMME` (`ID_PROGRAMME`);
+
+--
+-- Indexes for table `USER`
+--
+ALTER TABLE `USER`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `USERNAME` (`USERNAME`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `AVENANT_COUT`
+--
+ALTER TABLE `AVENANT_COUT`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `AVENANT_MAR_CON_BC`
+--
+ALTER TABLE `AVENANT_MAR_CON_BC`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `COUT`
+--
+ALTER TABLE `COUT`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `FACTURE`
+--
+ALTER TABLE `FACTURE`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `MAR_CON_BC`
+--
+ALTER TABLE `MAR_CON_BC`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `ORDRE_PAIEMENT`
+--
+ALTER TABLE `ORDRE_PAIEMENT`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `ORGANISME`
+--
+ALTER TABLE `ORGANISME`
+  MODIFY `ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `PROGRAMME`
+--
+ALTER TABLE `PROGRAMME`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `PROJET`
+--
+ALTER TABLE `PROJET`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `USER`
+--
+ALTER TABLE `USER`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `AVENANT_COUT`
+--
+ALTER TABLE `AVENANT_COUT`
+  ADD CONSTRAINT `AVENANT_COUT_ibfk_1` FOREIGN KEY (`ID_COUT`) REFERENCES `COUT` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `AVENANT_MAR_CON_BC`
+--
+ALTER TABLE `AVENANT_MAR_CON_BC`
+  ADD CONSTRAINT `AVENANT_MAR_CON_BC_ibfk_1` FOREIGN KEY (`ID_MAR_CON_BC`) REFERENCES `MAR_CON_BC` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `COUT`
+--
+ALTER TABLE `COUT`
+  ADD CONSTRAINT `COUT_ibfk_1` FOREIGN KEY (`ID_PROJET`) REFERENCES `PROJET` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `FACTURE`
+--
+ALTER TABLE `FACTURE`
+  ADD CONSTRAINT `FACTURE_ibfk_2` FOREIGN KEY (`ID_MAR_CON_BC`) REFERENCES `MAR_CON_BC` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `MAR_CON_BC`
+--
+ALTER TABLE `MAR_CON_BC`
+  ADD CONSTRAINT `MAR_CON_BC_ibfk_1` FOREIGN KEY (`ID_PROJET`) REFERENCES `PROJET` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `MAR_CON_BC_ibfk_2` FOREIGN KEY (`ID_ORGANISME`) REFERENCES `ORGANISME` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `ORDRE_PAIEMENT`
+--
+ALTER TABLE `ORDRE_PAIEMENT`
+  ADD CONSTRAINT `ORDRE_PAIEMENT_ibfk_1` FOREIGN KEY (`ID_FACTURE`) REFERENCES `FACTURE` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `PROJET`
+--
+ALTER TABLE `PROJET`
+  ADD CONSTRAINT `PROJET_ibfk_1` FOREIGN KEY (`ID_PROGRAMME`) REFERENCES `PROGRAMME` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
