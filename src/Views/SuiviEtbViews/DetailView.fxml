@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -11,129 +10,260 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="700.0" prefWidth="1120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SuiviControllers.EtbMainController">
     <center>
-        <AnchorPane prefHeight="580.0" prefWidth="1120.0">
+        <AnchorPane prefHeight="580.0" prefWidth="1120.0" style="-fx-border-color: GRAY; -fx-border-width: 0.3;">
             <children>
-                <TableView fx:id="table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <TableView fx:id="table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
                     <columns>
-                        <TableColumn fx:id="idConv" prefWidth="100.0" text="idConv" visible="false" />
-                        <TableColumn fx:id="idOrg" prefWidth="100.0" text="idOrg" visible="false" />
-                        <TableColumn fx:id="ProjetNom" prefWidth="220.0" text="Projet" />
-                        <TableColumn fx:id="ConvFNum" prefWidth="220.0" text="Conv Financement" />
-                        <TableColumn fx:id="MarcheNum" prefWidth="220.0" text="Marche Convention" />
-                        <TableColumn fx:id="MontantInit" prefWidth="200.0" text="Montant Initail" />
-                        <TableColumn fx:id="AvnantSup" prefWidth="200.0" text="Total Avnant SUP" />
-                  <TableColumn fx:id="AvnantDem" prefWidth="200.0" text="Total Avnant DEM" />
-                        <TableColumn fx:id="MontantEnga" prefWidth="200.0" text="Montant Engagment" />
-                        <TableColumn fx:id="SituationTr" prefWidth="200.0" text="Total SIT TR" />
-                        <TableColumn fx:id="TotRg" prefWidth="150.0" text="Total R/G 5%" />
-                        <TableColumn fx:id="TotPun" prefWidth="150.0" text="Total Punalite R" />
-                        <TableColumn fx:id="TotPaim" prefWidth="150.0" text="Total De Paiement" />
-                        <TableColumn fx:id="TotConsom" prefWidth="150.0" text="Total De Consomation" />
-                        <TableColumn fx:id="Ecart" prefWidth="150.0" text="Ecart " />
-                        <TableColumn fx:id="TauxCons" prefWidth="150.0" text="TAUX Consomation" />
+                        <TableColumn fx:id="ProjetNom" prefWidth="220.0" text="N° SIT/TR" />
+                        <TableColumn fx:id="ConvFNum" prefWidth="220.0" text="DATE SIT / TR" />
+                        <TableColumn fx:id="MarcheNum" prefWidth="220.0" text="Montant SIT / TR" />
+                        <TableColumn fx:id="MontantInit" prefWidth="200.0" text="R / G" />
+                        <TableColumn fx:id="AvnantSup" prefWidth="200.0" text="Pinalité Routard" />
+                        <TableColumn fx:id="AvnantDem" prefWidth="200.0" text="N° ORDRE PAIMENT" />
+                        <TableColumn fx:id="MontantEnga" prefWidth="200.0" text="DATE ORDERE PAIMENT" />
+                        <TableColumn fx:id="SituationTr" prefWidth="200.0" text="MOANTANT PAYE" />
                     </columns>
                 </TableView>
+            <HBox alignment="CENTER_RIGHT" layoutX="22.0" layoutY="12.0" prefHeight="30.0" spacing="20.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label text="DE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dpFrom" />
+                  <Label layoutX="10.0" layoutY="15.0" text="AU">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dpTo" />
+                  <ImageView fitHeight="21.0" fitWidth="29.0" onMousePressed="#ActionDate" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/recherche.png.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="19.0" fitWidth="19.0" onMousePressed="#ActionRefreshDate" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/refresh.jpeg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" layoutX="22.0" layoutY="50.0" prefHeight="30.0" spacing="20.0">
+               <children>
+                  <Label text="RECHERCHE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                      <TextField fx:id="tfRecherche" prefHeight="26.0" prefWidth="386.0">
+                          <font>
+                              <Font name="System Bold" size="12.0" />
+                          </font>
+                      </TextField>
+                  <ImageView fitHeight="21.0" fitWidth="29.0" onMousePressed="#ActionDate" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/recherche.png.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="19.0" fitWidth="19.0" onMousePressed="#ActionRefreshDate" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/refresh.jpeg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
             </children>
         </AnchorPane>
     </center>
     <top>
-        <AnchorPane prefHeight="120.0" prefWidth="1120.0" style="-fx-background-color: #FFF;" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="108.0" prefWidth="1120.0" style="-fx-background-color: #FFF;" BorderPane.alignment="CENTER">
             <children>
                 <Label layoutX="216.0" layoutY="32.0">
                     <font>
                         <Font name="System Bold" size="11.0" />
                     </font>
                 </Label>
-                <Separator layoutX="100.0" layoutY="14.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="4.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="10.0" />
-                <ImageView fitHeight="34.0" fitWidth="28.0" layoutX="170.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../Icons/excel.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="46.0" fitWidth="30.0" layoutX="120.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../Icons/apercu.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="31.0" fitWidth="40.0" layoutX="120.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../Icons/print.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="30.0" fitWidth="28.0" layoutX="170.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../Icons/pdf.png" />
-                    </image>
-                </ImageView>
-                <Separator layoutX="213.0" layoutY="10.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="4.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="10.0" />
-                <Separator layoutX="844.0" layoutY="10.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="4.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                <Label layoutX="487.0" layoutY="25.0" text="ETB /  BET">
+                <Label layoutX="14.0" layoutY="20.0" text="Projet">
                     <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <Separator layoutX="476.0" layoutY="10.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="4.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="10.0" />
-                <TextField fx:id="tfEtb" disable="true" layoutX="487.0" layoutY="65.0" prefHeight="26.0" prefWidth="200.0">
+                <TextField fx:id="tfEtb" disable="true" layoutX="77.0" layoutY="16.0" prefHeight="26.0" prefWidth="385.0">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </TextField>
-                <ImageView fitHeight="21.0" fitWidth="29.0" layoutX="623.0" layoutY="21.0" onMousePressed="#ActionOrganisme" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../Icons/recherche.png.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="667.0" layoutY="22.0" onMousePressed="#ActionRefreshOrganisme" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../Icons/refresh.jpeg" />
-                    </image>
-                </ImageView>
-                <Label layoutX="863.0" layoutY="25.0" text="RECHERCHE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="tfRecherche" layoutX="863.0" layoutY="66.0" prefHeight="26.0" prefWidth="238.0">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </TextField>
-                <ImageView fitHeight="21.0" fitWidth="29.0" layoutX="1033.0" layoutY="21.0" onMousePressed="#ActionRecherche" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../Icons/recherche.png.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="1077.0" layoutY="22.0" onMousePressed="#ActionClearRecherche" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../Icons/refresh.jpeg" />
-                    </image>
-                </ImageView>
-            <Button layoutX="3.0" layoutY="17.0" mnemonicParsing="false" text="View Detial" />
-            <Button layoutX="3.0" layoutY="60.0" mnemonicParsing="false" text="print Detial" />
-            <DatePicker fx:id="dpFrom" layoutX="249.0" layoutY="40.0" />
-            <DatePicker fx:id="dpTo" layoutX="249.0" layoutY="71.0" />
-            <Label layoutX="219.0" layoutY="45.0" prefHeight="8.0" prefWidth="19.0" text="DE" />
-            <Label layoutX="219.0" layoutY="79.0" text="AU" />
-            <ImageView fitHeight="21.0" fitWidth="29.0" layoutX="392.0" layoutY="11.0" onMousePressed="#ActionDate" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../Icons/recherche.png.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="430.0" layoutY="12.0" onMousePressed="#ActionRefreshDate" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../Icons/refresh.jpeg" />
-               </image>
-            </ImageView>
-            <Label layoutX="219.0" layoutY="14.0" text="Paiment">
+            <Label layoutX="482.0" layoutY="19.0" text="Convention Financment N°">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb2" disable="true" layoutX="707.0" layoutY="16.0" prefHeight="26.0" prefWidth="385.0">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
+            </TextField>
+            <Label layoutX="14.0" layoutY="60.0" text="ETB">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
             </Label>
+            <TextField fx:id="tfEtb3" disable="true" layoutX="77.0" layoutY="56.0" prefHeight="26.0" prefWidth="385.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="482.0" layoutY="59.0" text="Marché ou Convention N°">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb21" disable="true" layoutX="707.0" layoutY="56.0" prefHeight="26.0" prefWidth="385.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
             </children>
         </AnchorPane>
     </top>
+   <right>
+      <AnchorPane prefHeight="434.0" prefWidth="240.0" style="-fx-border-color: GRAY; -fx-border-width: 0.5;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="14.0" layoutY="21.0" text="Montant Marché">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb1" disable="true" layoutX="14.0" layoutY="59.0" prefHeight="26.0" prefWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="14.0" layoutY="121.0" text="Total Avenant SUP">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb11" disable="true" layoutX="14.0" layoutY="159.0" prefHeight="26.0" prefWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <ImageView fitHeight="21.0" fitWidth="23.0" layoutX="193.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Icons/apercu.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="14.0" layoutY="231.0" text="Total Avenant DEM">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb111" disable="true" layoutX="14.0" layoutY="269.0" prefHeight="26.0" prefWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <ImageView fitHeight="21.0" fitWidth="23.0" layoutX="193.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Icons/apercu.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="14.0" layoutY="321.0" text="Montant Engagment">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb1111" disable="true" layoutX="14.0" layoutY="359.0" prefHeight="26.0" prefWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+         </children>
+      </AnchorPane>
+   </right>
+   <bottom>
+      <AnchorPane prefHeight="116.0" prefWidth="1120.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="14.0" layoutY="5.0" text="Totat SIT/TR">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb12" disable="true" layoutX="14.0" layoutY="32.0" prefHeight="26.0" prefWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="234.0" layoutY="5.0" text="Total R/G">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb121" disable="true" layoutX="234.0" layoutY="32.0" prefHeight="26.0" prefWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="454.0" layoutY="5.0" text="Total P/R">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb1211" disable="true" layoutX="454.0" layoutY="32.0" prefHeight="26.0" prefWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="674.0" layoutY="5.0" text="Total Payé">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb12111" disable="true" layoutX="674.0" layoutY="32.0" prefHeight="26.0" prefWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="14.0" layoutY="75.0" text="Total Consomation">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb122" disable="true" layoutX="175.0" layoutY="72.0" prefHeight="26.0" prefWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="384.0" layoutY="75.0" text="Total Consomation">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb1221" disable="true" layoutX="545.0" layoutY="72.0" prefHeight="26.0" prefWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="754.0" layoutY="75.0" text="Total Consomation">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfEtb12211" disable="true" layoutX="915.0" layoutY="72.0" prefHeight="26.0" prefWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+            <Button layoutX="913.0" layoutY="25.0" mnemonicParsing="false" text="Imprimmer la fiche de suivi" />
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>
