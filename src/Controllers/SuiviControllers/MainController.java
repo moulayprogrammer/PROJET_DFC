@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class MainController implements Initializable {
     TableView<List<StringProperty>> table;
     @FXML
     TableColumn<List<StringProperty>,String> idConv,idOrg,ProjetNom,ConvFNum,MarcheNum,MontantInit,AvnantSup,AvnantDem
-            ,MontantEnga,SituationTr,TotRg,TotPun,TotPaim,TotConsom,Ecart,TauxCons;
+            ,MontantEnga,SituationTr,TotRg,TotPun,TotPaim,TotNonPaye,TotConsom,Ecart,TauxCons;
 
 
     private final ObservableList<List<StringProperty>> dataTable = FXCollections.observableArrayList();
@@ -67,9 +68,10 @@ public class MainController implements Initializable {
         TotRg.setCellValueFactory(data -> data.getValue().get(10));
         TotPun.setCellValueFactory(data -> data.getValue().get(11));
         TotPaim.setCellValueFactory(data -> data.getValue().get(12));
-        TotConsom.setCellValueFactory(data -> data.getValue().get(13));
-        Ecart.setCellValueFactory(data -> data.getValue().get(14));
-        TauxCons.setCellValueFactory(data -> data.getValue().get(15));
+        TotNonPaye.setCellValueFactory(data -> data.getValue().get(13));
+        TotConsom.setCellValueFactory(data -> data.getValue().get(14));
+        Ecart.setCellValueFactory(data -> data.getValue().get(15));
+        TauxCons.setCellValueFactory(data -> data.getValue().get(16));
 
         refresh();
     }
@@ -252,7 +254,7 @@ public class MainController implements Initializable {
             if (data != null){
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/SuiviEtbViews/DetailView.fxml"));
-                DialogPane temp = loader.load();
+                BorderPane temp = loader.load();
                 DetailController controller = loader.getController();
                 controller.Init(data);
                 Stage stage = new Stage();
@@ -314,9 +316,11 @@ public class MainController implements Initializable {
                 OrderePaiment orderePaiment = orderPaimentOperation.getByFacture(facture.getId());
 
                 totSitTR.updateAndGet(v -> (double) (v + facture.getMontant()));
-                totRG.updateAndGet(v -> (double) (v + orderePaiment.getRetuneGarante()));
-                totPR.updateAndGet(v -> (double) (v + orderePaiment.getPenaliteRotarde()));
-                totPaye.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
+                if (orderePaiment.getNumero() != null) {
+                    totRG.updateAndGet(v -> (double) (v + orderePaiment.getRetuneGarante()));
+                    totPR.updateAndGet(v -> (double) (v + orderePaiment.getPenaliteRotarde()));
+                    totPaye.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
+                }
 
             });
             List<StringProperty> data = ChargeData(projet,CF,idMar,marche,idOrg,CoutMar,AvnSup,AvnDem,totSitTR,totRG,totPR,totPaye);
@@ -349,9 +353,11 @@ public class MainController implements Initializable {
                 OrderePaiment orderePaiment = orderPaimentOperation.getByFactureAndDate(facture.getId(),dateFrom,dateTo);
 
                 totSitTR.updateAndGet(v -> (double) (v + facture.getMontant()));
-                totRG.updateAndGet(v -> (double) (v + orderePaiment.getRetuneGarante()));
-                totPR.updateAndGet(v -> (double) (v + orderePaiment.getPenaliteRotarde()));
-                totPaye.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
+                if (orderePaiment.getNumero() != null) {
+                    totRG.updateAndGet(v -> (double) (v + orderePaiment.getRetuneGarante()));
+                    totPR.updateAndGet(v -> (double) (v + orderePaiment.getPenaliteRotarde()));
+                    totPaye.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
+                }
 
             });
             List<StringProperty> data = ChargeData(projet,CF,idMar,marche,idOrg,CoutMar,AvnSup,AvnDem,totSitTR,totRG,totPR,totPaye);
@@ -371,6 +377,7 @@ public class MainController implements Initializable {
             double TotCons = totPaye.get() + totPR.get();
             double Ecart = CoutEng - totPaye.get();
             int Taux = (int) ((TotCons * 100) / CoutEng);
+            double totNonPaye = totSitTR.get()  - totPaye.get() ;
 
             data.add(0, new SimpleStringProperty(String.valueOf(idMar)));
             data.add(1, new SimpleStringProperty(String.valueOf(idOrg)));
@@ -385,9 +392,10 @@ public class MainController implements Initializable {
             data.add(10, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totRG.get())));
             data.add(11, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totPR.get())));
             data.add(12, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totPaye.get())));
-            data.add(13, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", TotCons)));
-            data.add(14, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", Ecart)));
-            data.add(15, new SimpleStringProperty(Taux + " %"));
+            data.add(13, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totNonPaye)));
+            data.add(14, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", TotCons)));
+            data.add(15, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", Ecart)));
+            data.add(16, new SimpleStringProperty(Taux + " %"));
 
         } catch (Exception e) {
             e.printStackTrace();
