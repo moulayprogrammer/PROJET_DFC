@@ -69,6 +69,30 @@ public class OrganismeOperation extends BDD<Organisme>{
         return false;
     }
 
+
+    public Organisme get(int id) {
+        Organisme organisme = new Organisme();
+        String query = "SELECT * FROM `ORGANISME` WHERE `ID` = ?";
+        try {
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1,id);
+            ResultSet resultSet = preparedStmt.executeQuery();
+            if (resultSet.next()){
+
+                organisme.setId(resultSet.getInt("ID"));
+                organisme.setRaisonSocial(resultSet.getString("RAISON_SOCIAL"));
+                organisme.setAdresse(resultSet.getString("ADRESSE"));
+                organisme.setTel(resultSet.getString("TEL"));
+                organisme.setRc(resultSet.getString("RC"));
+                organisme.setNif(resultSet.getString("NIF"));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return organisme;
+    }
+
     @Override
     public ArrayList<Organisme> getAll() {
         ArrayList<Organisme> list = new ArrayList<>();
