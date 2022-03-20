@@ -1,8 +1,6 @@
 package Controllers.SuiviControllers;
 
-import BddPackage.FactureOperation;
-import BddPackage.OrderPaimentOperation;
-import BddPackage.OrganismeOperation;
+import BddPackage.*;
 import Models.Facture;
 import Models.MarConBc;
 import Models.OrderePaiment;
@@ -42,6 +40,8 @@ public class DetailController implements Initializable {
     private final OrganismeOperation organismeOperation = new OrganismeOperation();
     private final FactureOperation factureOperation = new FactureOperation();
     private final OrderPaimentOperation orderPaimentOperation = new OrderPaimentOperation();
+    private final MarConBcOperation marConBcOperation = new MarConBcOperation();
+    private final AvnentOperation avnentOperation = new AvnentOperation();
     private Organisme organisme;
     private int IdMar;
 
@@ -189,19 +189,26 @@ public class DetailController implements Initializable {
 
     private void setTotales(AtomicReference<Double> totSitTR, AtomicReference<Double> totRG,
                             AtomicReference<Double> totPR, AtomicReference<Double> totPaye) {
-        /**
-         *         tfTotConsomation.setText(data.get(14).getValue());
-         *         tfEcart.setText(data.get(15).getValue());
-         *         tfTaux.setText(data.get(16).getValue());
-         */
+
+        MarConBc marConBc = marConBcOperation.get(IdMar);
+        double AvnSup = avnentOperation.getSum(IdMar, "SUPLEMENTAIRE") ;
+        double AvnDem = avnentOperation.getSum(IdMar, "DEMENITIVE") ;
+
+        double CoutEng = marConBc.getTtc() + AvnDem + AvnSup;
+        double TotCons = totPaye.get() + totPR.get();
+        double Ecart = CoutEng - totPaye.get();
+        int Taux = (int) ((TotCons * 100) / CoutEng);
+        double totNonPaye = totSitTR.get()  - totPaye.get() ;
+
 
         tfTotSitTr.setText(String.format(Locale.FRANCE,"%,.2f",totSitTR.get()));
         tfTotRg.setText(String.format(Locale.FRANCE,"%,.2f",totRG.get()));
         tfTotPr.setText(String.format(Locale.FRANCE,"%,.2f",totPR.get()));
         tfTotPaye.setText(String.format(Locale.FRANCE,"%,.2f",totPaye.get()));
-        tfTotNonPaye.setText(String.format(Locale.FRANCE,"%,.2f",(totSitTR.get() - totPaye.get())));
-        tfTotConsomation.setText(String.format(Locale.FRANCE,"%,.2f",(totPR.get() + totPaye.get())));
-        tfEcart.setText(String.format(Locale.FRANCE,"%,.2f",(totPR.get() + totPaye.get())));
+        tfTotNonPaye.setText(String.format(Locale.FRANCE,"%,.2f",totNonPaye));
+        tfTotConsomation.setText(String.format(Locale.FRANCE,"%,.2f",TotCons));
+        tfEcart.setText(String.format(Locale.FRANCE,"%,.2f",Ecart));
+        tfTaux.setText(String.valueOf(Taux) + " %");
     }
 
     private List<StringProperty> chargeData(Facture facture,OrderePaiment orderePaiment){
