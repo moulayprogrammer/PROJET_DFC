@@ -32,7 +32,6 @@
                         <TableColumn fx:id="TotRg" prefWidth="150.0" text="Total R/G 5%" />
                         <TableColumn fx:id="TotPun" prefWidth="150.0" text="Total Punalite R" />
                         <TableColumn fx:id="TotPaim" prefWidth="150.0" text="Total De Paiement" />
-                        <TableColumn fx:id="TotNonPaye" prefWidth="150.0" text="Total n'pas payé" />
                         <TableColumn fx:id="TotConsom" prefWidth="150.0" text="Total De Consomation" />
                         <TableColumn fx:id="Ecart" prefWidth="150.0" text="Ecart " />
                         <TableColumn fx:id="TauxCons" prefWidth="150.0" text="TAUX Consomation" />

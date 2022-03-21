@@ -113,6 +113,30 @@ public class AvnentOperation extends  BDD<AvnentMarConBc>{
         return list;
     }
 
+    public ArrayList<AvnentMarConBc> getAllByConvention(int id,String type) {
+        ArrayList<AvnentMarConBc> list = new ArrayList<>();
+        String query = "SELECT * FROM `AVENANT_MAR_CON_BC` WHERE `ID_MAR_CON_BC` = ? AND `TYPE` = ?";
+        try {
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1,id);
+            preparedStmt.setString(2,type);
+            ResultSet resultSet = preparedStmt.executeQuery();
+            while (resultSet.next()){
+                AvnentMarConBc avnentMarConBc = new AvnentMarConBc();
+                avnentMarConBc.setId(resultSet.getInt("ID"));
+                avnentMarConBc.setIdMarConBc(resultSet.getInt("ID_MAR_CON_BC"));
+                avnentMarConBc.setType(resultSet.getString("TYPE"));
+                avnentMarConBc.setDate(resultSet.getString("DATE"));
+                avnentMarConBc.setMontant(resultSet.getDouble("MONTANT"));
+
+                list.add(avnentMarConBc);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public double getSum(int idMar,String arg){
         double sum = 0.0;
         String query = "SELECT SUM(`MONTANT`) AS SOMME FROM `AVENANT_MAR_CON_BC` WHERE `ID_MAR_CON_BC` = ? AND  `TYPE` = ? ";

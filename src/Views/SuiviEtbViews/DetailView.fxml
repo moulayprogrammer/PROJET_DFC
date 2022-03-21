@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -10,11 +11,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="700.0" prefWidth="1120.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SuiviControllers.DetailController">
      <top>
-         <AnchorPane prefHeight="108.0" prefWidth="1120.0" style="-fx-background-color: #FFF;">
+         <AnchorPane prefHeight="182.0" prefWidth="1120.0" style="-fx-background-color: #FFF;">
                  <children>
                      <Label layoutX="216.0" layoutY="32.0">
                          <font>
@@ -61,11 +63,51 @@
                              <Font name="System Bold" size="12.0" />
                          </font>
                      </TextField>
+            <Label layoutX="15.0" layoutY="106.0" text="Montant Marché">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfMontantMarche" disable="true" layoutX="14.0" layoutY="142.0" prefHeight="26.0" prefWidth="235.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TextField>
+                  <Label layoutX="336.0" layoutY="105.0" text="Total Avenant SUP">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfTotalAvnSup" disable="true" layoutX="336.0" layoutY="142.0" prefHeight="26.0" prefWidth="235.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <ImageView fitHeight="21.0" fitWidth="23.0" layoutX="547.0" layoutY="102.0" onMousePressed="#ListAvenantSup" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/apercu.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="665.0" layoutY="104.0" text="Total Avenant DEM">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfTotAvnDem" disable="true" layoutX="665.0" layoutY="142.0" prefHeight="26.0" prefWidth="235.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <ImageView fitHeight="21.0" fitWidth="23.0" layoutX="869.0" layoutY="102.0" onMousePressed="#ListAvenantDem" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/apercu.png" />
+                     </image>
+                  </ImageView>
                  </children>
              </AnchorPane>
      </top>
       <center>
-          <AnchorPane prefHeight="550.0" prefWidth="871.0" style="-fx-border-color: GRAY; -fx-border-width: 0.3; -fx-background-color: #FFF;">
+          <AnchorPane prefHeight="550.0" style="-fx-border-color: GRAY; -fx-border-width: 0.3; -fx-background-color: #FFF;">
               <children>
                   <TableView fx:id="table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
                       <columns>
@@ -132,64 +174,8 @@
               </children>
           </AnchorPane>
       </center>
-     <right>
-            <AnchorPane prefHeight="600.0" prefWidth="240.0" style="-fx-border-color: GRAY; -fx-border-width: 0.5; -fx-background-color: #FFF;" BorderPane.alignment="CENTER">
-               <children>
-                  <Label layoutX="14.0" layoutY="13.0" text="Montant Marché">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfMontantMarche" disable="true" layoutX="14.0" layoutY="51.0" prefHeight="26.0" prefWidth="200.0">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </TextField>
-                  <Label layoutX="14.0" layoutY="111.0" text="Total Avenant SUP">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfTotalAvnSup" disable="true" layoutX="14.0" layoutY="159.0" prefHeight="26.0" prefWidth="200.0">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </TextField>
-                  <ImageView fitHeight="21.0" fitWidth="23.0" layoutX="193.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Icons/apercu.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="14.0" layoutY="231.0" text="Total Avenant DEM">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfTotAvnDem" disable="true" layoutX="14.0" layoutY="279.0" prefHeight="26.0" prefWidth="200.0">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </TextField>
-                  <ImageView fitHeight="21.0" fitWidth="23.0" layoutX="193.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Icons/apercu.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="14.0" layoutY="350.0" text="Montant Engagment">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfMontantEng" disable="true" layoutX="14.0" layoutY="398.0" prefHeight="26.0" prefWidth="200.0">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-         </right>
          <bottom>
-            <AnchorPane prefHeight="130.0" prefWidth="1120.0" style="-fx-background-color: #FFF; -fx-border-color: GRAY; -fx-border-width: 0.5 0 0 0;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="87.0" prefWidth="1120.0" style="-fx-background-color: #FFF; -fx-border-color: GRAY; -fx-border-width: 0.5 0 0 0;" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="14.0" layoutY="15.0" text="Totat SIT/TR">
                      <font>
@@ -231,47 +217,56 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="14.0" layoutY="85.0" text="Total Consomation">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfTotConsomation" disable="true" layoutX="175.0" layoutY="82.0" prefHeight="26.0" prefWidth="200.0">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </TextField>
-                  <Label layoutX="401.0" layoutY="85.0" text="Ecart ">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfEcart" disable="true" layoutX="465.0" layoutY="82.0" prefHeight="26.0" prefWidth="200.0">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </TextField>
-                  <Label layoutX="684.0" layoutY="85.0" text="TAUX Consomation">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfTaux" disable="true" layoutX="845.0" layoutY="82.0" prefHeight="26.0" prefWidth="200.0">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </TextField>
-            <Label layoutX="894.0" layoutY="15.0" text="Total n'pas Payé">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="tfTotNonPaye" disable="true" layoutX="894.0" layoutY="42.0" prefHeight="26.0" prefWidth="200.0">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </TextField>
                </children>
             </AnchorPane>
          </bottom>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="220.0" spacing="30.0" style="-fx-border-color: GRAY; -fx-border-width: 0.5;" BorderPane.alignment="CENTER">
+         <children>
+                  <Label text="Montant Engagment">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfMontantEng" disable="true" prefHeight="26.0" prefWidth="200.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Label text="Total Consomation">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfTotConsomation" disable="true" prefHeight="26.0" prefWidth="200.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Label text="Ecart ">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfEcart" disable="true" prefHeight="26.0" prefWidth="200.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Label text="TAUX Consomation">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfTaux" disable="true" prefHeight="26.0" prefWidth="200.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="10.0" right="5.0" top="15.0" />
+         </padding>
+      </VBox>
+   </right>
 </BorderPane>

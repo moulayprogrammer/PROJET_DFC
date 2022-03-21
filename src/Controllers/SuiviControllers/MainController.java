@@ -38,7 +38,7 @@ public class MainController implements Initializable {
     TableView<List<StringProperty>> table;
     @FXML
     TableColumn<List<StringProperty>,String> idConv,idOrg,ProjetNom,ConvFNum,MarcheNum,MontantInit,AvnantSup,AvnantDem
-            ,MontantEnga,SituationTr,TotRg,TotPun,TotPaim,TotNonPaye,TotConsom,Ecart,TauxCons;
+            ,MontantEnga,SituationTr,TotRg,TotPun,TotPaim,TotConsom,Ecart,TauxCons;
 
 
     private final ObservableList<List<StringProperty>> dataTable = FXCollections.observableArrayList();
@@ -68,10 +68,9 @@ public class MainController implements Initializable {
         TotRg.setCellValueFactory(data -> data.getValue().get(10));
         TotPun.setCellValueFactory(data -> data.getValue().get(11));
         TotPaim.setCellValueFactory(data -> data.getValue().get(12));
-        TotNonPaye.setCellValueFactory(data -> data.getValue().get(13));
-        TotConsom.setCellValueFactory(data -> data.getValue().get(14));
-        Ecart.setCellValueFactory(data -> data.getValue().get(15));
-        TauxCons.setCellValueFactory(data -> data.getValue().get(16));
+        TotConsom.setCellValueFactory(data -> data.getValue().get(13));
+        Ecart.setCellValueFactory(data -> data.getValue().get(14));
+        TauxCons.setCellValueFactory(data -> data.getValue().get(15));
 
         refresh();
     }
@@ -105,7 +104,7 @@ public class MainController implements Initializable {
                     dataTable.clear();
                     String query = " SELECT `PROJET`.`ID` , `PROJET`.`NOM` , `PROJET`.`NUMERO_CF` ,  `MAR_CON_BC`.`ID` , `MAR_CON_BC`.`ID_PROJET` " +
                             ", `MAR_CON_BC`.`NOM` ,  `MAR_CON_BC`.`ID_ORGANISME` , `MAR_CON_BC`.`TTC` " +
-                            "FROM `PROJET` , `MAR_CON_BC` WHERE `PROJET`.`ID` = `MAR_CON_BC`.`ID_PROJET` " +
+                            "FROM `PROJET` , `MAR_CON_BC` WHERE `MAR_CON_BC`.`ARCHIVE` = 0 AND  `PROJET`.`ID` = `MAR_CON_BC`.`ID_PROJET` " +
                             "ORDER BY `MAR_CON_BC`.`ID_ORGANISME`  ASC";
                     PreparedStatement preparedStmt = conn.prepareStatement(query);
                     ResultSet resultSet = preparedStmt.executeQuery();
@@ -315,8 +314,9 @@ public class MainController implements Initializable {
             factures.forEach(facture -> {
                 OrderePaiment orderePaiment = orderPaimentOperation.getByFacture(facture.getId());
 
-                totSitTR.updateAndGet(v -> (double) (v + facture.getMontant()));
+
                 if (orderePaiment.getNumero() != null) {
+                    totSitTR.updateAndGet(v -> (double) (v + facture.getMontant()));
                     totRG.updateAndGet(v -> (double) (v + orderePaiment.getRetuneGarante()));
                     totPR.updateAndGet(v -> (double) (v + orderePaiment.getPenaliteRotarde()));
                     totPaye.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
@@ -352,8 +352,9 @@ public class MainController implements Initializable {
             factures.forEach(facture -> {
                 OrderePaiment orderePaiment = orderPaimentOperation.getByFactureAndDate(facture.getId(),dateFrom,dateTo);
 
-                totSitTR.updateAndGet(v -> (double) (v + facture.getMontant()));
+
                 if (orderePaiment.getNumero() != null) {
+                    totSitTR.updateAndGet(v -> (double) (v + facture.getMontant()));
                     totRG.updateAndGet(v -> (double) (v + orderePaiment.getRetuneGarante()));
                     totPR.updateAndGet(v -> (double) (v + orderePaiment.getPenaliteRotarde()));
                     totPaye.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
@@ -377,7 +378,7 @@ public class MainController implements Initializable {
             double TotCons = totPaye.get() + totPR.get();
             double Ecart = CoutEng - totPaye.get();
             int Taux = (int) ((TotCons * 100) / CoutEng);
-            double totNonPaye = totSitTR.get()  - totPaye.get() ;
+
 
             data.add(0, new SimpleStringProperty(String.valueOf(idMar)));
             data.add(1, new SimpleStringProperty(String.valueOf(idOrg)));
@@ -392,10 +393,9 @@ public class MainController implements Initializable {
             data.add(10, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totRG.get())));
             data.add(11, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totPR.get())));
             data.add(12, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totPaye.get())));
-            data.add(13, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totNonPaye)));
-            data.add(14, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", TotCons)));
-            data.add(15, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", Ecart)));
-            data.add(16, new SimpleStringProperty(Taux + " %"));
+            data.add(13, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", TotCons)));
+            data.add(14, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", Ecart)));
+            data.add(15, new SimpleStringProperty(Taux + " %"));
 
         } catch (Exception e) {
             e.printStackTrace();

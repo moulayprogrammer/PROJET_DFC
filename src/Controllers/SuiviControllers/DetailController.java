@@ -12,9 +12,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class DetailController implements Initializable {
 
     @FXML
     TextField tfProjet,tfCF,tfEtb,tfMarche,tfMontantMarche, tfTotalAvnSup,tfTotAvnDem,tfMontantEng,tfRecherche,tfTotSitTr,tfTotRg
-            ,tfTotPr,tfTotPaye,tfTotConsomation,tfEcart,tfTaux,tfTotNonPaye;
+            ,tfTotPr,tfTotPaye,tfTotConsomation,tfEcart,tfTaux;
     @FXML
     DatePicker dpDateFrom,dpDateTo;
 
@@ -40,9 +42,6 @@ public class DetailController implements Initializable {
     private final OrganismeOperation organismeOperation = new OrganismeOperation();
     private final FactureOperation factureOperation = new FactureOperation();
     private final OrderPaimentOperation orderPaimentOperation = new OrderPaimentOperation();
-    private final MarConBcOperation marConBcOperation = new MarConBcOperation();
-    private final AvnentOperation avnentOperation = new AvnentOperation();
-    private Organisme organisme;
     private int IdMar;
 
     private final ObservableList<List<StringProperty>> dataTable = FXCollections.observableArrayList();
@@ -68,12 +67,15 @@ public class DetailController implements Initializable {
         tfTotalAvnSup.setText(data.get(6).getValue());
         tfTotAvnDem.setText(data.get(7).getValue());
         tfMontantEng.setText(data.get(8).getValue());
+        tfTotConsomation.setText(data.get(13).getValue());
+        tfEcart.setText(data.get(14).getValue());
+        tfTaux.setText(data.get(15).getValue());
 
 
         this.IdMar = Integer.parseInt(data.get(0).getValue());
         int idOrg = Integer.parseInt(data.get(1).getValue());
 
-        this.organisme = organismeOperation.get(idOrg);
+        Organisme organisme = organismeOperation.get(idOrg);
         tfEtb.setText(organisme.getRaisonSocial());
 
         refresh();
@@ -134,6 +136,41 @@ public class DetailController implements Initializable {
         else refresh();
     }
 
+    @FXML
+    private void ListAvenantSup(){
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/SuiviEtbViews/ListAvnantView.fxml"));
+            DialogPane temp = loader.load();
+            ListAvnantController controller = loader.getController();
+            controller.Init(this.IdMar,"SUPLEMENTAIRE");
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(temp);
+            dialog.resizableProperty().setValue(false);
+            dialog.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void ListAvenantDem(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/SuiviEtbViews/ListAvnantView.fxml"));
+            DialogPane temp = loader.load();
+            ListAvnantController controller = loader.getController();
+            controller.Init(this.IdMar,"DEMENITIVE");
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(temp);
+            dialog.resizableProperty().setValue(false);
+            dialog.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void refresh(){
 
         dataTable.clear();
@@ -146,13 +183,14 @@ public class DetailController implements Initializable {
         factures.forEach(facture -> {
             OrderePaiment orderePaiment = orderPaimentOperation.getByFacture(facture.getId());
 
-            totSitTR.updateAndGet(v -> (double) (v + facture.getMontant()));
+
             if (orderePaiment.getNumero() != null) {
                 List<StringProperty> data = chargeData(facture, orderePaiment);
 
-                totRG.updateAndGet(v -> (double) (v + orderePaiment.getRetuneGarante()));
-                totPR.updateAndGet(v -> (double) (v + orderePaiment.getPenaliteRotarde()));
-                totPaye.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
+                totSitTR.updateAndGet(v ->  (v + facture.getMontant()));
+                totRG.updateAndGet(v -> (v + orderePaiment.getRetuneGarante()));
+                totPR.updateAndGet(v ->  (v + orderePaiment.getPenaliteRotarde()));
+                totPaye.updateAndGet(v ->  (v + orderePaiment.getMontant()));
                 dataTable.add(data);
             }
         });
@@ -173,13 +211,14 @@ public class DetailController implements Initializable {
         factures.forEach(facture -> {
             OrderePaiment orderePaiment = orderPaimentOperation.getByFactureAndDate(facture.getId(),dateFrom,dateTo);
 
-            totSitTR.updateAndGet(v -> (double) (v + facture.getMontant()));
+
             if (orderePaiment.getNumero() != null) {
                 List<StringProperty> data = chargeData(facture, orderePaiment);
 
-                totRG.updateAndGet(v -> (double) (v + orderePaiment.getRetuneGarante()));
-                totPR.updateAndGet(v -> (double) (v + orderePaiment.getPenaliteRotarde()));
-                totPaye.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
+                totSitTR.updateAndGet(v -> (v + facture.getMontant()));
+                totRG.updateAndGet(v -> (v + orderePaiment.getRetuneGarante()));
+                totPR.updateAndGet(v -> (v + orderePaiment.getPenaliteRotarde()));
+                totPaye.updateAndGet(v -> (v + orderePaiment.getMontant()));
                 dataTable.add(data);
             }
         });
@@ -190,25 +229,10 @@ public class DetailController implements Initializable {
     private void setTotales(AtomicReference<Double> totSitTR, AtomicReference<Double> totRG,
                             AtomicReference<Double> totPR, AtomicReference<Double> totPaye) {
 
-        MarConBc marConBc = marConBcOperation.get(IdMar);
-        double AvnSup = avnentOperation.getSum(IdMar, "SUPLEMENTAIRE") ;
-        double AvnDem = avnentOperation.getSum(IdMar, "DEMENITIVE") ;
-
-        double CoutEng = marConBc.getTtc() + AvnDem + AvnSup;
-        double TotCons = totPaye.get() + totPR.get();
-        double Ecart = CoutEng - totPaye.get();
-        int Taux = (int) ((TotCons * 100) / CoutEng);
-        double totNonPaye = totSitTR.get()  - totPaye.get() ;
-
-
         tfTotSitTr.setText(String.format(Locale.FRANCE,"%,.2f",totSitTR.get()));
         tfTotRg.setText(String.format(Locale.FRANCE,"%,.2f",totRG.get()));
         tfTotPr.setText(String.format(Locale.FRANCE,"%,.2f",totPR.get()));
         tfTotPaye.setText(String.format(Locale.FRANCE,"%,.2f",totPaye.get()));
-        tfTotNonPaye.setText(String.format(Locale.FRANCE,"%,.2f",totNonPaye));
-        tfTotConsomation.setText(String.format(Locale.FRANCE,"%,.2f",TotCons));
-        tfEcart.setText(String.format(Locale.FRANCE,"%,.2f",Ecart));
-        tfTaux.setText(String.valueOf(Taux) + " %");
     }
 
     private List<StringProperty> chargeData(Facture facture,OrderePaiment orderePaiment){
