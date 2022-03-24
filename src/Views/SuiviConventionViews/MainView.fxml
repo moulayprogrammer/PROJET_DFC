@@ -13,28 +13,49 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="1120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SuiviEtbControllers.MainController">
+<BorderPane prefHeight="700.0" prefWidth="1120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SuiviConventionControllers.MainController">
     <center>
         <AnchorPane prefHeight="580.0" prefWidth="1120.0">
             <children>
                 <TableView fx:id="table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                        <TableColumn fx:id="idConv" prefWidth="100.0" text="idConv" visible="false" />
-                        <TableColumn fx:id="idOrg" prefWidth="100.0" text="idOrg" visible="false" />
-                        <TableColumn fx:id="ProjetNom" prefWidth="220.0" text="Projet" />
-                        <TableColumn fx:id="ConvFNum" prefWidth="220.0" text="Conv Financement" />
-                        <TableColumn fx:id="MarcheNum" prefWidth="220.0" text="Marche Convention" />
-                        <TableColumn fx:id="MontantInit" prefWidth="200.0" text="Montant Initail" />
-                        <TableColumn fx:id="AvnantSup" prefWidth="200.0" text="Total Avnant SUP" />
-                        <TableColumn fx:id="AvnantDem" prefWidth="200.0" text="Total Avnant DEM" />
-                        <TableColumn fx:id="MontantEnga" prefWidth="200.0" text="Montant Engagment" />
-                        <TableColumn fx:id="SituationTr" prefWidth="200.0" text="Total SIT TR" />
-                        <TableColumn fx:id="TotRg" prefWidth="150.0" text="Total R/G 5%" />
-                        <TableColumn fx:id="TotPun" prefWidth="150.0" text="Total Punalite R" />
-                        <TableColumn fx:id="TotPaim" prefWidth="150.0" text="Total De Paiement" />
-                        <TableColumn fx:id="TotConsom" prefWidth="150.0" text="Total De Consomation" />
-                        <TableColumn fx:id="Ecart" prefWidth="150.0" text="Ecart " />
-                        <TableColumn fx:id="TauxCons" prefWidth="150.0" text="TAUX Consomation" />
+                        <TableColumn fx:id="idProj" editable="false" prefWidth="250.0" sortable="false" text="idProj" visible="false" />
+                        <TableColumn fx:id="idProg" editable="false" prefWidth="250.0" sortable="false" text="idProg" visible="false" />
+                        <TableColumn fx:id="ProjetNom" editable="false" prefWidth="350.0" sortable="false" text="PROJET" />
+                        <TableColumn fx:id="ConvFNum" editable="false" prefWidth="350.0" sortable="false" text="CONV FINANCEMENT" />
+                        <TableColumn fx:id="MontantInitR" editable="false" prefWidth="250.0" sortable="false" text="MONTANT INITIAL DE REALIS" />
+                        <TableColumn fx:id="AvnSupR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT SUP DE REALIS" />
+                        <TableColumn fx:id="AvnDemR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT DEM DE REALIS" />
+                        <TableColumn fx:id="totalApR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL AP DE REALIS" />
+                        <TableColumn fx:id="totalEngR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL D'ENGAGEMENT REALIS" />
+                        <TableColumn fx:id="reliquatApR" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'AP REALIS" />
+                        <TableColumn fx:id="totalPaiementR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL PAIEMENT REALIS" />
+                        <TableColumn fx:id="reliquatEngR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL RELIQUAT D'ENGAGEMENT REALIS" />
+                        <TableColumn fx:id="tauxR" editable="false" prefWidth="250.0" sortable="false" text="TAUX PAIEMENT DE REALIS" />
+                        <TableColumn fx:id="MontantInitE" editable="false" prefWidth="250.0" sortable="false" text="MONTANT INITIAL D'ÉTUDE" />
+                        <TableColumn fx:id="AvnSupE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT SUP DE ÉTUDE" />
+                        <TableColumn fx:id="AvnDemE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT DEM DE ÉTUDE" />
+                        <TableColumn fx:id="totalApE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL AP DE ÉTUDE" />
+                        <TableColumn fx:id="totalEngE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL D'ENGAGEMENT ÉTUDE" />
+                        <TableColumn fx:id="reliquatApE" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'AP ÉTUDE" />
+                        <TableColumn fx:id="totalPaiementE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL PAIEMENT ÉTUDE" />
+                        <TableColumn fx:id="reliquatEngE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL RELIQUAT D'ENGAGEMENT ÉTUDE" />
+                        <TableColumn fx:id="tauxE" editable="false" prefWidth="250.0" sortable="false" text="TAUX PAIEMENT D'ÉTUDE" />
+                        <TableColumn fx:id="MontantInitV" editable="false" prefWidth="250.0" sortable="false" text="MONTANT INITIAL DE VRD" />
+                        <TableColumn fx:id="AvnSupV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT SUP DE VRD" />
+                        <TableColumn fx:id="AvnDemV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT DEM DE VRD" />
+                        <TableColumn fx:id="totalApV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL AP DE VRD" />
+                        <TableColumn fx:id="totalEngV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL D'ENGAGEMENT VRD" />
+                        <TableColumn fx:id="reliquatApV" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'AP VRD" />
+                        <TableColumn fx:id="totalPaiementV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL PAIEMENT VRD" />
+                        <TableColumn fx:id="reliquatEngV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL RELIQUAT D'ENGAGEMENT VRD" />
+                        <TableColumn fx:id="tauxV" editable="false" prefWidth="250.0" sortable="false" text="TAUX DE PAIEMENT VRD" />
+                        <TableColumn fx:id="totalAp" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL AP" />
+                        <TableColumn fx:id="totalEng" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL D'ENGAGEMENT" />
+                        <TableColumn fx:id="reliquatAp" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'AP GENERAL " />
+                        <TableColumn fx:id="totalPaiement" editable="false" prefWidth="250.0" sortable="false" text="TOTAL PAIEMENT GENERAL" />
+                        <TableColumn fx:id="reliquatEng" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'ENGAGEMENT GENERAL" />
+                        <TableColumn fx:id="taux" editable="false" prefWidth="250.0" sortable="false" text="TAUX DE PAIEMENT GENERAL" />
                     </columns>
                 </TableView>
             </children>
@@ -71,7 +92,7 @@
                 </ImageView>
                 <Separator layoutX="213.0" layoutY="10.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="4.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="10.0" />
                 <Separator layoutX="844.0" layoutY="10.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="4.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                <Label layoutX="487.0" layoutY="25.0" text="ETB /  BET">
+                <Label layoutX="487.0" layoutY="25.0" text="Programme">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>

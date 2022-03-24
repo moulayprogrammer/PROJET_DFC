@@ -1,8 +1,15 @@
-package Controllers.SuiviControllers;
+package Controllers.SuiviConventionControllers;
 
-import BddPackage.*;
+import BddPackage.AvnentOperation;
+import BddPackage.ConnectBD;
+import BddPackage.FactureOperation;
+import BddPackage.OrderPaimentOperation;
 import Controllers.ConventionControllers.SelectOrganismeController;
-import Models.*;
+import Controllers.SuiviEtbControllers.DetailController;
+import Models.Facture;
+import Models.MarConBc;
+import Models.OrderePaiment;
+import Models.Organisme;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -19,7 +26,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +47,11 @@ public class MainController implements Initializable {
     @FXML
     TableView<List<StringProperty>> table;
     @FXML
-    TableColumn<List<StringProperty>,String> idConv,idOrg,ProjetNom,ConvFNum,MarcheNum,MontantInit,AvnantSup,AvnantDem
-            ,MontantEnga,SituationTr,TotRg,TotPun,TotPaim,TotConsom,Ecart,TauxCons;
+    TableColumn<List<StringProperty>,String> idProj,idProg,ProjetNom,ConvFNum,MontantInitR,AvnSupR,AvnDemR,totalApR,totalEngR,reliquatApR
+            ,totalPaiementR,reliquatEngR,tauxR,MontantInitE,AvnSupE,AvnDemE,totalApE,totalEngE,reliquatApE,totalPaiementE,reliquatEngE,tauxE
+            ,MontantInitV,AvnSupV,AvnDemV,totalApV,totalEngV,reliquatApV,totalPaiementV,reliquatEngV,tauxV,totalAp,totalEng,reliquatAp
+            ,totalPaiement,reliquatEng,taux;
+
 
 
     private final ObservableList<List<StringProperty>> dataTable = FXCollections.observableArrayList();
@@ -55,24 +68,9 @@ public class MainController implements Initializable {
         conn = connectBD.connect();
         organisme = new Organisme();
 
-        idConv.setCellValueFactory(data -> data.getValue().get(0));
-        idOrg.setCellValueFactory(data -> data.getValue().get(1));
-        ProjetNom.setCellValueFactory(data -> data.getValue().get(2));
-        ConvFNum.setCellValueFactory(data -> data.getValue().get(3));
-        MarcheNum.setCellValueFactory(data -> data.getValue().get(4));
-        MontantInit.setCellValueFactory(data -> data.getValue().get(5));
-        AvnantSup.setCellValueFactory(data -> data.getValue().get(6));
-        AvnantDem.setCellValueFactory(data -> data.getValue().get(7));
-        MontantEnga.setCellValueFactory(data -> data.getValue().get(8));
-        SituationTr.setCellValueFactory(data -> data.getValue().get(9));
-        TotRg.setCellValueFactory(data -> data.getValue().get(10));
-        TotPun.setCellValueFactory(data -> data.getValue().get(11));
-        TotPaim.setCellValueFactory(data -> data.getValue().get(12));
-        TotConsom.setCellValueFactory(data -> data.getValue().get(13));
-        Ecart.setCellValueFactory(data -> data.getValue().get(14));
-        TauxCons.setCellValueFactory(data -> data.getValue().get(15));
+//        idConv.setCellValueFactory(data -> data.getValue().get(0));
 
-        refresh();
+//        refresh();
     }
 
     private void refresh(){
@@ -146,7 +144,7 @@ public class MainController implements Initializable {
             DialogPane temp = loader.load();
             SelectOrganismeController controller = loader.getController();
             controller.Init(this.organisme);
-            javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
+            Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
             dialog.showAndWait();

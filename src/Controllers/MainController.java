@@ -103,4 +103,15 @@ public class MainController implements Initializable {
         }
     }
 
+    @FXML
+    private void ActionChargeSuiviConv(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/SuiviConventionViews/MainView.fxml"));
+            BorderPane temp = loader.load();
+            mainPane.setCenter(temp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

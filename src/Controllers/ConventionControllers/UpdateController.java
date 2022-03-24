@@ -33,7 +33,7 @@ public class UpdateController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.organisme = new Organisme();
 
-        cbType.getItems().addAll("realisation","etud","vrd");
+        cbType.getItems().addAll("REALISATION","ETUDE","VRD");
     }
 
     public void Init(MarConBc marConBc) {

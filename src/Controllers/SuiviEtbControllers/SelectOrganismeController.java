@@ -1,4 +1,4 @@
-package Controllers.SuiviControllers;
+package Controllers.SuiviEtbControllers;
 
 import BddPackage.OrganismeOperation;
 import Models.Organisme;

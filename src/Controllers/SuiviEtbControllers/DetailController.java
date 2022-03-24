@@ -1,4 +1,4 @@
-package Controllers.SuiviControllers;
+package Controllers.SuiviEtbControllers;
 
 import BddPackage.*;
 import Models.Facture;
