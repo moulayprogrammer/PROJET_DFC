@@ -23,39 +23,51 @@
                         <TableColumn fx:id="idProg" editable="false" prefWidth="250.0" sortable="false" text="idProg" visible="false" />
                         <TableColumn fx:id="ProjetNom" editable="false" prefWidth="350.0" sortable="false" text="PROJET" />
                         <TableColumn fx:id="ConvFNum" editable="false" prefWidth="350.0" sortable="false" text="CONV FINANCEMENT" />
-                        <TableColumn fx:id="MontantInitR" editable="false" prefWidth="250.0" sortable="false" text="MONTANT INITIAL DE REALIS" />
-                        <TableColumn fx:id="AvnSupR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT SUP DE REALIS" />
-                        <TableColumn fx:id="AvnDemR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT DEM DE REALIS" />
-                        <TableColumn fx:id="totalApR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL AP DE REALIS" />
-                        <TableColumn fx:id="totalEngR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL D'ENGAGEMENT REALIS" />
-                        <TableColumn fx:id="reliquatApR" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'AP REALIS" />
-                        <TableColumn fx:id="totalPaiementR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL PAIEMENT REALIS" />
-                        <TableColumn fx:id="reliquatEngR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL RELIQUAT D'ENGAGEMENT REALIS" />
-                        <TableColumn fx:id="tauxR" editable="false" prefWidth="250.0" sortable="false" text="TAUX PAIEMENT DE REALIS" />
-                        <TableColumn fx:id="MontantInitE" editable="false" prefWidth="250.0" sortable="false" text="MONTANT INITIAL D'ÉTUDE" />
-                        <TableColumn fx:id="AvnSupE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT SUP DE ÉTUDE" />
-                        <TableColumn fx:id="AvnDemE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT DEM DE ÉTUDE" />
-                        <TableColumn fx:id="totalApE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL AP DE ÉTUDE" />
-                        <TableColumn fx:id="totalEngE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL D'ENGAGEMENT ÉTUDE" />
-                        <TableColumn fx:id="reliquatApE" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'AP ÉTUDE" />
-                        <TableColumn fx:id="totalPaiementE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL PAIEMENT ÉTUDE" />
-                        <TableColumn fx:id="reliquatEngE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL RELIQUAT D'ENGAGEMENT ÉTUDE" />
-                        <TableColumn fx:id="tauxE" editable="false" prefWidth="250.0" sortable="false" text="TAUX PAIEMENT D'ÉTUDE" />
-                        <TableColumn fx:id="MontantInitV" editable="false" prefWidth="250.0" sortable="false" text="MONTANT INITIAL DE VRD" />
-                        <TableColumn fx:id="AvnSupV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT SUP DE VRD" />
-                        <TableColumn fx:id="AvnDemV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT DEM DE VRD" />
-                        <TableColumn fx:id="totalApV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL AP DE VRD" />
-                        <TableColumn fx:id="totalEngV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL D'ENGAGEMENT VRD" />
-                        <TableColumn fx:id="reliquatApV" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'AP VRD" />
-                        <TableColumn fx:id="totalPaiementV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL PAIEMENT VRD" />
-                        <TableColumn fx:id="reliquatEngV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL RELIQUAT D'ENGAGEMENT VRD" />
-                        <TableColumn fx:id="tauxV" editable="false" prefWidth="250.0" sortable="false" text="TAUX DE PAIEMENT VRD" />
                         <TableColumn fx:id="totalAp" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL AP" />
                         <TableColumn fx:id="totalEng" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL D'ENGAGEMENT" />
                         <TableColumn fx:id="reliquatAp" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'AP GENERAL " />
                         <TableColumn fx:id="totalPaiement" editable="false" prefWidth="250.0" sortable="false" text="TOTAL PAIEMENT GENERAL" />
                         <TableColumn fx:id="reliquatEng" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'ENGAGEMENT GENERAL" />
                         <TableColumn fx:id="taux" editable="false" prefWidth="250.0" sortable="false" text="TAUX DE PAIEMENT GENERAL" />
+                  <TableColumn fx:id="realiseColumn" editable="false" prefWidth="350.0" sortable="false" text="REALISATIONS">
+                     <columns>
+                              <TableColumn fx:id="MontantInitR" editable="false" prefWidth="250.0" sortable="false" text="MONTANT INITIAL" />
+                              <TableColumn fx:id="AvnSupR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT SUP" />
+                              <TableColumn fx:id="AvnDemR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT DEM" />
+                              <TableColumn fx:id="totalApR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL AP" />
+                              <TableColumn fx:id="totalEngR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL D'ENGAGEMENT" />
+                              <TableColumn fx:id="reliquatApR" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'AP" />
+                              <TableColumn fx:id="totalPaiementR" editable="false" prefWidth="250.0" sortable="false" text="TOTAL PAIEMENT" />
+                              <TableColumn fx:id="reliquatEngR" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'ENGAGEMENT" />
+                              <TableColumn fx:id="tauxR" editable="false" prefWidth="250.0" sortable="false" text="TAUX PAIEMENT" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="etudeColumn" editable="false" prefWidth="350.0" sortable="false" text="ETUDE + PUBLICITE">
+                     <columns>
+                              <TableColumn fx:id="MontantInitE" editable="false" prefWidth="250.0" sortable="false" text="MONTANT INITIAL" />
+                              <TableColumn fx:id="AvnSupE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT SUP" />
+                              <TableColumn fx:id="AvnDemE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT DEM" />
+                              <TableColumn fx:id="totalApE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL AP" />
+                              <TableColumn fx:id="totalEngE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL D'ENGAGEMENT" />
+                              <TableColumn fx:id="reliquatApE" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'AP" />
+                              <TableColumn fx:id="totalPaiementE" editable="false" prefWidth="250.0" sortable="false" text="TOTAL PAIEMENT" />
+                              <TableColumn fx:id="reliquatEngE" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'ENGAGEMENT" />
+                              <TableColumn fx:id="tauxE" editable="false" prefWidth="250.0" sortable="false" text="TAUX PAIEMENT" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="vrdColumn" editable="false" prefWidth="250.0" sortable="false" text="VRD">
+                     <columns>
+                              <TableColumn fx:id="MontantInitV" editable="false" prefWidth="250.0" sortable="false" text="MONTANT INITIAL" />
+                              <TableColumn fx:id="AvnSupV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT SUP" />
+                              <TableColumn fx:id="AvnDemV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL AVENANT DEM" />
+                              <TableColumn fx:id="totalApV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL GENERAL AP" />
+                              <TableColumn fx:id="totalEngV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL D'ENGAGEMENT" />
+                              <TableColumn fx:id="reliquatApV" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'AP" />
+                              <TableColumn fx:id="totalPaiementV" editable="false" prefWidth="250.0" sortable="false" text="TOTAL PAIEMENT" />
+                              <TableColumn fx:id="reliquatEngV" editable="false" prefWidth="250.0" sortable="false" text="RELIQUAT D'ENGAGEMENT" />
+                              <TableColumn fx:id="tauxV" editable="false" prefWidth="250.0" sortable="false" text="TAUX DE PAIEMENT" />
+                     </columns>
+                  </TableColumn>
                     </columns>
                 </TableView>
             </children>

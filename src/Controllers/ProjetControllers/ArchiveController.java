@@ -142,8 +142,8 @@ public class ArchiveController implements Initializable {
         projetTables.clear();
         projets.forEach(projet -> {
 
-            Cout coutR = coutOperation.getCoutByProjet(projet.getId(), "réalisation");
-            Cout coutE = coutOperation.getCoutByProjet(projet.getId(), "étud");
+            Cout coutR = coutOperation.getCoutByProjet(projet.getId(), "REALISATIONr");
+            Cout coutE = coutOperation.getCoutByProjet(projet.getId(), "ETUDE");
             Cout coutV = coutOperation.getCoutByProjet(projet.getId(), "VRD");
 
             ArrayList<AvnentCout> avnentCoutsR = avnentCoutOperation.getAll(coutR.getId());

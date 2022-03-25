@@ -120,4 +120,28 @@ public class AvnentCoutOperation extends BDD<AvnentCout>{
         return list;
     }
 
+    public ArrayList<AvnentCout> getAllByType(int idCout, String type) {
+        ArrayList<AvnentCout> list = new ArrayList<>();
+        String query = "SELECT * FROM `AVENANT_COUT` WHERE `ID_COUT` = ? AND  `TYPE` = ?";
+        try {
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1,idCout);
+            preparedStmt.setString(2,type);
+            ResultSet resultSet = preparedStmt.executeQuery();
+            while (resultSet.next()){
+                AvnentCout avnentCout = new AvnentCout();
+                avnentCout.setId(resultSet.getInt("ID"));
+                avnentCout.setIdCout(resultSet.getInt("ID_COUT"));
+                avnentCout.setDate(resultSet.getString("DATE"));
+                avnentCout.setType(resultSet.getString("TYPE"));
+                avnentCout.setMontant(resultSet.getDouble("MONTANT"));
+
+                list.add(avnentCout);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }

@@ -1,15 +1,9 @@
 package Controllers.SuiviConventionControllers;
 
-import BddPackage.AvnentOperation;
-import BddPackage.ConnectBD;
-import BddPackage.FactureOperation;
-import BddPackage.OrderPaimentOperation;
+import BddPackage.*;
 import Controllers.ConventionControllers.SelectOrganismeController;
 import Controllers.SuiviEtbControllers.DetailController;
-import Models.Facture;
-import Models.MarConBc;
-import Models.OrderePaiment;
-import Models.Organisme;
+import Models.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -50,11 +44,16 @@ public class MainController implements Initializable {
     TableColumn<List<StringProperty>,String> idProj,idProg,ProjetNom,ConvFNum,MontantInitR,AvnSupR,AvnDemR,totalApR,totalEngR,reliquatApR
             ,totalPaiementR,reliquatEngR,tauxR,MontantInitE,AvnSupE,AvnDemE,totalApE,totalEngE,reliquatApE,totalPaiementE,reliquatEngE,tauxE
             ,MontantInitV,AvnSupV,AvnDemV,totalApV,totalEngV,reliquatApV,totalPaiementV,reliquatEngV,tauxV,totalAp,totalEng,reliquatAp
-            ,totalPaiement,reliquatEng,taux;
+            ,totalPaiement,reliquatEng,taux,realiseColumn,etudeColumn,vrdColumn;
 
 
 
     private final ObservableList<List<StringProperty>> dataTable = FXCollections.observableArrayList();
+    private final ProjetOperation projetOperation = new ProjetOperation();
+    private final CoutOperation coutOperation = new CoutOperation();
+    private final AvnentCoutOperation avnentCoutOperation = new AvnentCoutOperation();
+    private final MarConBcOperation marConBcOperation = new MarConBcOperation();
+
     private final ConnectBD connectBD = new ConnectBD();
     private final AvnentOperation avnentOperation = new AvnentOperation();
     private final FactureOperation factureOperation = new FactureOperation();
@@ -68,22 +67,152 @@ public class MainController implements Initializable {
         conn = connectBD.connect();
         organisme = new Organisme();
 
-//        idConv.setCellValueFactory(data -> data.getValue().get(0));
+        idProj.setCellValueFactory(data -> data.getValue().get(0));
+        idProg.setCellValueFactory(data -> data.getValue().get(1));
+        ProjetNom.setCellValueFactory(data -> data.getValue().get(2));
+        ConvFNum.setCellValueFactory(data -> data.getValue().get(3));
+        totalAp.setCellValueFactory(data -> data.getValue().get(4));
+        totalEng.setCellValueFactory(data -> data.getValue().get(5));
+        reliquatAp.setCellValueFactory(data -> data.getValue().get(6));
+        totalPaiement.setCellValueFactory(data -> data.getValue().get(7));
+        reliquatEng.setCellValueFactory(data -> data.getValue().get(8));
+        taux.setCellValueFactory(data -> data.getValue().get(9));
 
-//        refresh();
+        realiseColumn.setCellValueFactory(data -> data.getValue().get(10));
+
+        MontantInitR.setCellValueFactory(data -> data.getValue().get(0));
+        AvnSupR.setCellValueFactory(data -> data.getValue().get(1));
+        AvnDemR.setCellValueFactory(data -> data.getValue().get(2));
+        totalApR.setCellValueFactory(data -> data.getValue().get(3));
+        totalEngR.setCellValueFactory(data -> data.getValue().get(4));
+        reliquatApR.setCellValueFactory(data -> data.getValue().get(5));
+        totalPaiementR.setCellValueFactory(data -> data.getValue().get(6));
+        reliquatEngR.setCellValueFactory(data -> data.getValue().get(7));
+        tauxR.setCellValueFactory(data -> data.getValue().get(8));
+
+        etudeColumn.setCellValueFactory(data -> data.getValue().get(11));
+
+        MontantInitE.setCellValueFactory(data -> data.getValue().get(0));
+        AvnSupE.setCellValueFactory(data -> data.getValue().get(1));
+        AvnDemE.setCellValueFactory(data -> data.getValue().get(2));
+        totalApE.setCellValueFactory(data -> data.getValue().get(3));
+        totalEngE.setCellValueFactory(data -> data.getValue().get(4));
+        reliquatApE.setCellValueFactory(data -> data.getValue().get(5));
+        totalPaiementE.setCellValueFactory(data -> data.getValue().get(6));
+        reliquatEngE.setCellValueFactory(data -> data.getValue().get(7));
+        tauxE.setCellValueFactory(data -> data.getValue().get(8));
+
+        vrdColumn.setCellValueFactory(data -> data.getValue().get(12));
+
+        MontantInitV.setCellValueFactory(data -> data.getValue().get(0));
+        AvnSupV.setCellValueFactory(data -> data.getValue().get(1));
+        AvnDemV.setCellValueFactory(data -> data.getValue().get(2));
+        totalApV.setCellValueFactory(data -> data.getValue().get(3));
+        totalEngV.setCellValueFactory(data -> data.getValue().get(4));
+        reliquatApV.setCellValueFactory(data -> data.getValue().get(5));
+        totalPaiementV.setCellValueFactory(data -> data.getValue().get(6));
+        reliquatEngV.setCellValueFactory(data -> data.getValue().get(7));
+        tauxV.setCellValueFactory(data -> data.getValue().get(8));
+
+
+        refresh();
     }
 
     private void refresh(){
 
         try {
             dataTable.clear();
-            String query = " SELECT `PROJET`.`ID` , `PROJET`.`NOM` , `PROJET`.`NUMERO_CF` ,  `MAR_CON_BC`.`ID` , `MAR_CON_BC`.`ID_PROJET` " +
-                    ", `MAR_CON_BC`.`NOM` ,  `MAR_CON_BC`.`ID_ORGANISME` , `MAR_CON_BC`.`TTC` " +
-                    "FROM `PROJET` , `MAR_CON_BC` WHERE `MAR_CON_BC`.`ARCHIVE` = 0 AND `PROJET`.`ID` = `MAR_CON_BC`.`ID_PROJET` " +
-                    "ORDER BY `MAR_CON_BC`.`ID_ORGANISME`  ASC";
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
-            ResultSet resultSet = preparedStmt.executeQuery();
-            ChargeTableWithoutDate(resultSet);
+
+            List<Projet> projets = projetOperation.getAll();
+            projets.forEach(projet -> {
+
+                Cout coutR = coutOperation.getCoutByProjet(projet.getId(), "REALISATION");
+                Cout coutE = coutOperation.getCoutByProjet(projet.getId(), "ETUDE");
+                Cout coutV = coutOperation.getCoutByProjet(projet.getId(), "VRD");
+
+                ArrayList<AvnentCout> avnentCoutsRSup = avnentCoutOperation.getAllByType(coutR.getId(),"SUPLEMENTAIRE");
+                ArrayList<AvnentCout> avnentCoutsRDem = avnentCoutOperation.getAllByType(coutR.getId(),"DEMENITIVE");
+                ArrayList<AvnentCout> avnentCoutsESup = avnentCoutOperation.getAllByType(coutE.getId(),"SUPLEMENTAIRE");
+                ArrayList<AvnentCout> avnentCoutsEDem = avnentCoutOperation.getAllByType(coutE.getId(),"DEMENITIVE");
+                ArrayList<AvnentCout> avnentCoutsVSup = avnentCoutOperation.getAllByType(coutV.getId(),"SUPLEMENTAIRE");
+                ArrayList<AvnentCout> avnentCoutsVDem = avnentCoutOperation.getAllByType(coutV.getId(),"DEMENITIVE");
+
+                double totAvnRS = avnentCoutsRSup.stream().mapToDouble(AvnentCout::getMontant).sum();
+                double totAvnRD = avnentCoutsRDem.stream().mapToDouble(AvnentCout::getMontant).sum();
+                double totAvnES = avnentCoutsESup.stream().mapToDouble(AvnentCout::getMontant).sum();
+                double totAvnED = avnentCoutsEDem.stream().mapToDouble(AvnentCout::getMontant).sum();
+                double totAvnVS = avnentCoutsVSup.stream().mapToDouble(AvnentCout::getMontant).sum();
+                double totAvnVD = avnentCoutsVDem.stream().mapToDouble(AvnentCout::getMontant).sum();
+
+                List<MarConBc> marConBcList = marConBcOperation.getAllByProjet(projet.getId());
+                AtomicReference<Double> totEngMarcheR  = new AtomicReference<>((double) 0);
+                AtomicReference<Double> totEngMarcheE  = new AtomicReference<>((double) 0);
+                AtomicReference<Double> totEngMarcheV  = new AtomicReference<>((double) 0);
+                AtomicReference<Double> totPayeR = new AtomicReference<>((double) 0);
+                AtomicReference<Double> totPayeE = new AtomicReference<>((double) 0);
+                AtomicReference<Double> totPayeV = new AtomicReference<>((double) 0);
+
+                marConBcList.forEach(marConBc -> {
+
+                    switch (marConBc.getType()) {
+                        case "REALISATION":
+                            double AvnSupR = avnentOperation.getSum(marConBc.getId(), "SUPLEMENTAIRE");
+                            double AvnDemR = avnentOperation.getSum(marConBc.getId(), "DEMENITIVE");
+                            double coutMarR = marConBc.getTtc();
+
+                            double coutEngR = AvnSupR + AvnDemR + coutMarR;
+                            totEngMarcheR.updateAndGet(v -> (double) (v + coutEngR));
+
+                            List<Facture> facturesR = factureOperation.getAllByConvention(new MarConBc(marConBc.getId()));
+                            facturesR.forEach(facture -> {
+                                OrderePaiment orderePaiment = orderPaimentOperation.getByFacture(facture.getId());
+                                if (orderePaiment.getNumero() != null) {
+                                    totPayeR.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
+                                }
+
+                            });
+                            break;
+                        case "ETUDE":
+                            double AvnSupE = avnentOperation.getSum(marConBc.getId(), "SUPLEMENTAIRE");
+                            double AvnDemE = avnentOperation.getSum(marConBc.getId(), "DEMENITIVE");
+                            double coutMarE = marConBc.getTtc();
+
+                            double coutEngE = AvnSupE + AvnDemE + coutMarE;
+                            totEngMarcheE.updateAndGet(v -> (double) (v + coutEngE));
+
+                            List<Facture> facturesE = factureOperation.getAllByConvention(new MarConBc(marConBc.getId()));
+                            facturesE.forEach(facture -> {
+                                OrderePaiment orderePaiment = orderPaimentOperation.getByFacture(facture.getId());
+                                if (orderePaiment.getNumero() != null) {
+                                    totPayeE.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
+                                }
+
+                            });
+                            break;
+                        case "VRD":
+                            double AvnSupV = avnentOperation.getSum(marConBc.getId(), "SUPLEMENTAIRE");
+                            double AvnDemV = avnentOperation.getSum(marConBc.getId(), "DEMENITIVE");
+                            double coutMarV = marConBc.getTtc();
+
+                            double coutEngV = AvnSupV + AvnDemV + coutMarV;
+                            totEngMarcheV.updateAndGet(v -> (double) (v + coutEngV));
+
+                            List<Facture> facturesV = factureOperation.getAllByConvention(new MarConBc(marConBc.getId()));
+                            facturesV.forEach(facture -> {
+                                OrderePaiment orderePaiment = orderPaimentOperation.getByFacture(facture.getId());
+                                if (orderePaiment.getNumero() != null) {
+                                    totPayeV.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
+                                }
+
+                            });
+                            break;
+                    }
+                });
+                List<StringProperty> list = ChargeData(projet.getIdProgramme(),projet.getId(),projet.getNom(),projet.getNumeroCF(),coutR.getMontant(),coutE.getMontant(),coutV.getMontant(),
+                        totAvnRS,totAvnRD,totAvnES,totAvnED,totAvnVS,totAvnVD,totEngMarcheR,totEngMarcheE,totEngMarcheV,totPayeR,totPayeE,totPayeV) ;
+                dataTable.add(list);
+            });
+            table.setItems(dataTable);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -290,6 +419,7 @@ public class MainController implements Initializable {
 
     private void ChargeTableWithoutDate(ResultSet resultSet) throws SQLException {
 
+/*
         while (resultSet.next()){
 
             String projet = resultSet.getString("PROJET.NOM");
@@ -325,9 +455,11 @@ public class MainController implements Initializable {
             dataTable.add(data);
         }
         table.setItems(dataTable);
+*/
     }
 
     private void ChargeTableWithDate(LocalDate dateFrom, LocalDate dateTo, ResultSet resultSet) throws SQLException {
+/*
         while (resultSet.next()){
 
             String projet = resultSet.getString("PROJET.NOM");
@@ -363,37 +495,43 @@ public class MainController implements Initializable {
             dataTable.add(data);
         }
         table.setItems(dataTable);
+*/
     }
 
-    private List<StringProperty> ChargeData(String projet,String CF,int idMar,String marche,int idOrg,
-                                            double CoutMar, double avnSup, double avnDem, AtomicReference<Double> totSitTR, AtomicReference<Double> totRG,
-                                            AtomicReference<Double> totPR, AtomicReference<Double> totPaye) {
+    private List<StringProperty> ChargeData(int idProg,int idProjet, String projet,String CF,double coutR,double coutE,double coutV,
+                                            double totAvnRS, double totAvnRD, double totAvnES, double totAvnED, double totAvnVS, double totAvnVD,
+                                            AtomicReference<Double> totEngMarcheR, AtomicReference<Double> totEngMarcheE, AtomicReference<Double> totEngMarcheV,
+                                            AtomicReference<Double> totPayeR, AtomicReference<Double> totPayeE, AtomicReference<Double> totPayeV) {
 
         List<StringProperty> data = new ArrayList<>();
         try {
 
-            double CoutEng = CoutMar + avnDem + avnSup;
-            double TotCons = totPaye.get() + totPR.get();
-            double Ecart = CoutEng - totPaye.get();
-            int Taux = (int) ((TotCons * 100) / CoutEng);
+            double totalAp = coutR + coutE + coutV + totAvnRS + totAvnRD + totAvnES + totAvnED + totAvnVS + totAvnVD;
+            double totalEng = totEngMarcheR.get() + totEngMarcheE.get() + totEngMarcheV.get();
+            double reliquatAp = totalAp - totalEng;
+            double totalPaiement = totPayeR.get() + totPayeE.get() + totPayeV.get();
+            double reliquatEng = totalEng - totalPaiement;
+            int taux = (int) ((totalPaiement * 100) / totalEng);
 
 
-            data.add(0, new SimpleStringProperty(String.valueOf(idMar)));
-            data.add(1, new SimpleStringProperty(String.valueOf(idOrg)));
+            data.add(0, new SimpleStringProperty(String.valueOf(idProg)));
+            data.add(1, new SimpleStringProperty(String.valueOf(idProjet)));
             data.add(2, new SimpleStringProperty(projet));
             data.add(3, new SimpleStringProperty(CF));
-            data.add(4, new SimpleStringProperty(marche));
-            data.add(5, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", CoutMar)));
-            data.add(6, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", avnSup)));
-            data.add(7, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", avnDem)));
-            data.add(8, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", CoutEng)));
-            data.add(9, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totSitTR.get())));
-            data.add(10, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totRG.get())));
+            data.add(4, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totalAp)));
+            data.add(5, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totalEng)));
+            data.add(6, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", reliquatAp)));
+            data.add(7, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totalPaiement)));
+            data.add(8, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", reliquatEng)));
+            data.add(9, new SimpleStringProperty(taux + " %"));
+
+
+/*            data.add(10, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totRG.get())));
             data.add(11, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totPR.get())));
             data.add(12, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totPaye.get())));
             data.add(13, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", TotCons)));
             data.add(14, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", Ecart)));
-            data.add(15, new SimpleStringProperty(Taux + " %"));
+            data.add(15, new SimpleStringProperty(Taux + " %"));*/
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -39,9 +39,9 @@ public class UpdateController implements Initializable {
         tfCF.setText(projet.getNumeroCF());
         tfDate.setText(projet.getDateInsription());
         tfNbLogts.setText(projet.getNomberLogts()+"");
-        double cR = coutOperation.getCoutByProjet(projet.getId(), "réalisation").getMontant();
+        double cR = coutOperation.getCoutByProjet(projet.getId(), "REALISATION").getMontant();
         tfCoutRea.setText(String.format( "%.2f", cR));
-        double cE = coutOperation.getCoutByProjet(projet.getId(), "étud").getMontant();
+        double cE = coutOperation.getCoutByProjet(projet.getId(), "ETUDE").getMontant();
         tfCoutEtu.setText(String.format( "%.2f", cE));
         double cV = coutOperation.getCoutByProjet(projet.getId(), "VRD").getMontant();
         tfCoutVrd.setText(String.format( "%.2f", cV));
@@ -71,8 +71,8 @@ public class UpdateController implements Initializable {
 
             boolean upd = update(projet,this.projet);
 
-            Cout coutRR = coutOperation.getCoutByProjet(projet.getId(), "réalisation");
-            Cout coutEE = coutOperation.getCoutByProjet(projet.getId(), "étud");
+            Cout coutRR = coutOperation.getCoutByProjet(projet.getId(), "REALISATION");
+            Cout coutEE = coutOperation.getCoutByProjet(projet.getId(), "ETUDE");
             Cout coutVV = coutOperation.getCoutByProjet(projet.getId(), "VRD");
 
             coutRR.setMontant(Double.parseDouble(coutR)); update(coutRR,coutRR);

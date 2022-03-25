@@ -270,8 +270,8 @@ public class MainController implements Initializable {
             tvProjet.getItems().clear();
             projets.forEach(projet -> {
 
-                Cout coutR = coutOperation.getCoutByProjet(projet.getId(), "réalisation");
-                Cout coutE = coutOperation.getCoutByProjet(projet.getId(), "étud");
+                Cout coutR = coutOperation.getCoutByProjet(projet.getId(), "REALISATION");
+                Cout coutE = coutOperation.getCoutByProjet(projet.getId(), "ETUDE");
                 Cout coutV = coutOperation.getCoutByProjet(projet.getId(), "VRD");
 
                 ArrayList<AvnentCout> avnentCoutsR = avnentCoutOperation.getAll(coutR.getId());

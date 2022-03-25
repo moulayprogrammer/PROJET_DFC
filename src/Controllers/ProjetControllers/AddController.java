@@ -67,15 +67,15 @@ public class AddController implements Initializable {
             if (ins) {
                 int idProject = operation.getLastAddId();
                 if (!coutR.isEmpty()) {
-                    addCout(idProject,"réalisation",Double.parseDouble(coutR));
+                    addCout(idProject,"REALISATION",Double.parseDouble(coutR));
                 } else {
-                    addCout(idProject,"réalisation",0.0);
+                    addCout(idProject,"REALISATION",0.0);
                 }
 
                 if (!coutE.isEmpty()) {
-                    addCout(idProject,"étud",Double.parseDouble(coutE));
+                    addCout(idProject,"ETUDE",Double.parseDouble(coutE));
                 } else {
-                    addCout(idProject,"étud",0.0);
+                    addCout(idProject,"ETUDE",0.0);
                 }
 
                 if (!coutVR.isEmpty()) {

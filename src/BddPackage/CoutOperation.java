@@ -108,7 +108,7 @@ public class CoutOperation extends BDD<Cout>{
 
     public Cout getCoutByProjet(int idPr,String type){
         Cout cout = new Cout();
-        String query = "SELECT * FROM `COUT` WHERE `ID_PROJET` = ? && `TYPE` = ?";
+        String query = "SELECT * FROM `COUT` WHERE `ID_PROJET` = ? AND `TYPE` = ?";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1,idPr);

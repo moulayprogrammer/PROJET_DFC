@@ -41,7 +41,7 @@ public class AddAvnantController implements Initializable {
         this.projet = projet;
 
         tfProjet.setText(projet.getNom());
-        cbAppliqueCout.getItems().addAll("cout réalisation","cout étud","cout VRD");
+        cbAppliqueCout.getItems().addAll("cout REALISATION","cout ETUDE","cout VRD");
         cbAvnantType.getItems().addAll("SUPLEMENTAIRE","DEMENITIVE");
 
     }
@@ -59,8 +59,8 @@ public class AddAvnantController implements Initializable {
 
             if (!CoutApplique.isEmpty() && !dateAv.isEmpty() && !typeAv.isEmpty() ){
                 Cout cout = new Cout();
-                if (CoutApplique.equals("cout réalisation")) cout = coutOperation.getCoutByProjet(projet.getId(),"réalisation");
-                if (CoutApplique.equals("cout étud")) cout = coutOperation.getCoutByProjet(projet.getId(),"étud");
+                if (CoutApplique.equals("cout REALISATION")) cout = coutOperation.getCoutByProjet(projet.getId(),"REALISATION");
+                if (CoutApplique.equals("cout ETUDE")) cout = coutOperation.getCoutByProjet(projet.getId(),"ETUDE");
                 if (CoutApplique.equals("cout VRD")) cout = coutOperation.getCoutByProjet(projet.getId(),"VRD");
 
                 if (typeAv.equals("DEMENITIVE") && montantAv > 0 ) montantAv = montantAv * -1;
