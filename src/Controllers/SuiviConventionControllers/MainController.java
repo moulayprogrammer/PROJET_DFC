@@ -4,8 +4,10 @@ import BddPackage.*;
 import Controllers.ConventionControllers.SelectOrganismeController;
 import Controllers.SuiviEtbControllers.DetailController;
 import Models.*;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -39,16 +41,18 @@ public class MainController implements Initializable {
     @FXML
     DatePicker dpFrom,dpTo;
     @FXML
-    TableView<List<StringProperty>> table;
+    TableView<List<List<StringProperty>>> table;
     @FXML
-    TableColumn<List<StringProperty>,String> idProj,idProg,ProjetNom,ConvFNum,MontantInitR,AvnSupR,AvnDemR,totalApR,totalEngR,reliquatApR
+    TableColumn<List<List<StringProperty>>,String> idProj,idProg,ProjetNom,ConvFNum,MontantInitR,AvnSupR,AvnDemR,totalApR,totalEngR,reliquatApR
             ,totalPaiementR,reliquatEngR,tauxR,MontantInitE,AvnSupE,AvnDemE,totalApE,totalEngE,reliquatApE,totalPaiementE,reliquatEngE,tauxE
             ,MontantInitV,AvnSupV,AvnDemV,totalApV,totalEngV,reliquatApV,totalPaiementV,reliquatEngV,tauxV,totalAp,totalEng,reliquatAp
-            ,totalPaiement,reliquatEng,taux,realiseColumn,etudeColumn,vrdColumn;
+            ,totalPaiement,reliquatEng,taux;
+/*    @FXML
+    TableColumn<List<List<StringProperty>>,StringProperty> MontantInitR;*/
 
 
 
-    private final ObservableList<List<StringProperty>> dataTable = FXCollections.observableArrayList();
+    private final ObservableList<List<List<StringProperty>>> dataTable = FXCollections.observableArrayList();
     private final ProjetOperation projetOperation = new ProjetOperation();
     private final CoutOperation coutOperation = new CoutOperation();
     private final AvnentCoutOperation avnentCoutOperation = new AvnentCoutOperation();
@@ -67,52 +71,47 @@ public class MainController implements Initializable {
         conn = connectBD.connect();
         organisme = new Organisme();
 
-        idProj.setCellValueFactory(data -> data.getValue().get(0));
-        idProg.setCellValueFactory(data -> data.getValue().get(1));
-        ProjetNom.setCellValueFactory(data -> data.getValue().get(2));
-        ConvFNum.setCellValueFactory(data -> data.getValue().get(3));
-        totalAp.setCellValueFactory(data -> data.getValue().get(4));
-        totalEng.setCellValueFactory(data -> data.getValue().get(5));
-        reliquatAp.setCellValueFactory(data -> data.getValue().get(6));
-        totalPaiement.setCellValueFactory(data -> data.getValue().get(7));
-        reliquatEng.setCellValueFactory(data -> data.getValue().get(8));
-        taux.setCellValueFactory(data -> data.getValue().get(9));
+        idProj.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(0).get(0).getValue()));
+        idProg.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(0).get(1).getValue()));
+        ProjetNom.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(0).get(2).getValue()));
+        ConvFNum.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(0).get(3).getValue()));
+        totalAp.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(0).get(4).getValue()));
+        totalEng.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(0).get(5).getValue()));
+        reliquatAp.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(0).get(6).getValue()));
+        totalPaiement.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(0).get(7).getValue()));
+        reliquatEng.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(0).get(8).getValue()));
+        taux.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(0).get(9).getValue()));
 
-        realiseColumn.setCellValueFactory(data -> data.getValue().get(10));
+        MontantInitR.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(1).get(0).getValue()));
+        AvnSupR.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(1).get(1).getValue()));
+        AvnDemR.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(1).get(2).getValue()));
+        totalApR.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(1).get(3).getValue()));
+        totalEngR.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(1).get(4).getValue()));
+        reliquatApR.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(1).get(5).getValue()));
+        totalPaiementR.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(1).get(6).getValue()));
+        reliquatEngR.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(1).get(7).getValue()));
+        tauxR.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(1).get(8).getValue()));
 
-        MontantInitR.setCellValueFactory(data -> data.getValue().get(0));
-        AvnSupR.setCellValueFactory(data -> data.getValue().get(1));
-        AvnDemR.setCellValueFactory(data -> data.getValue().get(2));
-        totalApR.setCellValueFactory(data -> data.getValue().get(3));
-        totalEngR.setCellValueFactory(data -> data.getValue().get(4));
-        reliquatApR.setCellValueFactory(data -> data.getValue().get(5));
-        totalPaiementR.setCellValueFactory(data -> data.getValue().get(6));
-        reliquatEngR.setCellValueFactory(data -> data.getValue().get(7));
-        tauxR.setCellValueFactory(data -> data.getValue().get(8));
+        MontantInitE.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(2).get(0).getValue()));
+        AvnSupE.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(2).get(1).getValue()));
+        AvnDemE.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(2).get(2).getValue()));
+        totalApE.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(2).get(3).getValue()));
+        totalEngE.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(2).get(4).getValue()));
+        reliquatApE.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(2).get(5).getValue()));
+        totalPaiementE.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(2).get(6).getValue()));
+        reliquatEngE.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(2).get(7).getValue()));
+        tauxE.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(2).get(8).getValue()));
 
-        etudeColumn.setCellValueFactory(data -> data.getValue().get(11));
 
-        MontantInitE.setCellValueFactory(data -> data.getValue().get(0));
-        AvnSupE.setCellValueFactory(data -> data.getValue().get(1));
-        AvnDemE.setCellValueFactory(data -> data.getValue().get(2));
-        totalApE.setCellValueFactory(data -> data.getValue().get(3));
-        totalEngE.setCellValueFactory(data -> data.getValue().get(4));
-        reliquatApE.setCellValueFactory(data -> data.getValue().get(5));
-        totalPaiementE.setCellValueFactory(data -> data.getValue().get(6));
-        reliquatEngE.setCellValueFactory(data -> data.getValue().get(7));
-        tauxE.setCellValueFactory(data -> data.getValue().get(8));
-
-        vrdColumn.setCellValueFactory(data -> data.getValue().get(12));
-
-        MontantInitV.setCellValueFactory(data -> data.getValue().get(0));
-        AvnSupV.setCellValueFactory(data -> data.getValue().get(1));
-        AvnDemV.setCellValueFactory(data -> data.getValue().get(2));
-        totalApV.setCellValueFactory(data -> data.getValue().get(3));
-        totalEngV.setCellValueFactory(data -> data.getValue().get(4));
-        reliquatApV.setCellValueFactory(data -> data.getValue().get(5));
-        totalPaiementV.setCellValueFactory(data -> data.getValue().get(6));
-        reliquatEngV.setCellValueFactory(data -> data.getValue().get(7));
-        tauxV.setCellValueFactory(data -> data.getValue().get(8));
+        MontantInitV.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(3).get(0).getValue()));
+        AvnSupV.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(3).get(1).getValue()));
+        AvnDemV.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(3).get(2).getValue()));
+        totalApV.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(3).get(3).getValue()));
+        totalEngV.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(3).get(4).getValue()));
+        reliquatApV.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(3).get(5).getValue()));
+        totalPaiementV.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(3).get(6).getValue()));
+        reliquatEngV.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(3).get(7).getValue()));
+        tauxV.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(3).get(8).getValue()));
 
 
         refresh();
@@ -208,7 +207,7 @@ public class MainController implements Initializable {
                             break;
                     }
                 });
-                List<StringProperty> list = ChargeData(projet.getIdProgramme(),projet.getId(),projet.getNom(),projet.getNumeroCF(),coutR.getMontant(),coutE.getMontant(),coutV.getMontant(),
+                List<List<StringProperty>> list = ChargeData(projet.getIdProgramme(),projet.getId(),projet.getNom(),projet.getNumeroCF(),coutR.getMontant(),coutE.getMontant(),coutV.getMontant(),
                         totAvnRS,totAvnRD,totAvnES,totAvnED,totAvnVS,totAvnVD,totEngMarcheR,totEngMarcheE,totEngMarcheV,totPayeR,totPayeE,totPayeV) ;
                 dataTable.add(list);
             });
@@ -345,22 +344,22 @@ public class MainController implements Initializable {
     @FXML
     private void ActionRecherche(){
         // filtrer les données
-        ObservableList<List<StringProperty>> dataProgramme = table.getItems();
-        FilteredList<List<StringProperty>> filteredData = new FilteredList<>(dataProgramme, e -> true);
+        ObservableList<List<List<StringProperty>>> dataProgramme = table.getItems();
+        FilteredList<List<List<StringProperty>>> filteredData = new FilteredList<>(dataProgramme, e -> true);
         String txtRecherche = tfRecherche.getText().trim();
 
-        filteredData.setPredicate((Predicate<? super List<StringProperty>>) stringProperties -> {
+        filteredData.setPredicate((Predicate<? super List<List<StringProperty>>>) stringProperties -> {
             if (txtRecherche.isEmpty()) {
                 //loadDataInTable();
                 return true;
-            } else if (stringProperties.get(1).toString().contains(txtRecherche)) {
+            } else if (stringProperties.get(0).get(2).toString().contains(txtRecherche)) {
                 return true;
-            } else if (stringProperties.get(2).toString().contains(txtRecherche)) {
+            } else if (stringProperties.get(0).get(3).toString().contains(txtRecherche)) {
                 return true;
-            }  else return stringProperties.get(3).toString().contains(txtRecherche);
+            }  else return stringProperties.get(0).get(3).toString().contains(txtRecherche);
         });
 
-        SortedList<List<StringProperty>> sortedList = new SortedList<>(filteredData);
+        SortedList<List<List<StringProperty>>> sortedList = new SortedList<>(filteredData);
         sortedList.comparatorProperty().bind(table.comparatorProperty());
         table.setItems(sortedList);
     }
@@ -375,7 +374,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void SelectDetail(){
-        List<StringProperty> data = table.getSelectionModel().getSelectedItem();
+       /* List<StringProperty> data = table.getSelectionModel().getSelectedItem();
         try {
             if (data != null){
 
@@ -399,7 +398,7 @@ public class MainController implements Initializable {
             }
         }catch (Exception e){
             e.printStackTrace();
-        }
+        }*/
 
     }
 
@@ -498,12 +497,14 @@ public class MainController implements Initializable {
 */
     }
 
-    private List<StringProperty> ChargeData(int idProg,int idProjet, String projet,String CF,double coutR,double coutE,double coutV,
+    private List<List<StringProperty>> ChargeData(int idProg,int idProjet, String projet,String CF,double coutR,double coutE,double coutV,
                                             double totAvnRS, double totAvnRD, double totAvnES, double totAvnED, double totAvnVS, double totAvnVD,
                                             AtomicReference<Double> totEngMarcheR, AtomicReference<Double> totEngMarcheE, AtomicReference<Double> totEngMarcheV,
                                             AtomicReference<Double> totPayeR, AtomicReference<Double> totPayeE, AtomicReference<Double> totPayeV) {
 
-        List<StringProperty> data = new ArrayList<>();
+        List<List<StringProperty>> data = new ArrayList<>();
+
+        List<StringProperty> dataG = new ArrayList<>();
         try {
 
             double totalAp = coutR + coutE + coutV + totAvnRS + totAvnRD + totAvnES + totAvnED + totAvnVS + totAvnVD;
@@ -514,24 +515,78 @@ public class MainController implements Initializable {
             int taux = (int) ((totalPaiement * 100) / totalEng);
 
 
-            data.add(0, new SimpleStringProperty(String.valueOf(idProg)));
-            data.add(1, new SimpleStringProperty(String.valueOf(idProjet)));
-            data.add(2, new SimpleStringProperty(projet));
-            data.add(3, new SimpleStringProperty(CF));
-            data.add(4, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totalAp)));
-            data.add(5, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totalEng)));
-            data.add(6, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", reliquatAp)));
-            data.add(7, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totalPaiement)));
-            data.add(8, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", reliquatEng)));
-            data.add(9, new SimpleStringProperty(taux + " %"));
+            dataG.add(0, new SimpleStringProperty(String.valueOf(idProg)));
+            dataG.add(1, new SimpleStringProperty(String.valueOf(idProjet)));
+            dataG.add(2, new SimpleStringProperty(projet));
+            dataG.add(3, new SimpleStringProperty(CF));
+            dataG.add(4, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totalAp)));
+            dataG.add(5, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totalEng)));
+            dataG.add(6, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", reliquatAp)));
+            dataG.add(7, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totalPaiement)));
+            dataG.add(8, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", reliquatEng)));
+            dataG.add(9, new SimpleStringProperty(taux + " %"));
 
+            data.add(dataG);
 
-/*            data.add(10, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totRG.get())));
-            data.add(11, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totPR.get())));
-            data.add(12, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totPaye.get())));
-            data.add(13, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", TotCons)));
-            data.add(14, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", Ecart)));
-            data.add(15, new SimpleStringProperty(Taux + " %"));*/
+            // REALISATION
+            List<StringProperty> dataR = new ArrayList<>();
+
+            double totalApR = coutR + totAvnRS + totAvnRD;
+            double reliquatApR = totalApR - totEngMarcheR.get();
+            double reliquatEngR = totEngMarcheR.get() - totPayeR.get();
+            int tauxR = (int) ((totPayeR.get() * 100) / totEngMarcheR.get());
+
+            dataR.add(0, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", coutR)));
+            dataR.add(1, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totAvnRS)));
+            dataR.add(2, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totAvnRD)));
+            dataR.add(3, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totalApR)));
+            dataR.add(4, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totEngMarcheR.get())));
+            dataR.add(5, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", reliquatApR)));
+            dataR.add(6, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totPayeR.get())));
+            dataR.add(7, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", reliquatEngR)));
+            dataR.add(8, new SimpleStringProperty(tauxR + " %"));
+
+            data.add(dataR);
+
+            // Etud et publication
+            List<StringProperty> dataE = new ArrayList<>();
+
+            double totalApE = coutE + totAvnES + totAvnED;
+            double reliquatApE = totalApE - totEngMarcheE.get();
+            double reliquatEngE = totEngMarcheE.get() - totPayeE.get();
+            int tauxE = (int) ((totPayeE.get() * 100) / totEngMarcheE.get());
+
+            dataE.add(0, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", coutE)));
+            dataE.add(1, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totAvnES)));
+            dataE.add(2, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totAvnED)));
+            dataE.add(3, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totalApE)));
+            dataE.add(4, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totEngMarcheE.get())));
+            dataE.add(5, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", reliquatApE)));
+            dataE.add(6, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totPayeE.get())));
+            dataE.add(7, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", reliquatEngE)));
+            dataE.add(8, new SimpleStringProperty(tauxE + " %"));
+
+            data.add(dataE);
+
+            // V R D
+            List<StringProperty> dataV = new ArrayList<>();
+
+            double totalApV  = coutV + totAvnVS + totAvnVD;
+            double reliquatApV = totalApV - totEngMarcheV.get();
+            double reliquatEngV = totEngMarcheV.get() - totPayeV.get();
+            int tauxV = (int) ((totPayeV.get() * 100) / totEngMarcheV.get());
+
+            dataV.add(0, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", coutV)));
+            dataV.add(1, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totAvnVS)));
+            dataV.add(2, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totAvnVD)));
+            dataV.add(3, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totalApV)));
+            dataV.add(4, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totEngMarcheV.get())));
+            dataV.add(5, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", reliquatApV)));
+            dataV.add(6, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", totPayeV.get())));
+            dataV.add(7, new SimpleStringProperty(String.format(Locale.FRANCE, "%,.2f", reliquatEngV)));
+            dataV.add(8, new SimpleStringProperty(tauxV + " %"));
+
+            data.add(dataV);
 
         } catch (Exception e) {
             e.printStackTrace();
