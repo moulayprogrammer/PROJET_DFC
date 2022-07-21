@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class OrderPaimentOperation extends BDD<OrderePaiment>{
+public class OrderPaymentOperation extends BDD<OrderePaiment>{
 
     @Override
     public boolean insert(OrderePaiment o) {
@@ -58,7 +58,7 @@ public class OrderPaimentOperation extends BDD<OrderePaiment>{
     @Override
     public boolean delete(OrderePaiment o) {
         boolean del = false;
-        String query = "DELETE FROM `ORDRE_PAIEMENT` WHERE `ID` ? ";
+        String query = "DELETE FROM `ORDRE_PAIEMENT` WHERE `ID` =  ? ";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1,o.getId());

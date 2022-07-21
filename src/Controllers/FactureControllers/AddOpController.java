@@ -1,6 +1,6 @@
 package Controllers.FactureControllers;
 
-import BddPackage.OrderPaimentOperation;
+import BddPackage.OrderPaymentOperation;
 import Models.Facture;
 import Models.OrderePaiment;
 import javafx.fxml.FXML;
@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AddOpController implements Initializable {
@@ -24,7 +23,7 @@ public class AddOpController implements Initializable {
     CheckBox checkRG;
 
     private Facture facture;
-    private final OrderPaimentOperation operation = new OrderPaimentOperation();
+    private final OrderPaymentOperation operation = new OrderPaymentOperation();
 
     private double montantPaye,montantRG,montantFact;
 

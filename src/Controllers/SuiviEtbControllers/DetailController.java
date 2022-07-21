@@ -41,7 +41,7 @@ public class DetailController implements Initializable {
 
     private final OrganismeOperation organismeOperation = new OrganismeOperation();
     private final FactureOperation factureOperation = new FactureOperation();
-    private final OrderPaimentOperation orderPaimentOperation = new OrderPaimentOperation();
+    private final OrderPaymentOperation orderPaymentOperation = new OrderPaymentOperation();
     private int IdMar;
 
     private final ObservableList<List<StringProperty>> dataTable = FXCollections.observableArrayList();
@@ -181,7 +181,7 @@ public class DetailController implements Initializable {
         AtomicReference<Double> totPR = new AtomicReference<>((double) 0);
         AtomicReference<Double> totPaye = new AtomicReference<>((double) 0);
         factures.forEach(facture -> {
-            OrderePaiment orderePaiment = orderPaimentOperation.getByFacture(facture.getId());
+            OrderePaiment orderePaiment = orderPaymentOperation.getByFacture(facture.getId());
 
 
             if (orderePaiment.getNumero() != null) {
@@ -209,7 +209,7 @@ public class DetailController implements Initializable {
         AtomicReference<Double> totPR = new AtomicReference<>((double) 0);
         AtomicReference<Double> totPaye = new AtomicReference<>((double) 0);
         factures.forEach(facture -> {
-            OrderePaiment orderePaiment = orderPaimentOperation.getByFactureAndDate(facture.getId(),dateFrom,dateTo);
+            OrderePaiment orderePaiment = orderPaymentOperation.getByFactureAndDate(facture.getId(),dateFrom,dateTo);
 
 
             if (orderePaiment.getNumero() != null) {

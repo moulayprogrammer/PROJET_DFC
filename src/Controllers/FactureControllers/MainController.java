@@ -1,7 +1,7 @@
 package Controllers.FactureControllers;
 
 import BddPackage.FactureOperation;
-import BddPackage.OrderPaimentOperation;
+import BddPackage.OrderPaymentOperation;
 import Models.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -38,7 +38,7 @@ public class MainController implements Initializable {
     private MarConBc mar;
     private final ObservableList<List<StringProperty>> dataTable = FXCollections.observableArrayList();
     private final FactureOperation operation = new FactureOperation();
-    private final OrderPaimentOperation paimentOperation = new OrderPaimentOperation();
+    private final OrderPaymentOperation paimentOperation = new OrderPaymentOperation();
     private ArrayList<Facture> factures;
 
     @Override

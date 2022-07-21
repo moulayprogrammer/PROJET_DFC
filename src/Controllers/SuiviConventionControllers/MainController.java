@@ -2,12 +2,10 @@ package Controllers.SuiviConventionControllers;
 
 import BddPackage.*;
 import Controllers.ConventionControllers.SelectOrganismeController;
-import Controllers.SuiviEtbControllers.DetailController;
 import Models.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,10 +13,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -61,7 +56,7 @@ public class MainController implements Initializable {
     private final ConnectBD connectBD = new ConnectBD();
     private final AvnentOperation avnentOperation = new AvnentOperation();
     private final FactureOperation factureOperation = new FactureOperation();
-    private final OrderPaimentOperation orderPaimentOperation = new OrderPaimentOperation();
+    private final OrderPaymentOperation orderPaymentOperation = new OrderPaymentOperation();
     private Connection conn;
     private Organisme organisme;
 
@@ -164,7 +159,7 @@ public class MainController implements Initializable {
 
                             List<Facture> facturesR = factureOperation.getAllByConvention(new MarConBc(marConBc.getId()));
                             facturesR.forEach(facture -> {
-                                OrderePaiment orderePaiment = orderPaimentOperation.getByFacture(facture.getId());
+                                OrderePaiment orderePaiment = orderPaymentOperation.getByFacture(facture.getId());
                                 if (orderePaiment.getNumero() != null) {
                                     totPayeR.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
                                 }
@@ -181,7 +176,7 @@ public class MainController implements Initializable {
 
                             List<Facture> facturesE = factureOperation.getAllByConvention(new MarConBc(marConBc.getId()));
                             facturesE.forEach(facture -> {
-                                OrderePaiment orderePaiment = orderPaimentOperation.getByFacture(facture.getId());
+                                OrderePaiment orderePaiment = orderPaymentOperation.getByFacture(facture.getId());
                                 if (orderePaiment.getNumero() != null) {
                                     totPayeE.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
                                 }
@@ -198,7 +193,7 @@ public class MainController implements Initializable {
 
                             List<Facture> facturesV = factureOperation.getAllByConvention(new MarConBc(marConBc.getId()));
                             facturesV.forEach(facture -> {
-                                OrderePaiment orderePaiment = orderPaimentOperation.getByFacture(facture.getId());
+                                OrderePaiment orderePaiment = orderPaymentOperation.getByFacture(facture.getId());
                                 if (orderePaiment.getNumero() != null) {
                                     totPayeV.updateAndGet(v -> (double) (v + orderePaiment.getMontant()));
                                 }
@@ -439,7 +434,7 @@ public class MainController implements Initializable {
             AtomicReference<Double> totPaye = new AtomicReference<>((double) 0);
 
             factures.forEach(facture -> {
-                OrderePaiment orderePaiment = orderPaimentOperation.getByFacture(facture.getId());
+                OrderePaiment orderePaiment = orderPaymentOperation.getByFacture(facture.getId());
 
 
                 if (orderePaiment.getNumero() != null) {
@@ -479,7 +474,7 @@ public class MainController implements Initializable {
             AtomicReference<Double> totPaye = new AtomicReference<>((double) 0);
 
             factures.forEach(facture -> {
-                OrderePaiment orderePaiment = orderPaimentOperation.getByFactureAndDate(facture.getId(),dateFrom,dateTo);
+                OrderePaiment orderePaiment = orderPaymentOperation.getByFactureAndDate(facture.getId(),dateFrom,dateTo);
 
 
                 if (orderePaiment.getNumero() != null) {

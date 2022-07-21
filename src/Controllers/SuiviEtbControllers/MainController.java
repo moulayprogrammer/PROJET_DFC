@@ -45,7 +45,7 @@ public class MainController implements Initializable {
     private final ConnectBD connectBD = new ConnectBD();
     private final AvnentOperation avnentOperation = new AvnentOperation();
     private final FactureOperation factureOperation = new FactureOperation();
-    private final OrderPaimentOperation orderPaimentOperation = new OrderPaimentOperation();
+    private final OrderPaymentOperation orderPaymentOperation = new OrderPaymentOperation();
     private Connection conn;
     private Organisme organisme;
 
@@ -312,7 +312,7 @@ public class MainController implements Initializable {
             AtomicReference<Double> totPaye = new AtomicReference<>((double) 0);
 
             factures.forEach(facture -> {
-                OrderePaiment orderePaiment = orderPaimentOperation.getByFacture(facture.getId());
+                OrderePaiment orderePaiment = orderPaymentOperation.getByFacture(facture.getId());
 
 
                 if (orderePaiment.getNumero() != null) {
@@ -350,7 +350,7 @@ public class MainController implements Initializable {
             AtomicReference<Double> totPaye = new AtomicReference<>((double) 0);
 
             factures.forEach(facture -> {
-                OrderePaiment orderePaiment = orderPaimentOperation.getByFactureAndDate(facture.getId(),dateFrom,dateTo);
+                OrderePaiment orderePaiment = orderPaymentOperation.getByFactureAndDate(facture.getId(),dateFrom,dateTo);
 
 
                 if (orderePaiment.getNumero() != null) {

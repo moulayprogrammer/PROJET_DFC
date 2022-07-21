@@ -36,7 +36,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXPasswordField>
-      <JFXButton buttonType="RAISED" cancelButton="true" layoutX="196.0" layoutY="323.0" onAction="#ActionLogin" ripplerFill="#0bae1b" style="-fx-border-color: #0bae1b; -fx-background-color: #FFF; -fx-border-radius: 5; -fx-border-width: 1.5;" text="CONNEXION" textFill="#0bae1b">
+      <JFXButton buttonType="RAISED" defaultButton="true" layoutX="196.0" layoutY="323.0" onAction="#ActionLogin" ripplerFill="#0bae1b" style="-fx-border-color: #0bae1b; -fx-background-color: #FFF; -fx-border-radius: 5; -fx-border-width: 1.5;" text="CONNEXION" textFill="#0bae1b">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

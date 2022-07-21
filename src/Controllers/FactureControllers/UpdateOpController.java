@@ -1,6 +1,6 @@
 package Controllers.FactureControllers;
 
-import BddPackage.OrderPaimentOperation;
+import BddPackage.OrderPaymentOperation;
 import Models.Facture;
 import Models.OrderePaiment;
 import javafx.fxml.FXML;
@@ -24,7 +24,7 @@ public class UpdateOpController implements Initializable {
 
     private Facture facture;
     private OrderePaiment orderePaiment;
-    private final OrderPaimentOperation operation = new OrderPaimentOperation();
+    private final OrderPaymentOperation operation = new OrderPaymentOperation();
 
     private double montantPaye,montantRG,montantFact;
 

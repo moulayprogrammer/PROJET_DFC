@@ -20,11 +20,11 @@
                <center>
                   <TableView fx:id="programmeTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <columns>
-                      <TableColumn fx:id="codeColumn" prefWidth="120.0" text="Code" />
-                      <TableColumn fx:id="NomColumn" prefWidth="220.0" text="Intitulé" />
-                        <TableColumn fx:id="cdColumn" prefWidth="220.0" text="Convention cadre" />
-                        <TableColumn fx:id="nbLogtsColumn" prefWidth="220.0" text="Nombre LOGTS " />
-                        <TableColumn fx:id="dateColumn" prefWidth="220.0" text="Date inscription" />
+                      <TableColumn fx:id="codeColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Code" />
+                      <TableColumn fx:id="NomColumn" maxWidth="525.0000152587891" minWidth="250.0" prefWidth="525.0000152587891" text="Intitulé" />
+                        <TableColumn fx:id="cdColumn" maxWidth="488.0" minWidth="0.0" prefWidth="287.0" text="Convention cadre" />
+                        <TableColumn fx:id="nbLogtsColumn" maxWidth="374.0" minWidth="17.0" prefWidth="138.0" text="Nombre LOGTS " />
+                        <TableColumn fx:id="dateColumn" maxWidth="542.0" minWidth="100.0" prefWidth="191.0" text="Date inscription" />
                     </columns>
                   </TableView>
                </center>
