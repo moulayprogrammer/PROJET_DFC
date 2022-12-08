@@ -4,90 +4,16 @@
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ProgrammeControllers.UpdateController">
-   <content>
-      <AnchorPane prefHeight="493.0" prefWidth="550.0" style="-fx-background-color: #FFF;">
-         <children>
-            <HBox layoutX="14.0" layoutY="46.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0">
-               <children>
-                  <VBox prefWidth="200.0" spacing="30.0">
-                     <children>
-                        <Label prefHeight="25.0" text="Code">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="25.0" text="Intitulé">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="25.0" text="Convention Cadre">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="25.0" text="Nombre LOGTS">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="25.0" text="Date Inscription">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox layoutX="10.0" layoutY="10.0" prefWidth="200.0" spacing="30.0">
-                     <children>
-                        <TextField fx:id="tfCode" prefHeight="25.0" prefWidth="268.0" />
-                        <TextField fx:id="tfNom" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfCD" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfNbLogts" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfDate" prefHeight="26.0" prefWidth="268.0" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </AnchorPane>
-   </content>
+<DialogPane expanded="true" maxHeight="450.0" maxWidth="450.0" minHeight="450.0" minWidth="450.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="450.0" stylesheets="@../../resource/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ProgrammeControllers.UpdateController">
    <header>
-      <AnchorPane prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #EFF;">
+      <AnchorPane minHeight="50.0" prefHeight="50.0" style="-fx-background-color: #EFF;">
          <children>
-            <Button fx:id="btnUpdate" layoutX="645.0" layoutY="13.0" mnemonicParsing="false" onAction="#ActionUpdateSave" prefHeight="34.0" prefWidth="163.0" style="-fx-background-color: #FFF; -fx-border-color: #2005a8;" text="enregistrer" textFill="#2005a8" AnchorPane.rightAnchor="192.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Icons/Save.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button layoutX="833.0" layoutY="13.0" mnemonicParsing="false" onAction="#ActionAnnullerUpd" prefHeight="32.0" prefWidth="144.0" style="-fx-background-color: #FFF; -fx-border-color: #dd0000;" text="Annuler" textFill="#dd0000">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Icons/delete.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label layoutX="14.0" layoutY="19.0" text="Ajouter Programme">
+            <Label layoutX="26.0" layoutY="20.0" style="-fx-font-size: 22;" text="Ajouter Programme" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -95,4 +21,66 @@
          </children>
       </AnchorPane>
    </header>
+   <content>
+      <AnchorPane prefHeight="400.0" prefWidth="450.0" style="-fx-background-color: #FFF;">
+         <children>
+            <HBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <VBox prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Label layoutX="10.0" layoutY="10.0" prefHeight="25.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Code">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="25.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Intitulé">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" prefHeight="25.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Convention Cadre">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="194.0" prefHeight="25.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Nombre LOGTS">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="243.0" prefHeight="25.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Année Inscription">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" prefWidth="200.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <TextField fx:id="tfCode" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="29.0" />
+                        <TextField fx:id="tfNom" maxWidth="1.7976931348623157E308" prefHeight="29.0" VBox.vgrow="ALWAYS" />
+                     <TextField fx:id="tfCD" maxWidth="1.7976931348623157E308" prefHeight="29.0" VBox.vgrow="ALWAYS" />
+                        <TextField fx:id="tfNbLogts" layoutX="10.0" layoutY="56.0" maxWidth="1.7976931348623157E308" prefHeight="29.0" VBox.vgrow="ALWAYS" />
+                        <TextField fx:id="tfDate" layoutX="10.0" layoutY="157.0" maxWidth="1.7976931348623157E308" prefHeight="29.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="10.0">
+               <children>
+                  <Button fx:id="btnUpdate" defaultButton="true" mnemonicParsing="false" onAction="#ActionUpdateSave" prefWidth="120.0" style="-fx-font-size: 14;" styleClass="primary" text="enregistrer" textFill="#2005a8">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button cancelButton="true" mnemonicParsing="false" onAction="#ActionAnnullerUpd" prefWidth="120.0" style="-fx-font-size: 14;" styleClass="danger" text="Annuler" textFill="#dd0000">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </content>
 </DialogPane>

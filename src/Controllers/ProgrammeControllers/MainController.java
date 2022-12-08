@@ -12,8 +12,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -62,12 +65,24 @@ public class MainController implements Initializable {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            closeButton.setVisible(false);
             dialog.showAndWait();
 
             refresh();
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void tableClick(MouseEvent mouseEvent) {
+        if ( mouseEvent.getClickCount() == 2 && mouseEvent.getButton().equals(MouseButton.PRIMARY) ){
+
+            ActionUpdate();
         }
     }
 
@@ -83,6 +98,10 @@ public class MainController implements Initializable {
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(temp);
                 dialog.resizableProperty().setValue(false);
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                closeButton.setVisible(false);
                 dialog.showAndWait();
                 refresh();
 
@@ -93,6 +112,7 @@ public class MainController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("Veuillez choisir le programme pour modifier");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
@@ -108,6 +128,7 @@ public class MainController implements Initializable {
                 Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
                 alertConfirmation.setHeaderText("Confirmer l'archivation");
                 alertConfirmation.setContentText("Êtes-vous sûr de vouloir archiver le programme numéro : "+programmeDelete.getCode() );
+                alertConfirmation.initOwner(this.tfRecherche.getScene().getWindow());
                 Button okButton = (Button) alertConfirmation.getDialogPane().lookupButton(ButtonType.OK);
                 okButton.setText("D'accord");
 
@@ -130,6 +151,7 @@ public class MainController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("Veuillez choisir le programme pour archiver");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
@@ -145,6 +167,7 @@ public class MainController implements Initializable {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
             dialog.showAndWait();
 
             refresh();
@@ -188,7 +211,7 @@ public class MainController implements Initializable {
                 return true;
             } else if (String.valueOf(programme.getNombreLogts()).contains(txtRecherche)) {
                 return true;
-            } else return programme.getDateInscription().contains(txtRecherche);
+            } else return programme.getDateInscription().toString().contains(txtRecherche);
         });
 
         SortedList<Programme> sortedList = new SortedList<>(filteredData);

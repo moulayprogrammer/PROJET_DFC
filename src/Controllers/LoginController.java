@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -43,6 +44,7 @@ public class LoginController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("Veuillez remplir les champs vides");
+            alertWarning.initOwner(this.tfUser.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
@@ -60,6 +62,7 @@ public class LoginController implements Initializable {
                 Scene scene = new Scene(temp);
                 stage.setScene(scene);
                 stage.setMaximized(true);
+                stage.getIcons().add(new Image("Icons/logo.png"));
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -70,6 +73,7 @@ public class LoginController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("le nom d'utilisateur ou le mot de passe est erroné");
+            alertWarning.initOwner(this.tfUser.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.show();

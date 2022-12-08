@@ -1,5 +1,7 @@
 package Models;
 
+import java.time.LocalDateTime;
+
 public class Programme {
 
     private int id;
@@ -8,12 +10,15 @@ public class Programme {
     private int nombreLogts;
     private String numeroCD;
     private String dateInscription;
+    private LocalDateTime addDate;
+    private LocalDateTime updateDate;
+
 
     public Programme() {
     }
 
-    public Programme(int id, String nomProgramme, int nombreLogts, String numeroCD, String dateInscription) {
-        this.id = id;
+    public Programme(String code, String nomProgramme, int nombreLogts, String numeroCD, String dateInscription) {
+        this.code = code;
         this.nomProgramme = nomProgramme;
         this.nombreLogts = nombreLogts;
         this.numeroCD = numeroCD;
@@ -27,6 +32,17 @@ public class Programme {
         this.nombreLogts = nombreLogts;
         this.numeroCD = numeroCD;
         this.dateInscription = dateInscription;
+    }
+
+    public Programme(int id, String code, String nomProgramme, int nombreLogts, String numeroCD, String dateInscription, LocalDateTime addDate, LocalDateTime updateDate) {
+        this.id = id;
+        this.code = code;
+        this.nomProgramme = nomProgramme;
+        this.nombreLogts = nombreLogts;
+        this.numeroCD = numeroCD;
+        this.dateInscription = dateInscription;
+        this.addDate = addDate;
+        this.updateDate = updateDate;
     }
 
     public int getId() {
@@ -75,5 +91,21 @@ public class Programme {
 
     public void setDateInscription(String dateInscription) {
         this.dateInscription = dateInscription;
+    }
+
+    public LocalDateTime getAddDate() {
+        return addDate;
+    }
+
+    public void setAddDate(LocalDateTime addDate) {
+        this.addDate = addDate;
+    }
+
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
     }
 }

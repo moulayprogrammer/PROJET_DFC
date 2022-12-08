@@ -11,9 +11,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="680.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginController">
    <children>
-      <Label layoutX="61.0" layoutY="41.0" prefHeight="67.0" prefWidth="558.0" text="connexion à votre compte">
+      <Label layoutX="61.0" layoutY="41.0" prefHeight="67.0" prefWidth="558.0" text="connexion à votre compte" textFill="#545454">
          <font>
-            <Font name="Loma Bold" size="45.0" />
+            <Font name="NewUnicodeFont" size="37.0" />
          </font>
       </Label>
       <ImageView fitHeight="29.0" fitWidth="33.0" layoutX="60.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true">
@@ -36,19 +36,19 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXPasswordField>
-      <JFXButton buttonType="RAISED" defaultButton="true" layoutX="196.0" layoutY="323.0" onAction="#ActionLogin" ripplerFill="#0bae1b" style="-fx-border-color: #0bae1b; -fx-background-color: #FFF; -fx-border-radius: 5; -fx-border-width: 1.5;" text="CONNEXION" textFill="#0bae1b">
+      <JFXButton buttonType="RAISED" defaultButton="true" layoutX="202.0" layoutY="323.0" onAction="#ActionLogin" ripplerFill="#0bae1b" style="-fx-border-color: #0bae1b; -fx-background-color: #FFF; -fx-border-radius: 5; -fx-border-width: 1.5;" text="CONNEXION" textFill="#0bae1b">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="NewUnicodeFont" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" cancelButton="true" layoutX="56.0" layoutY="323.0" onAction="#ActionAnnuler" ripplerFill="#e0131a" style="-fx-border-color: #e0131a; -fx-background-color: #FFF; -fx-border-radius: 5; -fx-border-width: 1.5;" text="ANNULER" textFill="#e0131a">
+      <JFXButton buttonType="RAISED" cancelButton="true" layoutX="75.0" layoutY="323.0" onAction="#ActionAnnuler" ripplerFill="#e0131a" style="-fx-border-color: #e0131a; -fx-background-color: #FFF; -fx-border-radius: 5; -fx-border-width: 1.5;" text="ANNULER" textFill="#e0131a">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="NewUnicodeFont" size="15.0" />
          </font>
       </JFXButton>
-      <ImageView fitHeight="206.0" fitWidth="156.0" layoutX="449.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="209.0" fitWidth="227.0" layoutX="411.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Icons/logo_opgi.png" />
+            <Image url="@../Icons/logo.png" />
          </image>
       </ImageView>
    </children>

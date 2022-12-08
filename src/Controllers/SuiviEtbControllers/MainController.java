@@ -258,7 +258,9 @@ public class MainController implements Initializable {
                 controller.Init(data);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(temp));
-                stage.resizableProperty().setValue(false);
+//                stage.resizableProperty().setValue(false);
+                stage.initOwner(this.tfRecherche.getScene().getWindow());
+                stage.setMaximized(true);
                 stage.show();
 
 

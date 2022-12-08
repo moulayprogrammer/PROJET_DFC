@@ -72,6 +72,7 @@ public class MainController implements Initializable {
             SelectProjetController controller = loader.getController();
             controller.Init(this.projet);
             javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
             dialog.showAndWait();
@@ -101,6 +102,7 @@ public class MainController implements Initializable {
                 AddController controller = loader.getController();
                 controller.Init(this.projet);
                 javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
                 dialog.setDialogPane(temp);
                 dialog.resizableProperty().setValue(false);
                 dialog.showAndWait();
@@ -114,6 +116,7 @@ public class MainController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("svp sélectionner un projet");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
@@ -131,6 +134,7 @@ public class MainController implements Initializable {
                 UpdateController controller = loader.getController();
                 controller.Init(convention);
                 javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
                 dialog.setDialogPane(temp);
                 dialog.resizableProperty().setValue(false);
                 dialog.showAndWait();
@@ -145,6 +149,7 @@ public class MainController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("svp sélectionner un convention");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
@@ -160,6 +165,7 @@ public class MainController implements Initializable {
             Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
             alertConfirmation.setHeaderText("Confirmer l'archivation");
             alertConfirmation.setContentText("Êtes-vous sûr de vouloir archiver la convention ");
+            alertConfirmation.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertConfirmation.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("D'accord");
 
@@ -181,6 +187,7 @@ public class MainController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("svp sélectionner une convention pour archiver");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
@@ -195,6 +202,7 @@ public class MainController implements Initializable {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
             dialog.showAndWait();
 
             if (tfProjet.getText().isEmpty()) refresh();
@@ -219,6 +227,7 @@ public class MainController implements Initializable {
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(temp);
                 dialog.resizableProperty().setValue(false);
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
                 dialog.showAndWait();
 
                 if (tfProjet.getText().isEmpty()) refresh();
@@ -231,6 +240,7 @@ public class MainController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("svp sélectionner un Convention");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
@@ -251,6 +261,7 @@ public class MainController implements Initializable {
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(temp);
                 dialog.resizableProperty().setValue(false);
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
                 dialog.showAndWait();
 
                 if (tfProjet.getText().isEmpty()) refresh();
@@ -263,6 +274,7 @@ public class MainController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("svp sélectionner un Convention");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();

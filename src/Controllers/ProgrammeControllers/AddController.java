@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class AddController implements Initializable {
@@ -39,7 +40,7 @@ public class AddController implements Initializable {
         String nom = tfNom.getText().trim();
         String cd = tfCD.getText().trim();
         String nbLogts = tfNbLogts.getText().trim();
-        String date = tfDate.getText().trim();
+        String  date = tfDate.getText().trim();
 
         if (!code.isEmpty() && !nom.isEmpty() && !cd.isEmpty() && ! nbLogts.isEmpty() && !date.isEmpty()){
 
@@ -49,12 +50,14 @@ public class AddController implements Initializable {
             programme.setNombreLogts(Integer.parseInt(nbLogts));
             programme.setNumeroCD(cd);
             programme.setDateInscription(date);
+
             boolean ins = insert(programme);
             if (ins) closeDialog(btnInsert);
             else {
                 Alert alertWarning = new Alert(Alert.AlertType.WARNING);
                 alertWarning.setHeaderText("Attention ");
                 alertWarning.setContentText("un erreur inconnue");
+                alertWarning.initOwner(this.btnInsert.getScene().getWindow());
                 Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
                 okButton.setText("d'accord");
                 alertWarning.showAndWait();
@@ -63,6 +66,7 @@ public class AddController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("Veuillez remplir les champs vides");
+            alertWarning.initOwner(this.btnInsert.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();

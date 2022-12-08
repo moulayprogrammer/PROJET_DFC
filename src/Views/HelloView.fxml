@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="349.0" fitWidth="338.0" opacity="0.18" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Icons/logo_opgi.png" />
+            <Image url="@../Icons/logo.png" />
          </image>
       </ImageView>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">

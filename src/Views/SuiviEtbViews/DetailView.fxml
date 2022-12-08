@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="1120.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SuiviEtbControllers.DetailController">
+<BorderPane prefHeight="700.0" prefWidth="1120.0" style="-fx-background-color: #FFF;" stylesheets="@../../resource/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SuiviEtbControllers.DetailController">
      <top>
          <AnchorPane prefHeight="182.0" prefWidth="1120.0" style="-fx-background-color: #FFF;">
                  <children>
@@ -23,86 +23,118 @@
                              <Font name="System Bold" size="11.0" />
                          </font>
                      </Label>
-                     <Label layoutX="14.0" layoutY="20.0" text="Projet">
-                         <font>
-                             <Font name="System Bold" size="14.0" />
-                         </font>
-                     </Label>
-                     <TextField fx:id="tfProjet" disable="true" layoutX="77.0" layoutY="16.0" prefHeight="26.0" prefWidth="385.0">
-                         <font>
-                             <Font name="System Bold" size="12.0" />
-                         </font>
-                     </TextField>
-                     <Label layoutX="482.0" layoutY="19.0" text="Convention Financment N°">
-                         <font>
-                             <Font name="System Bold" size="14.0" />
-                         </font>
-                     </Label>
-                     <TextField fx:id="tfCF" disable="true" layoutX="707.0" layoutY="16.0" prefHeight="26.0" prefWidth="385.0">
-                         <font>
-                             <Font name="System Bold" size="12.0" />
-                         </font>
-                     </TextField>
-                     <Label layoutX="14.0" layoutY="60.0" text="ETB">
-                         <font>
-                             <Font name="System Bold" size="14.0" />
-                         </font>
-                     </Label>
-                     <TextField fx:id="tfEtb" disable="true" layoutX="77.0" layoutY="56.0" prefHeight="26.0" prefWidth="385.0">
-                         <font>
-                             <Font name="System Bold" size="12.0" />
-                         </font>
-                     </TextField>
-                     <Label layoutX="482.0" layoutY="59.0" text="Marché ou Convention N°">
-                         <font>
-                             <Font name="System Bold" size="14.0" />
-                         </font>
-                     </Label>
-                     <TextField fx:id="tfMarche" disable="true" layoutX="707.0" layoutY="56.0" prefHeight="26.0" prefWidth="385.0">
-                         <font>
-                             <Font name="System Bold" size="12.0" />
-                         </font>
-                     </TextField>
-            <Label layoutX="15.0" layoutY="106.0" text="Montant Marché">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="tfMontantMarche" disable="true" layoutX="14.0" layoutY="142.0" prefHeight="26.0" prefWidth="235.0">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </TextField>
-                  <Label layoutX="336.0" layoutY="105.0" text="Total Avenant SUP">
+            <VBox layoutX="14.0" layoutY="20.0" spacing="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+               <children>
+                  <HBox spacing="20.0">
+                     <children>
+                                 <Label prefWidth="70.0" text="Projet">
+                                     <font>
+                                         <Font name="System Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <TextField fx:id="tfProjet" disable="true" prefHeight="26.0" prefWidth="385.0">
+                                     <font>
+                                         <Font name="System Bold" size="12.0" />
+                                     </font>
+                                 </TextField>
+                                 <Label prefWidth="200.0" text="Convention Financment N°">
+                                     <font>
+                                         <Font name="System Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <TextField fx:id="tfCF" disable="true" maxWidth="1.7976931348623157E308" prefHeight="26.0" HBox.hgrow="ALWAYS">
+                                     <font>
+                                         <Font name="System Bold" size="12.0" />
+                                     </font>
+                                 </TextField>
+                     </children>
+                  </HBox>
+                  <HBox spacing="20.0">
+                     <children>
+                                 <Label prefWidth="70.0" text="ETB">
+                                     <font>
+                                         <Font name="System Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <TextField fx:id="tfEtb" disable="true" prefHeight="26.0" prefWidth="385.0">
+                                     <font>
+                                         <Font name="System Bold" size="12.0" />
+                                     </font>
+                                 </TextField>
+                                 <Label prefWidth="200.0" text="Marché ou Convention N°">
+                                     <font>
+                                         <Font name="System Bold" size="14.0" />
+                                     </font>
+                                 </Label>
+                                 <TextField fx:id="tfMarche" disable="true" maxWidth="1.7976931348623157E308" prefHeight="26.0" HBox.hgrow="ALWAYS">
+                                     <font>
+                                         <Font name="System Bold" size="12.0" />
+                                     </font>
+                                 </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox layoutX="15.0" layoutY="106.0">
+               <children>
+                  <Label text="Montant Marché">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfTotalAvnSup" disable="true" layoutX="336.0" layoutY="142.0" prefHeight="26.0" prefWidth="235.0">
+                  <TextField fx:id="tfMontantMarche" disable="true" prefHeight="26.0" prefWidth="235.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </TextField>
-                  <ImageView fitHeight="21.0" fitWidth="23.0" layoutX="547.0" layoutY="102.0" onMousePressed="#ListAvenantSup" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Icons/apercu.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="665.0" layoutY="104.0" text="Total Avenant DEM">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfTotAvnDem" disable="true" layoutX="665.0" layoutY="142.0" prefHeight="26.0" prefWidth="235.0">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </TextField>
-                  <ImageView fitHeight="21.0" fitWidth="23.0" layoutX="869.0" layoutY="102.0" onMousePressed="#ListAvenantDem" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Icons/apercu.png" />
-                     </image>
-                  </ImageView>
+               </children>
+            </VBox>
+            <VBox layoutX="336.0" layoutY="105.0">
+               <children>
+                  <HBox>
+                     <children>
+                              <Label text="Total Avenant SUP" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="21.0" fitWidth="23.0" onMousePressed="#ListAvenantSup" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/apercu.png" />
+                                 </image>
+                              </ImageView>
+                     </children>
+                  </HBox>
+                        <TextField fx:id="tfTotalAvnSup" disable="true" prefHeight="26.0" prefWidth="235.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </TextField>
+               </children>
+            </VBox>
+            <VBox layoutX="665.0" layoutY="104.0">
+               <children>
+                  <HBox>
+                     <children>
+                              <Label text="Total Avenant DEM">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="21.0" fitWidth="23.0" onMousePressed="#ListAvenantDem" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/apercu.png" />
+                                 </image>
+                              </ImageView>
+                     </children>
+                  </HBox>
+                        <TextField fx:id="tfTotAvnDem" disable="true" prefHeight="26.0" prefWidth="235.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </TextField>
+               </children>
+            </VBox>
                  </children>
              </AnchorPane>
      </top>
@@ -154,7 +186,7 @@
                           <Font name="System Bold" size="13.0" />
                        </font>
                     </Label>
-                        <TextField fx:id="tfRecherche" prefHeight="26.0" prefWidth="386.0">
+                        <TextField fx:id="tfRecherche" prefHeight="26.0" prefWidth="398.0">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
