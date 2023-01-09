@@ -41,7 +41,7 @@
             <Font name="NewUnicodeFont" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" cancelButton="true" layoutX="75.0" layoutY="323.0" onAction="#ActionAnnuler" ripplerFill="#e0131a" style="-fx-border-color: #e0131a; -fx-background-color: #FFF; -fx-border-radius: 5; -fx-border-width: 1.5;" text="ANNULER" textFill="#e0131a">
+      <JFXButton buttonType="RAISED" cancelButton="true" layoutX="75.0" layoutY="323.0"  ripplerFill="#e0131a" style="-fx-border-color: #e0131a; -fx-background-color: #FFF; -fx-border-radius: 5; -fx-border-width: 1.5;" text="ANNULER" textFill="#e0131a">
          <font>
             <Font name="NewUnicodeFont" size="15.0" />
          </font>

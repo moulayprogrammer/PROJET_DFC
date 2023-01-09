@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class    LoginController implements Initializable {
 
     @FXML
     TextField tfUser;
@@ -28,7 +28,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void ActionAnnuler(){
+    private void ActionAnnular(){
         ((Stage)tfUser.getScene().getWindow()).close();
     }
 
@@ -67,7 +67,7 @@ public class LoginController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ActionAnnuler();
+            ActionAnnular();
         }
         else {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
