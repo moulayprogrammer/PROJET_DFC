@@ -127,7 +127,7 @@
                   </VBox>
                   <HBox spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <Button fx:id="btnInsert1" defaultButton="true" mnemonicParsing="false" onAction="#ActionInsert" prefWidth="120.0" style="-fx-font-size: 14;" styleClass="primary" text="Enregistrer" textFill="#2005a8">
+                        <Button fx:id="btnInsert" defaultButton="true" mnemonicParsing="false" onAction="#ActionInsert" prefWidth="120.0" style="-fx-font-size: 14;" styleClass="primary" text="Enregistrer" textFill="#2005a8">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
