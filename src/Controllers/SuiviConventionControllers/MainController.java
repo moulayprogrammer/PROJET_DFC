@@ -108,7 +108,6 @@ public class MainController implements Initializable {
         reliquatEngV.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(3).get(7).getValue()));
         tauxV.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(3).get(8).getValue()));
 
-
         refresh();
     }
 

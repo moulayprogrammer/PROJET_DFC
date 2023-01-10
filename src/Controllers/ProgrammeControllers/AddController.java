@@ -15,11 +15,11 @@ import java.util.ResourceBundle;
 public class AddController implements Initializable {
 
     @FXML
-    TextField tfCode,tfNom,tfCD,tfNbLogts,tfDate;
+    TextField tfCode,tfCD,tfNbLogts,tfDate;
+    @FXML
+    TextArea tfNom;
     @FXML
     Button btnInsert;
-
-
 
     private final ProgrammeOperation operation = new ProgrammeOperation();
 

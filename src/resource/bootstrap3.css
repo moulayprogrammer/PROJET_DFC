@@ -3,11 +3,15 @@
     src: url('HSDream-Regular.otf');
 }
 
+@font-face {
+    font-family: HSDream-Bold;
+    src: url('HSDream-Bold.otf');
+}
+
 .root {
 	-fx-body-color : #F5F5F5;
 	-fx-outer-border : #cecece;
     -fx-font-family: 'HSDream-Regular' ;
-
 }
 
 /*.button:focused, .toggle-button:focused,
@@ -811,14 +815,14 @@ VBox > .split-menu-button.last > .arrow-button {
 }
 
 .filler,.column-header,.show-hide-columns-button {
-	-fx-background-color: #dddddd, white, white;
-
+	-fx-background-color: #dddddd , white, white;
 }
+
 .show-hide-columns-button {
 	-fx-border-width: 0;
 	-fx-background-insets: 0 0 1 1;
-
 }
+
 .column-header:hover,.show-hide-columns-button:hover {
 	-fx-background-color: #dddddd, white, #f8f8f8;
 

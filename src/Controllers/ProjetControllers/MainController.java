@@ -16,6 +16,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 
 import java.io.IOException;
@@ -106,6 +107,7 @@ public class MainController implements Initializable {
         String ProgrammeSelected = tfProgramme.getText().trim();
         if (!ProgrammeSelected.isEmpty()) {
             try {
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/AddView.fxml"));
                 DialogPane temp = loader.load();
                 AddController controller = loader.getController();
@@ -113,6 +115,10 @@ public class MainController implements Initializable {
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(temp);
                 dialog.resizableProperty().setValue(false);
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                closeButton.setVisible(false);
                 dialog.showAndWait();
 
                 refreshByProgramme(programmeSelected.getId());

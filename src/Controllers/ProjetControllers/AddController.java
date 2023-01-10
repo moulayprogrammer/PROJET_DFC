@@ -16,8 +16,9 @@ import java.util.ResourceBundle;
 public class AddController implements Initializable {
 
     @FXML
-    TextField  tfProg, tfNom, tfsite, tfCF, tfNbLogts, tfCoutRea, tfCoutEtu, tfCoutVrd,tfDate;
-
+    TextField   tfsite, tfCF, tfNbLogts, tfCoutRea, tfCoutEtu, tfCoutVrd,tfDate;
+    @FXML
+    TextArea tfProg, tfNom;
 
     private Programme programmeSelected;
     private final ProjetOperation operation = new ProjetOperation();

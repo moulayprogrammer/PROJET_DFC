@@ -13,11 +13,13 @@ import java.util.ResourceBundle;
 public class UpdateController implements Initializable {
 
     @FXML
-    TextField tfCode,tfNom,tfCD,tfNbLogts,tfDate;
+    TextField tfCode,tfCD,tfNbLogts,tfDate;
+    @FXML
+    TextArea tfNom;
     @FXML
     Button btnUpdate;
 
-    private ProgrammeOperation operation = new ProgrammeOperation();
+    private final ProgrammeOperation operation = new ProgrammeOperation();
     private Programme programmeUpdate;
 
     @Override

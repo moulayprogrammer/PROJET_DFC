@@ -72,6 +72,7 @@ public class MainController implements Initializable {
         Ecart.setCellValueFactory(data -> data.getValue().get(14));
         TauxCons.setCellValueFactory(data -> data.getValue().get(15));
 
+
         refresh();
     }
 

@@ -1,124 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane expanded="true" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ProjetControllers.AddController">
-   <content>
-      <AnchorPane prefHeight="493.0" prefWidth="550.0" style="-fx-background-color: #FFF;">
-         <children>
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="250.0" spacing="30.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Label prefHeight="26.0" text="Programme">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="26.0" text="Intitulé">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="26.0" text="Site">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="26.0" text="Convention Financial">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="26.0" text="Nombre LOGTS">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="10.0" layoutY="234.0" prefHeight="26.0" text="Date Inscription">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="26.0" text="Cout Realisation">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="26.0" text="Cout Etud">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="26.0" text="Cout VRD">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <HBox.margin>
-                        <Insets left="20.0" top="20.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="300.0" spacing="30.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <TextField fx:id="tfProg" disable="true" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfNom" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfsite" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfCF" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfNbLogts" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfDate" layoutX="10.0" layoutY="422.0" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfCoutRea" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfCoutEtu" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfCoutVrd" prefHeight="26.0" prefWidth="268.0" />
-                     </children>
-                     <padding>
-                        <Insets right="10.0" top="20.0" />
-                     </padding>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </AnchorPane>
-   </content>
+<DialogPane expanded="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="440.0" prefWidth="900.0" stylesheets="@../../resource/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ProjetControllers.AddController">
    <header>
-      <AnchorPane prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #EFF;">
+      <AnchorPane minHeight="50.0" prefHeight="50.0" style="-fx-background-color: #EFF;">
          <children>
-            <Button fx:id="btnInsert" defaultButton="true" layoutX="645.0" layoutY="13.0" mnemonicParsing="false" onAction="#ActionInsert" prefHeight="34.0" prefWidth="163.0" style="-fx-background-color: #FFF; -fx-border-color: #2005a8;" text="enregistrer" textFill="#2005a8" AnchorPane.rightAnchor="192.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Icons/Save.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button cancelButton="true" layoutX="833.0" layoutY="13.0" mnemonicParsing="false" onAction="#ActionAnnulerAdd" prefHeight="32.0" prefWidth="144.0" style="-fx-background-color: #FFF; -fx-border-color: #dd0000;" text="Annuler" textFill="#dd0000">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Icons/delete.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label layoutX="14.0" layoutY="19.0" text="Ajouter Projet">
+            <Label layoutX="26.0" layoutY="20.0" style="-fx-font-size: 22;" text="Ajouter Projet" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -126,4 +22,126 @@
          </children>
       </AnchorPane>
    </header>
+   <content>
+      <HBox spacing="20.0" style="-fx-background-color: #FFF;">
+         <children>
+            <VBox prefWidth="450.0" spacing="20.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="160.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Programme">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="tfProg" disable="true" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="65.0" prefRowCount="3" prefWidth="200.0" style="-fx-font-size: 14;" wrapText="true" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="160.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Intitulé" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="tfNom" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="65.0" prefRowCount="3" prefWidth="200.0" wrapText="true" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="160.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Site">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     <TextField fx:id="tfsite" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="160.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Convention Financial">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfCF" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="160.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Date Inscription">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfDate" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="160.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Nombre LOGTS">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfNbLogts" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="370.0" prefWidth="450.0" style="-fx-background-color: #FFF;">
+               <children>
+                  <VBox prefWidth="200.0" spacing="20.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox>
+                           <children>
+                              <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Cout Realisation">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfCoutRea" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Cout Suivi + Etud ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfCoutEtu" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Cout VRD">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfCoutVrd" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Button fx:id="btnInsert1" defaultButton="true" mnemonicParsing="false" onAction="#ActionInsert" prefWidth="120.0" style="-fx-font-size: 14;" styleClass="primary" text="Enregistrer" textFill="#2005a8">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button cancelButton="true" mnemonicParsing="false" onAction="#ActionAnnulerAdd" prefWidth="120.0" style="-fx-font-size: 14;" styleClass="danger" text="Annuler" textFill="#dd0000">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </content>
 </DialogPane>
