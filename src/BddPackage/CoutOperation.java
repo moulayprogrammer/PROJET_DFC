@@ -29,14 +29,11 @@ public class CoutOperation extends BDD<Cout>{
     @Override
     public boolean update(Cout o, Cout o2) {
         boolean upd = false;
-        String query = "UPDATE `COUT` SET `ID_PROJET`= ?,`TYPE`= ?,`MONTANT`= ? " +
-                "WHERE `ID` = ? ";
+        String query = "UPDATE `COUT` SET `MONTANT`= ? WHERE `ID` = ? ";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setInt(1,o.getIdProjet());
-            preparedStmt.setString(2,o.getType());
-            preparedStmt.setDouble(3,o.getMontant());
-            preparedStmt.setInt(4,o2.getId());
+            preparedStmt.setDouble(1,o.getMontant());
+            preparedStmt.setInt(2,o2.getId());
             int update = preparedStmt.executeUpdate();
             if(update != -1) upd = true;
         } catch (SQLException e) {

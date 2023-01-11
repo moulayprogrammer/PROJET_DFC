@@ -91,7 +91,7 @@
                <children>
                   <HBox spacing="20.0">
                      <children>
-                        <ImageView fitHeight="30.0" fitWidth="26.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="26.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#ActionAddAvnant" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../Icons/invoiceAdd.png" />
                            </image>
@@ -103,7 +103,7 @@
                   </HBox>
                   <HBox layoutX="10.0" layoutY="10.0" spacing="18.0">
                      <children>
-                        <ImageView fitHeight="31.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="31.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#ActionListAvnant">
                            <image>
                               <Image url="@../../Icons/invoice.png" />
                            </image>
@@ -178,7 +178,7 @@
       </HBox>
    </top>
    <center>
-      <TableView fx:id="tvProjet" prefHeight="200.0" prefWidth="200.0" styleClass="container-table" BorderPane.alignment="CENTER">
+      <TableView fx:id="tvProjet" onMouseClicked="#tableClick" prefHeight="200.0" prefWidth="200.0" styleClass="container-table" BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="199.99996948242188" text="id" visible="false" />
             <TableColumn fx:id="NomColumn" prefWidth="199.99996948242188" text="Intitulé" />

@@ -16,8 +16,9 @@ import java.util.ResourceBundle;
 
 public class UpdateController implements Initializable {
     @FXML
-    TextField tfNom, tfsite, tfCF, tfNbLogts, tfCoutRea, tfCoutEtu, tfCoutVrd,tfDate;
-
+    TextField  tfsite, tfCF, tfNbLogts, tfCoutRea, tfCoutEtu, tfCoutVrd,tfDate;
+    @FXML
+    TextArea tfNom;
 
 
     private Projet projet;
@@ -71,9 +72,9 @@ public class UpdateController implements Initializable {
 
             boolean upd = update(projet,this.projet);
 
-            Cout coutRR = coutOperation.getCoutByProjet(projet.getId(), "REALISATION");
-            Cout coutEE = coutOperation.getCoutByProjet(projet.getId(), "ETUDE");
-            Cout coutVV = coutOperation.getCoutByProjet(projet.getId(), "VRD");
+            Cout coutRR = coutOperation.getCoutByProjet(this.projet.getId(), "REALISATION");
+            Cout coutEE = coutOperation.getCoutByProjet(this.projet.getId(), "ETUDE");
+            Cout coutVV = coutOperation.getCoutByProjet(this.projet.getId(), "VRD");
 
             coutRR.setMontant(Double.parseDouble(coutR)); update(coutRR,coutRR);
             coutEE.setMontant(Double.parseDouble(coutE)); update(coutEE,coutEE);

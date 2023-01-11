@@ -35,7 +35,6 @@ public class AddController implements Initializable {
         this.programmeSelected = programme;
     }
 
-
     @FXML
     private void ActionAnnulerAdd() {
         ((Stage)tfProg.getScene().getWindow()).close();
@@ -52,8 +51,7 @@ public class AddController implements Initializable {
         String coutE = tfCoutEtu.getText().trim();
         String coutVR = tfCoutVrd.getText().trim();
         String date = tfDate.getText();
-
-
+        
         if (!site.isEmpty() && !nom.isEmpty() && !cf.isEmpty() && !nbLogts.isEmpty() && !date.isEmpty()) {
 
             Projet projet = new Projet();
@@ -67,6 +65,7 @@ public class AddController implements Initializable {
             boolean ins = insert(projet);
             if (ins) {
                 int idProject = operation.getLastAddId();
+
                 if (!coutR.isEmpty()) {
                     addCout(idProject,"REALISATION",Double.parseDouble(coutR));
                 } else {
@@ -124,12 +123,12 @@ public class AddController implements Initializable {
         cout.setMontant(montant);
         insert(cout);
     }
+
     private void insert(Cout cout){
         try {
             coutOperation.insert(cout);
         }catch (Exception e){
             e.printStackTrace();
-
         }
     }
 

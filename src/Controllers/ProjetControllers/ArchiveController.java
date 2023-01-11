@@ -15,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -65,6 +67,13 @@ public class ArchiveController implements Initializable {
         ((Stage)tfRecherche.getScene().getWindow()).close();
     }
 
+    @FXML
+    private void tableClick(MouseEvent mouseEvent) {
+        if ( mouseEvent.getClickCount() == 2 && mouseEvent.getButton().equals(MouseButton.PRIMARY) ){
+
+            ActionDeleteFromArchive();
+        }
+    }
     @FXML
     private void ActionDeleteFromArchive(){
         ProjetTable projetArchived = tvProjet.getSelectionModel().getSelectedItem();

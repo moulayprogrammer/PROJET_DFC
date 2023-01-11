@@ -58,12 +58,12 @@
             </TableView>
             <HBox alignment="CENTER_RIGHT" spacing="20.0">
                <children>
-                  <Button fx:id="btnInsert" mnemonicParsing="false" onMousePressed="#ActionDeleteFromArchive" prefHeight="34.0" prefWidth="140.0" styleClass="info" text="Désarchiver" textFill="#2005a8">
+                  <Button fx:id="btnInsert" defaultButton="true" mnemonicParsing="false" onMousePressed="#ActionDeleteFromArchive" prefHeight="34.0" prefWidth="140.0" styleClass="info" text="Désarchiver" textFill="#2005a8">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onMousePressed="#ActionAnnuler" prefHeight="32.0" prefWidth="140.0" styleClass="warning" text="Annuler" textFill="#dd0000">
+                  <Button cancelButton="true" mnemonicParsing="false" onMousePressed="#ActionAnnuler" prefHeight="32.0" prefWidth="140.0" styleClass="warning" text="Annuler" textFill="#dd0000">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

@@ -18,6 +18,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -137,6 +139,14 @@ public class MainController implements Initializable {
     }
 
     @FXML
+    private void tableClick(MouseEvent mouseEvent) {
+        if ( mouseEvent.getClickCount() == 2 && mouseEvent.getButton().equals(MouseButton.PRIMARY) ){
+
+            ActionUpdate();
+        }
+    }
+
+    @FXML
     private void ActionUpdate(){
         List<StringProperty> selected = tvProjet.getSelectionModel().getSelectedItem();
 
@@ -150,6 +160,10 @@ public class MainController implements Initializable {
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(temp);
                 dialog.resizableProperty().setValue(false);
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                closeButton.setVisible(false);
                 dialog.showAndWait();
 
                 if (!tfProgramme.getText().isEmpty()) refreshByProgramme(programmeSelected.getId());
@@ -178,7 +192,7 @@ public class MainController implements Initializable {
 
                 Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
                 alertConfirmation.setHeaderText("Confirmer l'archivation");
-                alertConfirmation.setContentText("Êtes-vous sûr de vouloir archiver le projet intitulé : " + selected.get(1).toString() );
+                alertConfirmation.setContentText("Êtes-vous sûr de vouloir archiver le projet intitulé : " + selected.get(1).getValue() );
                 Button okButton = (Button) alertConfirmation.getDialogPane().lookupButton(ButtonType.OK);
                 okButton.setText("D'accord");
 
