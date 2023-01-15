@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -51,6 +53,13 @@ public class SelectProgrammeController implements Initializable {
     }
 
     @FXML
+    private void tableClick(MouseEvent mouseEvent) {
+        if ( mouseEvent.getClickCount() == 2 && mouseEvent.getButton().equals(MouseButton.PRIMARY) ){
+
+            ActionSelectProgramme();
+        }
+    }
+    @FXML
     private void ActionSelectProgramme(){
         Programme programmeSelect = programmeTable.getSelectionModel().getSelectedItem();
         if (programmeSelect != null){
@@ -70,6 +79,7 @@ public class SelectProgrammeController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("svp sélectionner un programme");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();

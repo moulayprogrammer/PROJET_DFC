@@ -12,14 +12,18 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AddAvnantController implements Initializable {
 
 
     @FXML
-    TextField tfProjet,tfAvnantMontant;
+    TextField tfAvnantMontant;
+    @FXML
+    TextArea tfProjet;
     @FXML
     ComboBox<String> cbAppliqueCout,cbAvnantType;
     @FXML
@@ -41,7 +45,7 @@ public class AddAvnantController implements Initializable {
         this.projet = projet;
 
         tfProjet.setText(projet.getNom());
-        cbAppliqueCout.getItems().addAll("cout REALISATION","cout ETUDE","cout VRD");
+        cbAppliqueCout.getItems().addAll("COUT REALISATION","COUT ETUDE ","COUT VRD");
         cbAvnantType.getItems().addAll("SUPLEMENTAIRE","DEMENITIVE");
 
     }
@@ -53,15 +57,15 @@ public class AddAvnantController implements Initializable {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
             String CoutApplique = cbAppliqueCout.getSelectionModel().getSelectedItem();
-            String dateAv = dateFormatter.format(dpAvnant.getValue());
+            LocalDate dateAv = dpAvnant.getValue();
             String typeAv = cbAvnantType.getSelectionModel().getSelectedItem();
             double montantAv = Double.parseDouble(tfAvnantMontant.getText().trim());
 
-            if (!CoutApplique.isEmpty() && !dateAv.isEmpty() && !typeAv.isEmpty() ){
+            if (!CoutApplique.isEmpty() && dateAv != null && !typeAv.isEmpty() ){
                 Cout cout = new Cout();
-                if (CoutApplique.equals("cout REALISATION")) cout = coutOperation.getCoutByProjet(projet.getId(),"REALISATION");
-                if (CoutApplique.equals("cout ETUDE")) cout = coutOperation.getCoutByProjet(projet.getId(),"ETUDE");
-                if (CoutApplique.equals("cout VRD")) cout = coutOperation.getCoutByProjet(projet.getId(),"VRD");
+                if (CoutApplique.equals("COUT REALISATION")) cout = coutOperation.getCoutByProjet(projet.getId(),"REALISATION");
+                if (CoutApplique.equals("COUT ETUDE")) cout = coutOperation.getCoutByProjet(projet.getId(),"ETUDE");
+                if (CoutApplique.equals("COUT VRD")) cout = coutOperation.getCoutByProjet(projet.getId(),"VRD");
 
                 if (typeAv.equals("DEMENITIVE") && montantAv > 0 ) montantAv = montantAv * -1;
 

@@ -1,26 +1,27 @@
 package Models;
 
+import java.time.LocalDate;
+
 public class AvnentCout {
 
     private int id;
     private int idCout;
     private String coutApplique;
-    private String date;
+    private LocalDate date;
     private String type;
     private double montant;
 
     public AvnentCout() {
     }
 
-    public AvnentCout(int id, int idCout, String date, String type, double montant) {
-        this.id = id;
+    public AvnentCout(int idCout, String coutApplique, LocalDate date, String type) {
         this.idCout = idCout;
+        this.coutApplique = coutApplique;
         this.date = date;
         this.type = type;
-        this.montant = montant;
     }
 
-    public AvnentCout(int id, int idCout, String coutApplique, String date, String type, double montant) {
+    public AvnentCout(int id, int idCout, String coutApplique, LocalDate date, String type, double montant) {
         this.id = id;
         this.idCout = idCout;
         this.coutApplique = coutApplique;
@@ -53,11 +54,11 @@ public class AvnentCout {
         this.coutApplique = coutApplique;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

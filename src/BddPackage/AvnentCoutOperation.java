@@ -2,6 +2,7 @@ package BddPackage;
 
 import Models.AvnentCout;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ public class AvnentCoutOperation extends BDD<AvnentCout>{
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1,o.getIdCout());
-            preparedStmt.setString(2,o.getDate());
+            preparedStmt.setDate(2, Date.valueOf(o.getDate()));
             preparedStmt.setString(3,o.getType());
             preparedStmt.setDouble(4,o.getMontant());
             int insert = preparedStmt.executeUpdate();
@@ -34,7 +35,7 @@ public class AvnentCoutOperation extends BDD<AvnentCout>{
                 "WHERE `ID` = ? ";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setString(1,o.getDate());
+            preparedStmt.setDate(1,Date.valueOf(o.getDate()));
             preparedStmt.setString(2,o.getType());
             preparedStmt.setDouble(3,o.getMontant());
             preparedStmt.setInt(4,o2.getId());
@@ -71,6 +72,28 @@ public class AvnentCoutOperation extends BDD<AvnentCout>{
         return null;
     }
 
+    public AvnentCout get(int id) {
+        AvnentCout avnentCout = new AvnentCout();
+        String query = "SELECT * FROM `avenant_cout` WHERE `ID` = ?";
+        try {
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1,id);
+            ResultSet resultSet = preparedStmt.executeQuery();
+            if (resultSet.next()){
+
+                avnentCout.setId(resultSet.getInt("ID"));
+                avnentCout.setIdCout(resultSet.getInt("ID_COUT"));
+                avnentCout.setDate(resultSet.getDate("DATE").toLocalDate());
+                avnentCout.setType(resultSet.getString("TYPE"));
+                avnentCout.setMontant(resultSet.getDouble("MONTANT"));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return avnentCout;
+    }
+
     public ArrayList<AvnentCout> getAll(int idCout) {
         ArrayList<AvnentCout> list = new ArrayList<>();
         String query = "SELECT * FROM `AVENANT_COUT` WHERE `ID_COUT` = ?";
@@ -82,7 +105,7 @@ public class AvnentCoutOperation extends BDD<AvnentCout>{
                 AvnentCout avnentCout = new AvnentCout();
                 avnentCout.setId(resultSet.getInt("ID"));
                 avnentCout.setIdCout(resultSet.getInt("ID_COUT"));
-                avnentCout.setDate(resultSet.getString("DATE"));
+                avnentCout.setDate(resultSet.getDate("DATE").toLocalDate());
                 avnentCout.setType(resultSet.getString("TYPE"));
                 avnentCout.setMontant(resultSet.getDouble("MONTANT"));
 
@@ -107,7 +130,7 @@ public class AvnentCoutOperation extends BDD<AvnentCout>{
                 AvnentCout avnentCout = new AvnentCout();
                 avnentCout.setId(resultSet.getInt(5));
                 avnentCout.setIdCout(resultSet.getInt(6));
-                avnentCout.setDate(resultSet.getString(7));
+                avnentCout.setDate(resultSet.getDate(7).toLocalDate());
                 avnentCout.setType(resultSet.getString(8));
                 avnentCout.setCoutApplique(resultSet.getString(4));
                 avnentCout.setMontant(resultSet.getDouble(9));
@@ -132,7 +155,7 @@ public class AvnentCoutOperation extends BDD<AvnentCout>{
                 AvnentCout avnentCout = new AvnentCout();
                 avnentCout.setId(resultSet.getInt("ID"));
                 avnentCout.setIdCout(resultSet.getInt("ID_COUT"));
-                avnentCout.setDate(resultSet.getString("DATE"));
+                avnentCout.setDate(resultSet.getDate("DATE").toLocalDate());
                 avnentCout.setType(resultSet.getString("TYPE"));
                 avnentCout.setMontant(resultSet.getDouble("MONTANT"));
 
