@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -45,6 +47,14 @@ public class ArchiveController implements Initializable {
     }
 
     @FXML
+    private void tableClick(MouseEvent mouseEvent) {
+        if ( mouseEvent.getClickCount() == 2 && mouseEvent.getButton().equals(MouseButton.PRIMARY) ){
+
+            ActionDeleteFromArchive();
+        }
+    }
+
+    @FXML
     private void ActionDeleteFromArchive(){
         Organisme organismeArchive =  tvOrganisme.getSelectionModel().getSelectedItem();
 
@@ -54,6 +64,7 @@ public class ArchiveController implements Initializable {
                 Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
                 alertConfirmation.setHeaderText("Confirmer désarchivage");
                 alertConfirmation.setContentText("Êtes-vous sûr de vouloir désarchiver l'organisme : "+organismeArchive.getRaisonSocial() );
+                alertConfirmation.initOwner(this.tfRecherche.getScene().getWindow());
                 Button okButton = (Button) alertConfirmation.getDialogPane().lookupButton(ButtonType.OK);
                 okButton.setText("D'accord");
 
@@ -77,6 +88,7 @@ public class ArchiveController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("Veuillez choisir l'organisme pour désarchiver");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
@@ -87,6 +99,18 @@ public class ArchiveController implements Initializable {
     @FXML
     private void ActionAnnuler(){
         ((Stage)tfRecherche.getScene().getWindow()).close();
+    }
+
+    @FXML
+    private void ActionRefresh(){
+        tfRecherche.clear();
+        refresh();
+    }
+
+    private void refresh(){
+        ArrayList<Organisme> organismes = operation.getAllArchive();
+        dataTable.setAll(organismes);
+        tvOrganisme.setItems(dataTable);
     }
 
     @FXML
@@ -114,22 +138,5 @@ public class ArchiveController implements Initializable {
         SortedList<Organisme> sortedList = new SortedList<>(filteredData);
         sortedList.comparatorProperty().bind(tvOrganisme.comparatorProperty());
         tvOrganisme.setItems(sortedList);
-
-    }
-
-    @FXML
-    private void ActionRefresh(){
-        clearRecherche();
-        refresh();
-    }
-
-    private void clearRecherche(){
-        tfRecherche.clear();
-    }
-
-    private void refresh(){
-        ArrayList<Organisme> organismes = operation.getAllArchive();
-        dataTable.setAll(organismes);
-        tvOrganisme.setItems(dataTable);
     }
 }

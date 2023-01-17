@@ -178,21 +178,21 @@
    <center>
       <TableView fx:id="tvProjet" onMouseClicked="#tableClick" prefHeight="200.0" prefWidth="200.0" styleClass="container-table" BorderPane.alignment="CENTER">
          <columns>
-            <TableColumn fx:id="idColumn" prefWidth="199.99996948242188" text="id" visible="false" />
-            <TableColumn fx:id="NomColumn" prefWidth="199.99996948242188" text="Intitulé" />
-            <TableColumn fx:id="siteColumn" prefWidth="168.0" text="Site" />
-            <TableColumn fx:id="cfColumn" prefWidth="169.0" text="Convention Finencial" />
-            <TableColumn fx:id="dateColumn" prefWidth="169.0" text="Date Inscription" />
-            <TableColumn fx:id="nbLogtsCuColumn" prefWidth="124.0" text="Nombre LOGTS" />
-            <TableColumn fx:id="RColumn" minWidth="0.0" prefWidth="188.0" text="COUT REALIS INITIALE" />
-            <TableColumn fx:id="AvnRColumn" minWidth="0.0" prefWidth="188.0" text="TOT AVENANT REALIS" />
-            <TableColumn fx:id="ApRColumn" minWidth="0.0" prefWidth="188.0" text="COUT REALIS AP" />
-            <TableColumn fx:id="VrColumn" minWidth="0.0" prefWidth="188.0" text="COUT V R D INITIALE" />
-            <TableColumn fx:id="AvnVrColumn" minWidth="0.0" prefWidth="188.0" text="TOT AVENANT V R D" />
-            <TableColumn fx:id="ApVrColumn" minWidth="0.0" prefWidth="188.0" text="COUT V R D AP" />
-            <TableColumn fx:id="EColumn" minWidth="0.0" prefWidth="188.0" text="COUT ETUDE INITIALE" />
-            <TableColumn fx:id="AvnEColumn" minWidth="0.0" prefWidth="188.0" text="TOT AVENANT ETUDE" />
-            <TableColumn fx:id="ApEColumn" minWidth="0.0" prefWidth="188.0" text="COUT ETUDE AP" />
+            <TableColumn fx:id="idColumn" prefWidth="199.99996948242188" style="-fx-alignment: CENTER;" text="id" visible="false" />
+            <TableColumn fx:id="NomColumn" minWidth="-1.0" prefWidth="220.0" style="-fx-alignment: CENTER;" text="Intitulé" />
+            <TableColumn fx:id="siteColumn" minWidth="-1.0" prefWidth="150.0" style="-fx-alignment: CENTER;" text="Site" />
+            <TableColumn fx:id="cfColumn" minWidth="-1.0" prefWidth="200.0" style="-fx-alignment: CENTER;" text="Convention Finencial" />
+            <TableColumn fx:id="dateColumn" minWidth="-1.0" prefWidth="100.0" style="-fx-alignment: CENTER;" text="Date Inscription" />
+            <TableColumn fx:id="nbLogtsCuColumn" minWidth="-1.0" prefWidth="100.0" style="-fx-alignment: CENTER;" text="Nombre LOGTS" />
+            <TableColumn fx:id="RColumn" minWidth="-1.0" prefWidth="150.0" style="-fx-alignment: CENTER;" text="COUT REALIS INITIALE" />
+            <TableColumn fx:id="AvnRColumn" minWidth="-1.0" prefWidth="150.0" style="-fx-alignment: CENTER;" text="TOT AVENANT REALIS" />
+            <TableColumn fx:id="ApRColumn" minWidth="-1.0" prefWidth="150.0" style="-fx-alignment: CENTER;" text="COUT REALIS AP" />
+            <TableColumn fx:id="VrColumn" minWidth="-1.0" prefWidth="150.0" style="-fx-alignment: CENTER;" text="COUT V R D INITIALE" />
+            <TableColumn fx:id="AvnVrColumn" minWidth="-1.0" prefWidth="150.0" style="-fx-alignment: CENTER;" text="TOT AVENANT V R D" />
+            <TableColumn fx:id="ApVrColumn" minWidth="-1.0" prefWidth="150.0" style="-fx-alignment: CENTER;" text="COUT V R D AP" />
+            <TableColumn fx:id="EColumn" minWidth="-1.0" prefWidth="150.0" style="-fx-alignment: CENTER;" text="COUT ETUDE INITIALE" />
+            <TableColumn fx:id="AvnEColumn" minWidth="-1.0" prefWidth="150.0" style="-fx-alignment: CENTER;" text="TOT AVENANT ETUDE" />
+            <TableColumn fx:id="ApEColumn" minWidth="-1.0" prefWidth="150.0"  style="-fx-alignment: CENTER;" text="COUT ETUDE AP" />
          </columns>
          <BorderPane.margin>
             <Insets left="5.0" right="5.0" />

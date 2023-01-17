@@ -836,6 +836,10 @@ VBox > .split-menu-button.last > .arrow-button {
 
 }
 
+.table-column {
+  -fx-alignment: CENTER;
+}
+
 /*split pane*/
 .split-pane > .split-pane-divider {
 	-fx-background-color: white;

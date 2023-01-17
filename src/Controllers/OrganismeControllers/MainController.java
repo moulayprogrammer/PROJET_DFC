@@ -1,9 +1,7 @@
 package Controllers.OrganismeControllers;
 
 import BddPackage.OrganismeOperation;
-import BddPackage.ProgrammeOperation;
 import Models.Organisme;
-import Models.Programme;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -11,8 +9,11 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -55,12 +56,24 @@ public class MainController implements Initializable {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            closeButton.setVisible(false);
             dialog.showAndWait();
 
             refresh();
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void tableClick(MouseEvent mouseEvent) {
+        if ( mouseEvent.getClickCount() == 2 && mouseEvent.getButton().equals(MouseButton.PRIMARY) ){
+
+            ActionUpdate();
         }
     }
 
@@ -77,6 +90,10 @@ public class MainController implements Initializable {
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(temp);
                 dialog.resizableProperty().setValue(false);
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                closeButton.setVisible(false);
                 dialog.showAndWait();
 
                 refresh();
@@ -88,6 +105,7 @@ public class MainController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("Veuillez choisir l'avnant pour modifier");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
@@ -105,6 +123,7 @@ public class MainController implements Initializable {
                 Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
                 alertConfirmation.setHeaderText("Confirmer l'archivation");
                 alertConfirmation.setContentText("Êtes-vous sûr de vouloir archiver l'organisme : "+organismeArchive.getRaisonSocial() );
+                alertConfirmation.initOwner(this.tfRecherche.getScene().getWindow());
                 Button okButton = (Button) alertConfirmation.getDialogPane().lookupButton(ButtonType.OK);
                 okButton.setText("D'accord");
 
@@ -127,6 +146,7 @@ public class MainController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("Veuillez choisir l'organisme pour archiver");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
@@ -142,6 +162,10 @@ public class MainController implements Initializable {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            closeButton.setVisible(false);
             dialog.showAndWait();
 
             refresh();
@@ -151,6 +175,17 @@ public class MainController implements Initializable {
         }
     }
 
+    @FXML
+    private void ActionRefresh(){
+        tfRecherche.clear();
+        refresh();
+    }
+
+    private void refresh(){
+        ArrayList<Organisme> organismes = operation.getAll();
+        dataTable.setAll(organismes);
+        tvOrganisme.setItems(dataTable);
+    }
 
     @FXML
     void ActionSearch() {
@@ -161,7 +196,7 @@ public class MainController implements Initializable {
 
         filteredData.setPredicate((Predicate<? super Organisme>) organisme -> {
             if (txtRecherche.isEmpty()) {
-                //loadDataInTable();
+                refresh();
                 return true;
             } else if (organisme.getRaisonSocial().contains(txtRecherche)) {
                 return true;
@@ -177,22 +212,5 @@ public class MainController implements Initializable {
         SortedList<Organisme> sortedList = new SortedList<>(filteredData);
         sortedList.comparatorProperty().bind(tvOrganisme.comparatorProperty());
         tvOrganisme.setItems(sortedList);
-
-    }
-
-    @FXML
-    private void ActionRefresh(){
-        clearRecherche();
-        refresh();
-    }
-
-    private void clearRecherche(){
-        tfRecherche.clear();
-    }
-
-    private void refresh(){
-        ArrayList<Organisme> organismes = operation.getAll();
-        dataTable.setAll(organismes);
-        tvOrganisme.setItems(dataTable);
     }
 }

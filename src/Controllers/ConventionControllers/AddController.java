@@ -43,6 +43,10 @@ public class AddController implements Initializable {
             tfProjet.setText(this.projetTable.getNom());
 
             tfCoutHT.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.isEmpty()) {
+                    tfCoutHT.setText("0");
+                    newValue = "0";
+                }
                 if (!tfCoutTVA.getText().isEmpty()) {
                     double tva = Double.parseDouble(tfCoutTVA.getText().trim());
                     double ht = Double.parseDouble(newValue);
