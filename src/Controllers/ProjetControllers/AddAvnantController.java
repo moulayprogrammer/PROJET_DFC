@@ -45,17 +45,14 @@ public class AddAvnantController implements Initializable {
         this.projet = projet;
 
         tfProjet.setText(projet.getNom());
-        cbAppliqueCout.getItems().addAll("COUT REALISATION","COUT ETUDE ","COUT VRD");
+        cbAppliqueCout.getItems().addAll("COUT REALISATION","COUT ETUDE","COUT VRD");
         cbAvnantType.getItems().addAll("SUPLEMENTAIRE","DEMENITIVE");
-
     }
 
     @FXML
     private void ActionAdd(){
 
         try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
             String CoutApplique = cbAppliqueCout.getSelectionModel().getSelectedItem();
             LocalDate dateAv = dpAvnant.getValue();
             String typeAv = cbAvnantType.getSelectionModel().getSelectedItem();
@@ -67,21 +64,32 @@ public class AddAvnantController implements Initializable {
                 if (CoutApplique.equals("COUT ETUDE")) cout = coutOperation.getCoutByProjet(projet.getId(),"ETUDE");
                 if (CoutApplique.equals("COUT VRD")) cout = coutOperation.getCoutByProjet(projet.getId(),"VRD");
 
-                if (typeAv.equals("DEMENITIVE") && montantAv > 0 ) montantAv = montantAv * -1;
+                if (cout.getMontant() != 0.0) {
+                    if (typeAv.equals("DEMENITIVE") && montantAv > 0) montantAv = montantAv * -1;
 
-                AvnentCout avnentCout = new AvnentCout();
-                avnentCout.setIdCout(cout.getId());
-                avnentCout.setType(typeAv);
-                avnentCout.setDate(dateAv);
-                avnentCout.setMontant(montantAv);
+                    AvnentCout avnentCout = new AvnentCout();
+                    avnentCout.setIdCout(cout.getId());
+                    avnentCout.setType(typeAv);
+                    avnentCout.setDate(dateAv);
+                    avnentCout.setMontant(montantAv);
 
-                boolean ins = insert(avnentCout);
-                if (ins) ActionAnnuler();
+                    boolean ins = insert(avnentCout);
+                    if (ins) ActionAnnuler();
+                }else {
+                    Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                    alertWarning.setHeaderText("Attention ");
+                    alertWarning.setContentText("assurez-vous que le " + CoutApplique + " pas null");
+                    alertWarning.initOwner(this.tfProjet.getScene().getWindow());
+                    Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
+                    okButton.setText("d'accord");
+                    alertWarning.showAndWait();
+                }
 
             }else {
                 Alert alertWarning = new Alert(Alert.AlertType.WARNING);
                 alertWarning.setHeaderText("Attention ");
                 alertWarning.setContentText("Veuillez remplir les champs vides");
+                alertWarning.initOwner(this.tfProjet.getScene().getWindow());
                 Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
                 okButton.setText("d'accord");
                 alertWarning.showAndWait();
@@ -92,11 +100,11 @@ public class AddAvnantController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.ERROR);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("un erreur inconnue");
+            alertWarning.initOwner(this.tfProjet.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
         }
-
     }
 
     private boolean insert(AvnentCout avnentCout){

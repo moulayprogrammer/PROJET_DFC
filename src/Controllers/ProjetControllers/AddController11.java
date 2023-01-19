@@ -1,99 +1,43 @@
 package Controllers.ProjetControllers;
 
 import BddPackage.CoutOperation;
-import BddPackage.ProgrammeOperation;
 import BddPackage.ProjetOperation;
 import Models.Cout;
 import Models.Programme;
 import Models.Projet;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class AddController implements Initializable {
+public class AddController11 implements Initializable {
 
     @FXML
     TextField   tfsite, tfCF, tfNbLogts, tfCoutRea, tfCoutEtu, tfCoutVrd,tfDate;
     @FXML
-    TextArea  tfNom;
-    @FXML
-    ComboBox<String> cbProgramme;
+    TextArea tfProg, tfNom;
 
     private Programme programmeSelected;
     private final ProjetOperation operation = new ProjetOperation();
-    private final ProgrammeOperation programmeOperation = new ProgrammeOperation();
     private final CoutOperation coutOperation = new CoutOperation();
-
-    private final ObservableList<String> dataComboP = FXCollections.observableArrayList();
-    private ArrayList<Programme> programmes = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        programmeSelected = new Programme();
-        refreshComboProgramme();
+
     }
 
-    public void refreshComboProgramme(){
-        try {
-            dataComboP.clear();
-            programmes = programmeOperation.getAll();
-            for (Programme p : programmes) {
-                dataComboP.add(p.getCode() + "  " + p.getNomProgramme());
-            }
-            cbProgramme.setItems(dataComboP);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+    public void InitAdd(Programme programme) {
+        tfProg.setText(programme.getNomProgramme());
 
-    @FXML
-    private void ActionSelectComboProgramme(){
-        try {
-            int index = cbProgramme.getSelectionModel().getSelectedIndex();
-            if (index != -1) this.programmeSelected = programmes.get(index);
-            System.out.println(programmeSelected.getNomProgramme());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void ActionSelectProgramme() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/SelectProgrammeView.fxml"));
-            DialogPane temp = loader.load();
-            SelectProgrammeController controller = loader.getController();
-            controller.InitListProgramme(programmeSelected);
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(temp);
-            dialog.resizableProperty().setValue(false);
-            dialog.initOwner(this.tfNom.getScene().getWindow());
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
-            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
-            closeButton.setVisible(false);
-            dialog.showAndWait();
-
-            if (this.programmeSelected.getNomProgramme() != null)
-                cbProgramme.getSelectionModel().select(this.programmeSelected.getCode() + "  " + this.programmeSelected.getNomProgramme());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.programmeSelected = programme;
     }
 
     @FXML
     private void ActionAnnulerAdd() {
-        ((Stage)tfNom.getScene().getWindow()).close();
+        ((Stage)tfProg.getScene().getWindow()).close();
     }
 
     @FXML

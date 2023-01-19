@@ -110,28 +110,32 @@ public class MainController implements Initializable {
 
     @FXML
     private void ActionAdd() {
-        String ProgrammeSelected = tfProgramme.getText().trim();
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/AddView.fxml"));
+            DialogPane temp = loader.load();
+            AddController controller = loader.getController();
+//                controller.InitAdd(programmeSelected);
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(temp);
+            dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            closeButton.setVisible(false);
+            dialog.showAndWait();
+
+            refresh();
+//            refreshByProgramme(programmeSelected.getId());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*String ProgrammeSelected = tfProgramme.getText().trim();
         if (!ProgrammeSelected.isEmpty()) {
-            try {
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/AddView.fxml"));
-                DialogPane temp = loader.load();
-                AddController controller = loader.getController();
-                controller.InitAdd(programmeSelected);
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(temp);
-                dialog.resizableProperty().setValue(false);
-                dialog.initOwner(this.tfRecherche.getScene().getWindow());
-                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
-                Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
-                closeButton.setVisible(false);
-                dialog.showAndWait();
-
-                refreshByProgramme(programmeSelected.getId());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         } else {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
@@ -140,7 +144,7 @@ public class MainController implements Initializable {
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
-        }
+        }*/
     }
 
     @FXML

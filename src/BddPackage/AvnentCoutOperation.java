@@ -13,7 +13,7 @@ public class AvnentCoutOperation extends BDD<AvnentCout>{
     @Override
     public boolean insert(AvnentCout o) {
         boolean ins = false;
-        String query = "INSERT INTO `AVENANT_COUT`(`ID_COUT`, `DATE`, `TYPE`, `MONTANT`) VALUES  (?,?,?,?)";
+        String query = "INSERT INTO `AVENANT_COUT` (`ID_COUT`, `DATE`, `TYPE`, `MONTANT`) VALUES  (?,?,?,?)";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1,o.getIdCout());
