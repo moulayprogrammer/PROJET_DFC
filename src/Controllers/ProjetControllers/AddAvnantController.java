@@ -4,8 +4,7 @@ import BddPackage.AvnentCoutOperation;
 import BddPackage.CoutOperation;
 import Models.AvnentCout;
 import Models.Cout;
-import Models.ModelesTabels.ProjetTable;
-import Models.Projet;
+import Models.Project;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -13,8 +12,6 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AddAvnantController implements Initializable {
@@ -30,7 +27,7 @@ public class AddAvnantController implements Initializable {
     DatePicker dpAvnant;
 
 
-    private Projet projet;
+    private Project projet;
 
     private final CoutOperation coutOperation = new CoutOperation();
     private final AvnentCoutOperation operation = new AvnentCoutOperation();
@@ -41,7 +38,7 @@ public class AddAvnantController implements Initializable {
 
     }
 
-    public void Init(Projet projet) {
+    public void Init(Project projet) {
         this.projet = projet;
 
         tfProjet.setText(projet.getNom());

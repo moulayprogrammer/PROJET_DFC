@@ -1,7 +1,7 @@
 package Controllers.OrganismeControllers;
 
-import BddPackage.OrganismeOperation;
-import Models.Organisme;
+import BddPackage.OrganismOperation;
+import Models.Organism;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -24,14 +24,14 @@ public class ArchiveController implements Initializable {
     @FXML
     TextField tfRecherche;
     @FXML
-    TableView<Organisme> tvOrganisme;
+    TableView<Organism> tvOrganisme;
     @FXML
-    TableColumn<Organisme,String> resonSocialColumn,adressColumn,telColumn,rcColumn,nifColumn;
+    TableColumn<Organism,String> resonSocialColumn,adressColumn,telColumn,rcColumn,nifColumn;
     @FXML
-    TableColumn<Organisme, Integer> idColumn;
+    TableColumn<Organism, Integer> idColumn;
 
-    private final ObservableList<Organisme> dataTable = FXCollections.observableArrayList();
-    private final OrganismeOperation operation = new OrganismeOperation();
+    private final ObservableList<Organism> dataTable = FXCollections.observableArrayList();
+    private final OrganismOperation operation = new OrganismOperation();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -56,7 +56,7 @@ public class ArchiveController implements Initializable {
 
     @FXML
     private void ActionDeleteFromArchive(){
-        Organisme organismeArchive =  tvOrganisme.getSelectionModel().getSelectedItem();
+        Organism organismeArchive =  tvOrganisme.getSelectionModel().getSelectedItem();
 
         if (organismeArchive != null){
             try {
@@ -108,7 +108,7 @@ public class ArchiveController implements Initializable {
     }
 
     private void refresh(){
-        ArrayList<Organisme> organismes = operation.getAllArchive();
+        ArrayList<Organism> organismes = operation.getAllArchive();
         dataTable.setAll(organismes);
         tvOrganisme.setItems(dataTable);
     }
@@ -116,11 +116,11 @@ public class ArchiveController implements Initializable {
     @FXML
     void ActionSearch() {
         // filtrer les données
-        ObservableList<Organisme> dataOrganisme = tvOrganisme.getItems();
-        FilteredList<Organisme> filteredData = new FilteredList<>(dataOrganisme, e -> true);
+        ObservableList<Organism> dataOrganisme = tvOrganisme.getItems();
+        FilteredList<Organism> filteredData = new FilteredList<>(dataOrganisme, e -> true);
         String txtRecherche = tfRecherche.getText().trim();
 
-        filteredData.setPredicate((Predicate<? super Organisme>) organisme -> {
+        filteredData.setPredicate((Predicate<? super Organism>) organisme -> {
             if (txtRecherche.isEmpty()) {
                 //loadDataInTable();
                 return true;
@@ -135,7 +135,7 @@ public class ArchiveController implements Initializable {
             } else return organisme.getNif().contains(txtRecherche);
         });
 
-        SortedList<Organisme> sortedList = new SortedList<>(filteredData);
+        SortedList<Organism> sortedList = new SortedList<>(filteredData);
         sortedList.comparatorProperty().bind(tvOrganisme.comparatorProperty());
         tvOrganisme.setItems(sortedList);
     }

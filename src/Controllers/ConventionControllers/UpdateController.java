@@ -2,7 +2,7 @@ package Controllers.ConventionControllers;
 
 import BddPackage.MarConBcOperation;
 import Models.MarConBc;
-import Models.Organisme;
+import Models.Organism;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class UpdateController implements Initializable {
@@ -25,13 +24,13 @@ public class UpdateController implements Initializable {
     @FXML
     DatePicker dpDate;
 
-    private Organisme organisme;
+    private Organism organisme;
     private MarConBc marConBc;
     private final MarConBcOperation operation = new MarConBcOperation();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.organisme = new Organisme();
+        this.organisme = new Organism();
 
         cbType.getItems().addAll("REALISATION","ETUDE","VRD");
     }
@@ -62,8 +61,7 @@ public class UpdateController implements Initializable {
             tfNumero.setText(marConBc.getNumero());
             cbType.getSelectionModel().select(marConBc.getType());
             tfNbLogts.setText(marConBc.getNumbreLogts()+"");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            dpDate.setValue(LocalDate.parse(marConBc.getDate(),formatter));
+            dpDate.setValue(marConBc.getDate());
             tfCoutHT.setText(String.format("%.2f",marConBc.getHt()));
             tfCoutTVA.setText(String.format("%.2f",marConBc.getTva()));
             tfCoutTTC.setText(String.format("%.2f",marConBc.getTtc()));
@@ -77,9 +75,9 @@ public class UpdateController implements Initializable {
     @FXML
     private void ActionSelectOrganisme(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/SelectOrganismeView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/SelectOrganismView.fxml"));
             DialogPane temp = loader.load();
-            SelectOrganismeController controller = loader.getController();
+            SelectOrganismController controller = loader.getController();
             controller.Init(this.organisme);
             javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
             dialog.setDialogPane(temp);
@@ -102,12 +100,12 @@ public class UpdateController implements Initializable {
         String numero = tfNumero.getText().trim();
         String type = cbType.getSelectionModel().getSelectedItem();
         String nbLogts = tfNbLogts.getText().trim();
-        String date = dateFormatter.format(dpDate.getValue());
+        LocalDate date = dpDate.getValue();
         String ht = tfCoutHT.getText().trim();
         String tva = tfCoutTVA.getText().trim();
         String ttc = tfCoutTTC.getText().trim();
 
-        if (!nom.isEmpty()  && !numero.isEmpty() && !type.isEmpty() && !nbLogts.isEmpty() && !date.isEmpty()
+        if (!nom.isEmpty()  && !numero.isEmpty() && !type.isEmpty() && !nbLogts.isEmpty() && date != null
                 && !ht.isEmpty() && !tva.isEmpty() && !ttc.isEmpty()){
 
             MarConBc mar = new MarConBc();

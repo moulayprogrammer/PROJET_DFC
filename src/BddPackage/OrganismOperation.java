@@ -1,16 +1,16 @@
 package BddPackage;
 
-import Models.Organisme;
+import Models.Organism;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OrganismeOperation extends BDD<Organisme>{
+public class OrganismOperation extends BDD<Organism>{
 
     @Override
-    public boolean insert(Organisme o) {
+    public boolean insert(Organism o) {
         boolean ins = false;
         String query = "INSERT INTO `ORGANISME`(`RAISON_SOCIAL`, `ADRESSE`, `TEL`, `RC`, `NIF`) VALUES (?,?,?,?,?)";
         try {
@@ -29,7 +29,7 @@ public class OrganismeOperation extends BDD<Organisme>{
     }
 
     @Override
-    public boolean update(Organisme o, Organisme o2) {
+    public boolean update(Organism o, Organism o2) {
         boolean upd = false;
         String query = "UPDATE `ORGANISME` SET `RAISON_SOCIAL`= ?,`ADRESSE`= ?,`TEL`= ?,`RC`= ?,`NIF`= ? " +
                 "WHERE `ID` = ? ";
@@ -50,7 +50,7 @@ public class OrganismeOperation extends BDD<Organisme>{
     }
 
     @Override
-    public boolean delete(Organisme o) {
+    public boolean delete(Organism o) {
         boolean del = false;
         String query = "DELETE FROM `ORGANISME` WHERE `ID` = ? ";
         try {
@@ -65,13 +65,13 @@ public class OrganismeOperation extends BDD<Organisme>{
     }
 
     @Override
-    public boolean isExist(Organisme o) {
+    public boolean isExist(Organism o) {
         return false;
     }
 
 
-    public Organisme get(int id) {
-        Organisme organisme = new Organisme();
+    public Organism get(int id) {
+        Organism organisme = new Organism();
         String query = "SELECT * FROM `ORGANISME` WHERE `ID` = ?";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -94,14 +94,14 @@ public class OrganismeOperation extends BDD<Organisme>{
     }
 
     @Override
-    public ArrayList<Organisme> getAll() {
-        ArrayList<Organisme> list = new ArrayList<>();
+    public ArrayList<Organism> getAll() {
+        ArrayList<Organism> list = new ArrayList<>();
         String query = "SELECT * FROM `ORGANISME` WHERE `ARCHIVE` = 0";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             ResultSet resultSet = preparedStmt.executeQuery();
             while (resultSet.next()){
-                Organisme organisme = new Organisme();
+                Organism organisme = new Organism();
                 organisme.setId(resultSet.getInt("ID"));
                 organisme.setRaisonSocial(resultSet.getString("RAISON_SOCIAL"));
                 organisme.setAdresse(resultSet.getString("ADRESSE"));
@@ -117,7 +117,7 @@ public class OrganismeOperation extends BDD<Organisme>{
         return list;
     }
 
-    public boolean AddToArchive(Organisme organismeArchive) {
+    public boolean AddToArchive(Organism organismeArchive) {
         boolean upd = false;
         String query = "UPDATE `ORGANISME`  SET `ARCHIVE` = 1 WHERE `ID` = ? ";
         try {
@@ -131,7 +131,7 @@ public class OrganismeOperation extends BDD<Organisme>{
         return upd;
     }
 
-    public boolean DeleteFromArchive(Organisme organismeArchive) {
+    public boolean DeleteFromArchive(Organism organismeArchive) {
         boolean upd = false;
         String query = "UPDATE `ORGANISME`  SET `ARCHIVE` = 0 WHERE `ID` = ? ";
         try {
@@ -145,14 +145,14 @@ public class OrganismeOperation extends BDD<Organisme>{
         return upd;
     }
 
-    public ArrayList<Organisme> getAllArchive() {
-        ArrayList<Organisme> list = new ArrayList<>();
+    public ArrayList<Organism> getAllArchive() {
+        ArrayList<Organism> list = new ArrayList<>();
         String query = "SELECT * FROM `ORGANISME` WHERE `ARCHIVE` = 1";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             ResultSet resultSet = preparedStmt.executeQuery();
             while (resultSet.next()){
-                Organisme organisme = new Organisme();
+                Organism organisme = new Organism();
                 organisme.setId(resultSet.getInt("ID"));
                 organisme.setRaisonSocial(resultSet.getString("RAISON_SOCIAL"));
                 organisme.setAdresse(resultSet.getString("ADRESSE"));

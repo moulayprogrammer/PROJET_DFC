@@ -2,11 +2,11 @@ package Controllers.ProjetControllers;
 
 import BddPackage.AvnentCoutOperation;
 import BddPackage.CoutOperation;
-import BddPackage.ProjetOperation;
+import BddPackage.ProjectOperation;
 import Models.AvnentCout;
 import Models.Cout;
 import Models.Programme;
-import Models.Projet;
+import Models.Project;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -46,11 +46,11 @@ public class MainController implements Initializable {
 
 
     private Programme programmeSelected;
-    private final ProjetOperation operation = new ProjetOperation();
+    private final ProjectOperation operation = new ProjectOperation();
     private final CoutOperation coutOperation = new CoutOperation();
     private final AvnentCoutOperation avnentCoutOperation = new AvnentCoutOperation();
     private final ObservableList<List<StringProperty>> pTableData = FXCollections.observableArrayList();
-    private ArrayList<Projet> projets = new ArrayList<>();
+    private ArrayList<Project> projets = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,7 +80,7 @@ public class MainController implements Initializable {
     @FXML
     private void ActionSelectProgramme() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/SelectProgrammeView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjectViews/SelectProgrammeView.fxml"));
             DialogPane temp = loader.load();
             SelectProgrammeController controller = loader.getController();
             controller.InitListProgramme(programmeSelected);
@@ -93,8 +93,11 @@ public class MainController implements Initializable {
             closeButton.setVisible(false);
             dialog.showAndWait();
 
-            tfProgramme.setText(programmeSelected.getNomProgramme());
-            refreshByProgramme(programmeSelected.getId());
+            if (this.programmeSelected.getNomProgramme() != null){
+                tfProgramme.setText(programmeSelected.getNomProgramme());
+                refreshByProgramme(programmeSelected.getId());
+            }else refresh();
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,10 +116,8 @@ public class MainController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/AddView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjectViews/AddView.fxml"));
             DialogPane temp = loader.load();
-            AddController controller = loader.getController();
-//                controller.InitAdd(programmeSelected);
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
@@ -126,8 +127,8 @@ public class MainController implements Initializable {
             closeButton.setVisible(false);
             dialog.showAndWait();
 
-            refresh();
-//            refreshByProgramme(programmeSelected.getId());
+            if (!tfProgramme.getText().isEmpty()) refreshByProgramme(programmeSelected.getId());
+            else refresh();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -162,7 +163,7 @@ public class MainController implements Initializable {
         if (selected != null){
             String stIDdPrj = selected.get(0).getValue();
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/UpdateView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjectViews/UpdateView.fxml"));
                 DialogPane temp = loader.load();
                 UpdateController controller = loader.getController();
                 controller.InitUpdate(stIDdPrj);
@@ -184,7 +185,7 @@ public class MainController implements Initializable {
         }else {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
-            alertWarning.setContentText("svp sélectionner un Projet");
+            alertWarning.setContentText("svp sélectionner un Project");
             alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
@@ -236,7 +237,7 @@ public class MainController implements Initializable {
     @FXML
     private void ActionListArchive(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/ArchiveView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjectViews/ArchiveView.fxml"));
             DialogPane temp = loader.load();
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(temp);
@@ -353,9 +354,9 @@ public class MainController implements Initializable {
         List<StringProperty> selected = tvProjet.getSelectionModel().getSelectedItem();
 
         if (selected != null){
-            Projet prSelect = operation.get(Integer.parseInt(selected.get(0).getValue()));
+            Project prSelect = operation.get(Integer.parseInt(selected.get(0).getValue()));
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/AddAvnantView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjectViews/AddAvnantView.fxml"));
                 DialogPane temp = loader.load();
                 AddAvnantController controller = loader.getController();
                 controller.Init(prSelect);
@@ -377,7 +378,7 @@ public class MainController implements Initializable {
         }else {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
-            alertWarning.setContentText("svp sélectionner un Projet");
+            alertWarning.setContentText("svp sélectionner un Project");
             alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
@@ -390,9 +391,9 @@ public class MainController implements Initializable {
         List<StringProperty> selected = tvProjet.getSelectionModel().getSelectedItem();
 
         if (selected != null){
-            Projet prSelect = operation.get(Integer.parseInt(selected.get(0).getValue()));
+            Project prSelect = operation.get(Integer.parseInt(selected.get(0).getValue()));
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/ListAvnantView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjectViews/ListAvnantView.fxml"));
                 DialogPane temp = loader.load();
                 ListAvnantController controller = loader.getController();
                 controller.Init(prSelect);
@@ -414,7 +415,7 @@ public class MainController implements Initializable {
         }else {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
-            alertWarning.setContentText("svp sélectionner un Projet");
+            alertWarning.setContentText("svp sélectionner un Project");
             alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");

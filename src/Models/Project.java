@@ -1,6 +1,8 @@
 package Models;
 
-public class Projet {
+import java.time.LocalDate;
+
+public class Project {
 
     private int id;
     private int idProgramme;
@@ -10,24 +12,24 @@ public class Projet {
     private String numeroCF;
     private String dateInsription;
 
-    public Projet() {
+    public Project() {
     }
 
-    public Projet(int id) {
+    public Project(int id) {
         this.id = id;
     }
 
-    public Projet(int id, int idProgramme, String nom, int nomberLogts, String numeroCF, String dateInsription) {
+    public Project(int id, int idProgramme, String nom, String site, int nomberLogts, String numeroCF, String dateInsription) {
         this.id = id;
         this.idProgramme = idProgramme;
         this.nom = nom;
+        this.site = site;
         this.nomberLogts = nomberLogts;
         this.numeroCF = numeroCF;
         this.dateInsription = dateInsription;
     }
 
-    public Projet(int id, int idProgramme, String nom, String site, int nomberLogts, String numeroCF, String dateInsription) {
-        this.id = id;
+    public Project(int idProgramme, String nom, String site, int nomberLogts, String numeroCF, String dateInsription) {
         this.idProgramme = idProgramme;
         this.nom = nom;
         this.site = site;

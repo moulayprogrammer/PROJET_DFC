@@ -1,7 +1,7 @@
 package Controllers.SuiviEtbControllers;
 
 import BddPackage.*;
-import Controllers.ConventionControllers.SelectOrganismeController;
+import Controllers.ConventionControllers.SelectOrganismController;
 import Models.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -47,13 +47,13 @@ public class MainController implements Initializable {
     private final FactureOperation factureOperation = new FactureOperation();
     private final OrderPaymentOperation orderPaymentOperation = new OrderPaymentOperation();
     private Connection conn;
-    private Organisme organisme;
+    private Organism organisme;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         conn = connectBD.connect();
-        organisme = new Organisme();
+        organisme = new Organism();
 
         idConv.setCellValueFactory(data -> data.getValue().get(0));
         idOrg.setCellValueFactory(data -> data.getValue().get(1));
@@ -141,11 +141,11 @@ public class MainController implements Initializable {
     private void ActionOrganisme(){
         try {
             tfEtb.clear();
-            this.organisme = new Organisme();
+            this.organisme = new Organism();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/SuiviEtbViews/SelectOrganismeView.fxml"));
             DialogPane temp = loader.load();
-            SelectOrganismeController controller = loader.getController();
+            SelectOrganismController controller = loader.getController();
             controller.Init(this.organisme);
             javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
             dialog.setDialogPane(temp);
@@ -206,7 +206,7 @@ public class MainController implements Initializable {
     @FXML
     private void ActionRefreshOrganisme(){
         tfEtb.clear();
-        this.organisme = new Organisme();
+        this.organisme = new Organism();
         LocalDate dateFrom = dpFrom.getValue();
         LocalDate dateTo = dpTo.getValue();
         if (dateFrom != null && dateTo != null) {

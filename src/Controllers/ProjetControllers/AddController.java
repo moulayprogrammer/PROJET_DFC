@@ -2,10 +2,10 @@ package Controllers.ProjetControllers;
 
 import BddPackage.CoutOperation;
 import BddPackage.ProgrammeOperation;
-import BddPackage.ProjetOperation;
+import BddPackage.ProjectOperation;
 import Models.Cout;
 import Models.Programme;
-import Models.Projet;
+import Models.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,7 +30,7 @@ public class AddController implements Initializable {
     ComboBox<String> cbProgramme;
 
     private Programme programmeSelected;
-    private final ProjetOperation operation = new ProjetOperation();
+    private final ProjectOperation operation = new ProjectOperation();
     private final ProgrammeOperation programmeOperation = new ProgrammeOperation();
     private final CoutOperation coutOperation = new CoutOperation();
 
@@ -61,7 +61,6 @@ public class AddController implements Initializable {
         try {
             int index = cbProgramme.getSelectionModel().getSelectedIndex();
             if (index != -1) this.programmeSelected = programmes.get(index);
-            System.out.println(programmeSelected.getNomProgramme());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -70,7 +69,7 @@ public class AddController implements Initializable {
     @FXML
     private void ActionSelectProgramme() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/SelectProgrammeView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjectViews/SelectProgrammeView.fxml"));
             DialogPane temp = loader.load();
             SelectProgrammeController controller = loader.getController();
             controller.InitListProgramme(programmeSelected);
@@ -110,7 +109,7 @@ public class AddController implements Initializable {
         
         if (!site.isEmpty() && !nom.isEmpty() && !cf.isEmpty() && !nbLogts.isEmpty() && !date.isEmpty()) {
 
-            Projet projet = new Projet();
+            Project projet = new Project();
             projet.setIdProgramme(programmeSelected.getId());
             projet.setNom(nom);
             projet.setSite(site);
@@ -160,7 +159,7 @@ public class AddController implements Initializable {
         }
     }
 
-    private boolean insert(Projet projet) {
+    private boolean insert(Project projet) {
 
         boolean insert = false;
         try {

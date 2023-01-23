@@ -50,7 +50,7 @@ public class MainController implements Initializable {
     @FXML
     private void ActionChargeProjet(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/MainView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjectViews/MainView.fxml"));
             BorderPane temp = loader.load();
             mainPane.setCenter(temp);
         } catch (IOException e) {

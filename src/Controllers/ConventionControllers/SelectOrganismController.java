@@ -1,7 +1,7 @@
 package Controllers.ConventionControllers;
 
-import BddPackage.OrganismeOperation;
-import Models.Organisme;
+import BddPackage.OrganismOperation;
+import Models.Organism;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -17,20 +19,20 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
-public class SelectOrganismeController implements Initializable {
+public class SelectOrganismController implements Initializable {
 
     @FXML
     TextField tfRecherche;
     @FXML
-    TableView<Organisme> tvOrganisme;
+    TableView<Organism> tvOrganisme;
     @FXML
-    TableColumn<Organisme,String> resonSocialColumn,adressColumn,telColumn,rcColumn,nifColumn;
+    TableColumn<Organism,String> resonSocialColumn,adressColumn,telColumn,rcColumn,nifColumn;
     @FXML
-    TableColumn<Organisme, Integer> idColumn;
+    TableColumn<Organism, Integer> idColumn;
 
-    private final ObservableList<Organisme> dataTable = FXCollections.observableArrayList();
-    private final OrganismeOperation operation = new OrganismeOperation();
-    private Organisme organisme;
+    private final ObservableList<Organism> dataTable = FXCollections.observableArrayList();
+    private final OrganismOperation operation = new OrganismOperation();
+    private Organism organisme;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,13 +47,21 @@ public class SelectOrganismeController implements Initializable {
         refresh();
     }
 
-    public void Init(Organisme organisme){
+    public void Init(Organism organisme){
         this.organisme = organisme;
     }
 
     @FXML
+    private void tableClick(MouseEvent mouseEvent) {
+        if ( mouseEvent.getClickCount() == 2 && mouseEvent.getButton().equals(MouseButton.PRIMARY) ){
+
+            ActionSelectOrganisme();
+        }
+    }
+
+    @FXML
     private void ActionSelectOrganisme(){
-        Organisme organismeSelected =  tvOrganisme.getSelectionModel().getSelectedItem();
+        Organism organismeSelected =  tvOrganisme.getSelectionModel().getSelectedItem();
 
         if (organismeSelected != null){
             try {
@@ -86,11 +96,11 @@ public class SelectOrganismeController implements Initializable {
     @FXML
     void ActionSearch() {
         // filtrer les données
-        ObservableList<Organisme> dataOrganisme = tvOrganisme.getItems();
-        FilteredList<Organisme> filteredData = new FilteredList<>(dataOrganisme, e -> true);
+        ObservableList<Organism> dataOrganisme = tvOrganisme.getItems();
+        FilteredList<Organism> filteredData = new FilteredList<>(dataOrganisme, e -> true);
         String txtRecherche = tfRecherche.getText().trim();
 
-        filteredData.setPredicate((Predicate<? super Organisme>) organisme -> {
+        filteredData.setPredicate((Predicate<? super Organism>) organisme -> {
             if (txtRecherche.isEmpty()) {
                 //loadDataInTable();
                 return true;
@@ -105,7 +115,7 @@ public class SelectOrganismeController implements Initializable {
             } else return organisme.getNif().contains(txtRecherche);
         });
 
-        SortedList<Organisme> sortedList = new SortedList<>(filteredData);
+        SortedList<Organism> sortedList = new SortedList<>(filteredData);
         sortedList.comparatorProperty().bind(tvOrganisme.comparatorProperty());
         tvOrganisme.setItems(sortedList);
 
@@ -122,7 +132,7 @@ public class SelectOrganismeController implements Initializable {
     }
 
     private void refresh(){
-        ArrayList<Organisme> organismes = operation.getAll();
+        ArrayList<Organism> organismes = operation.getAll();
         dataTable.setAll(organismes);
         tvOrganisme.setItems(dataTable);
     }

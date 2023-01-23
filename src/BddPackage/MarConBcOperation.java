@@ -2,6 +2,7 @@ package BddPackage;
 
 import Models.MarConBc;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ public class MarConBcOperation extends BDD<MarConBc>{
     @Override
     public boolean insert(MarConBc o) {
         boolean ins = false;
-        String query = "INSERT INTO `MAR_CON_BC`(`ID_PROJET`, `ID_ORGANISME`, `NOM`, `TYPE`, `NUMERO`, `HT`, `TVA`, `TTC`, `COMPTE_NUMERO`, `COMPTE_BANCK`, `COMPTE_AGENCE`, `NUMBER_LOGTS`, `DATE`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO `MAR_CON_BC`(`ID_PROJET`, `ID_ORGANISME`, `NOM`, `TYPE`, `NUMERO`, `HT`, `TVA`, `TTC`, `COMPTE_NUMERO`, `COMPTE_BANCK`, `COMPTE_AGENCE`, `NUMBER_LOGTS`, `DATE`, `TYPE_DUREE`, `DUREE`, `ODS`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1,o.getIdProjet());
@@ -27,7 +28,10 @@ public class MarConBcOperation extends BDD<MarConBc>{
             preparedStmt.setString(10,o.getCompteBank());
             preparedStmt.setString(11,o.getCompteAgence());
             preparedStmt.setInt(12,o.getNumbreLogts());
-            preparedStmt.setString(13,o.getDate());
+            preparedStmt.setDate(13, Date.valueOf(o.getDate()));
+            preparedStmt.setString(14, o.getTypeDuree());
+            preparedStmt.setInt(15, o.getDuree());
+            preparedStmt.setDate(16, Date.valueOf(o.getOds()));
             int insert = preparedStmt.executeUpdate();
             if(insert != -1) ins = true;
         } catch (SQLException e) {
@@ -53,7 +57,7 @@ public class MarConBcOperation extends BDD<MarConBc>{
             preparedStmt.setDouble(6,o.getTva());
             preparedStmt.setDouble(7,o.getTtc());
             preparedStmt.setInt(8,o.getNumbreLogts());
-            preparedStmt.setString(9,o.getDate());
+            preparedStmt.setDate(9,Date.valueOf(o.getDate()));
             preparedStmt.setInt(10,o2.getId());
             int update = preparedStmt.executeUpdate();
             if(update != -1) upd = true;
@@ -109,7 +113,7 @@ public class MarConBcOperation extends BDD<MarConBc>{
                 marConBc.setCompteBank(resultSet.getString("COMPTE_BANCK"));
                 marConBc.setCompteAgence(resultSet.getString("COMPTE_AGENCE"));
                 marConBc.setNumbreLogts(resultSet.getInt("NUMBER_LOGTS"));
-                marConBc.setDate(resultSet.getString("DATE"));
+                marConBc.setDate(resultSet.getDate("DATE").toLocalDate());
 
                 list.add(marConBc);
             }
@@ -145,7 +149,7 @@ public class MarConBcOperation extends BDD<MarConBc>{
                 marConBc.setCompteBank(resultSet.getString("COMPTE_BANCK"));
                 marConBc.setCompteAgence(resultSet.getString("COMPTE_AGENCE"));
                 marConBc.setNumbreLogts(resultSet.getInt("NUMBER_LOGTS"));
-                marConBc.setDate(resultSet.getString("DATE"));
+                marConBc.setDate(resultSet.getDate("DATE").toLocalDate());
 
                 list.add(marConBc);
             }
@@ -180,7 +184,7 @@ public class MarConBcOperation extends BDD<MarConBc>{
                 marConBc.setCompteBank(resultSet.getString("COMPTE_BANCK"));
                 marConBc.setCompteAgence(resultSet.getString("COMPTE_AGENCE"));
                 marConBc.setNumbreLogts(resultSet.getInt("NUMBER_LOGTS"));
-                marConBc.setDate(resultSet.getString("DATE"));
+                marConBc.setDate(resultSet.getDate("DATE").toLocalDate());
 
                 list.add(marConBc);
             }
@@ -245,7 +249,7 @@ public class MarConBcOperation extends BDD<MarConBc>{
                 marConBc.setCompteBank(resultSet.getString("COMPTE_BANCK"));
                 marConBc.setCompteAgence(resultSet.getString("COMPTE_AGENCE"));
                 marConBc.setNumbreLogts(resultSet.getInt("NUMBER_LOGTS"));
-                marConBc.setDate(resultSet.getString("DATE"));
+                marConBc.setDate(resultSet.getDate("DATE").toLocalDate());
 
 
             }

@@ -2,10 +2,7 @@ package Controllers.ProjetControllers;
 
 import BddPackage.AvnentCoutOperation;
 import Models.AvnentCout;
-import Models.Cout;
-import Models.ModelesTabels.ProjetTable;
-import Models.Programme;
-import Models.Projet;
+import Models.Project;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -17,7 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -41,7 +37,7 @@ public class ListAvnantController implements Initializable {
     @FXML
     TableColumn<List<StringProperty>,String> idColumn,dateColumn,MontantColumn,coutColumn,typeColumn;
 
-    private Projet projetSelected;
+    private Project projetSelected;
     private final AvnentCoutOperation operation = new AvnentCoutOperation();
     private final ObservableList<List<StringProperty>> dataTable = FXCollections.observableArrayList();
 
@@ -57,7 +53,7 @@ public class ListAvnantController implements Initializable {
 
     }
 
-    public void Init(Projet projet){
+    public void Init(Project projet){
         this.projetSelected = projet;
 
         refresh();
@@ -82,7 +78,7 @@ public class ListAvnantController implements Initializable {
             try {
                 AvnentCout avnentCout = operation.get(Integer.parseInt(selected.get(0).get()));
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjetViews/UpdateAvnantView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjectViews/UpdateAvnantView.fxml"));
                 DialogPane temp = loader.load();
                 UpdateAvnantController controller = loader.getController();
                 controller.Init(avnentCout);

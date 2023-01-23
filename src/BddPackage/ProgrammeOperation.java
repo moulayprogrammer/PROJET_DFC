@@ -94,6 +94,28 @@ public class ProgrammeOperation extends BDD<Programme> {
         return list;
     }
 
+    public Programme get(int id) {
+        Programme programme = new Programme();
+        String query = "SELECT * FROM `programme` WHERE `ID` = ? AND `ARCHIVE` = 0;";
+        try {
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1,id);
+            ResultSet resultSet = preparedStmt.executeQuery();
+            if (resultSet.next()){
+
+                programme.setId(resultSet.getInt("ID"));
+                programme.setCode(resultSet.getString("CODE"));
+                programme.setNomProgramme(resultSet.getString("NOM_PROGRAMME"));
+                programme.setNombreLogts(resultSet.getInt("NOMBRE_LOGTS"));
+                programme.setNumeroCD(resultSet.getString("NUMERO_CD"));
+                programme.setDateInscription(resultSet.getString("ANNEE_INSCRIPTION"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return programme;
+    }
+
     public boolean AddToArchive(Programme programme){
         boolean upd = false;
         String query = "UPDATE `PROGRAMME` SET `ARCHIVE` = 1 WHERE `ID` = ? ";

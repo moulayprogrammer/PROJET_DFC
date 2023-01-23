@@ -1,7 +1,7 @@
 package Controllers.OrganismeControllers;
 
-import BddPackage.OrganismeOperation;
-import Models.Organisme;
+import BddPackage.OrganismOperation;
+import Models.Organism;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -18,15 +18,15 @@ public class UpdateController implements Initializable {
     @FXML
     TextField tfRaisonSocail,tfAddress,tfTel,tfRC,tfNIF;
 
-    private final OrganismeOperation operation = new OrganismeOperation();
-    private Organisme organisme;
+    private final OrganismOperation operation = new OrganismOperation();
+    private Organism organisme;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
 
-    public void Init(Organisme organismeUpdate) {
+    public void Init(Organism organismeUpdate) {
         this.organisme = organismeUpdate;
 
         tfRaisonSocail.setText(organismeUpdate.getRaisonSocial());
@@ -47,7 +47,7 @@ public class UpdateController implements Initializable {
 
         if (!raisonSocail.isEmpty() && !adress.isEmpty() && !tel.isEmpty() && ! rc.isEmpty() && !nif.isEmpty()){
 
-            Organisme organisme = new Organisme();
+            Organism organisme = new Organism();
             organisme.setRaisonSocial(raisonSocail);
             organisme.setAdresse(adress);
             organisme.setTel(tel);
@@ -80,7 +80,7 @@ public class UpdateController implements Initializable {
         ((Stage)tfAddress.getScene().getWindow()).close();
     }
 
-    private boolean update(Organisme organisme , Organisme organismeOld) {
+    private boolean update(Organism organisme , Organism organismeOld) {
         boolean insert = false;
         try {
             insert = operation.update(organisme,organismeOld);

@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane expanded="true" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="470.0" prefWidth="700.0" style="-fx-background-color: #FFF;" stylesheets="@../../resource/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ProjetControllers.ArchiveController">
+<DialogPane expanded="true" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="470.0" prefWidth="700.0" style="-fx-background-color: #FFF;" stylesheets="@../../resource/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ConventionControllers.SelectOrganismController">
    <header>
       <AnchorPane prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #EFF;">
          <children>
-            <Label layoutX="14.0" layoutY="19.0" style="-fx-font-size: 25;" text="Désarchiver Programme" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <Label layoutX="14.0" layoutY="19.0" style="-fx-font-size: 25;" text="Sélectionnez un organisme" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -47,28 +47,24 @@
                      </ImageView>
                </children>
             </HBox>
-            <TableView fx:id="tvProjet" onMouseClicked="#tableClick" prefHeight="450.0" prefWidth="1000.0" styleClass="container-table">
+            <TableView fx:id="tvOrganisme" onMouseClicked="#tableClick" prefHeight="450.0" prefWidth="1000.0" styleClass="container-table">
                <columns>
-                  <TableColumn fx:id="idColumn" prefWidth="199.99996948242188" text="id" visible="false" />
-                  <TableColumn fx:id="NomColumn" prefWidth="270.0" text="Intitulé" />
-                  <TableColumn fx:id="siteColumn" prefWidth="200.0" text="Site" />
-                  <TableColumn fx:id="cfColumn" prefWidth="210.0" text="Convention Finencial" />
-                  <TableColumn fx:id="dateColumn" prefWidth="169.0" text="Date Inscription" />
-                  <TableColumn fx:id="nbLogtsCuColumn" prefWidth="120.0" text="Nombre LOGTS" visible="false" />
-                  <TableColumn fx:id="coutRColumn" minWidth="0.0" prefWidth="150.0" text="Cout Realisation" visible="false" />
-                  <TableColumn fx:id="coutEColumn" prefWidth="150.0" text="Cout Etud" visible="false" />
-                  <TableColumn fx:id="coutVColumn" prefWidth="150.0" text="Cout VRD" visible="false" />
-                  <TableColumn fx:id="avnantColumn" prefWidth="150.0" text="Total Avnant" visible="false" />
+                  <TableColumn fx:id="idColumn" prefWidth="120.0" text="id" visible="false" />
+                  <TableColumn fx:id="resonSocialColumn" prefWidth="220.0" text="Raison  Social" />
+                  <TableColumn fx:id="adressColumn" prefWidth="170.0" text="Adresse" />
+                  <TableColumn fx:id="telColumn" prefWidth="120.0" text="Tel" />
+                  <TableColumn fx:id="rcColumn" prefWidth="130.0" text="N° RC" />
+                  <TableColumn fx:id="nifColumn" prefWidth="150.0" text="N° NIF" />
                </columns>
             </TableView>
             <HBox alignment="CENTER_RIGHT" spacing="20.0">
                <children>
-                  <Button fx:id="btnInsert" defaultButton="true" mnemonicParsing="false" onMousePressed="#ActionDeleteFromArchive" prefHeight="34.0" prefWidth="140.0" styleClass="info" text="Désarchiver" textFill="#2005a8">
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#ActionSelectOrganisme" prefHeight="34.0" prefWidth="140.0" styleClass="success" text="Selectioner" textFill="#2005a8">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button cancelButton="true" mnemonicParsing="false" onMousePressed="#ActionAnnuler" prefHeight="32.0" prefWidth="140.0" styleClass="warning" text="Annuler" textFill="#dd0000">
+                  <Button cancelButton="true" mnemonicParsing="false" onAction="#ActionAnnuler" prefHeight="32.0" prefWidth="140.0" styleClass="danger" text="Annuler" textFill="#dd0000">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

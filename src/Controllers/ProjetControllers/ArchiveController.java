@@ -2,11 +2,11 @@ package Controllers.ProjetControllers;
 
 import BddPackage.AvnentCoutOperation;
 import BddPackage.CoutOperation;
-import BddPackage.ProjetOperation;
+import BddPackage.ProjectOperation;
 import Models.AvnentCout;
 import Models.Cout;
 import Models.ModelesTabels.ProjetTable;
-import Models.Projet;
+import Models.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -39,12 +39,12 @@ public class ArchiveController implements Initializable {
     @FXML
     TableColumn<ProjetTable,Double> coutRColumn,coutEColumn,coutVColumn,avnantColumn;
 
-    private final ProjetOperation operation = new ProjetOperation();
+    private final ProjectOperation operation = new ProjectOperation();
     private final CoutOperation coutOperation = new CoutOperation();
     private final AvnentCoutOperation avnentCoutOperation = new AvnentCoutOperation();
     private final ObservableList<ProjetTable> pTableData = FXCollections.observableArrayList();
     private final ArrayList<ProjetTable> projetTables = new ArrayList<>();
-    private ArrayList<Projet> projets = new ArrayList<>();
+    private ArrayList<Project> projets = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -94,7 +94,7 @@ public class ArchiveController implements Initializable {
                     if (response == ButtonType.CANCEL) {
                         alertConfirmation.close();
                     } else if (response == ButtonType.OK) {
-                        operation.DeleteFromArchive(new Projet(projetArchived.getId()));
+                        operation.DeleteFromArchive(new Project(projetArchived.getId()));
 
                         ActionAnnuler();
                     }

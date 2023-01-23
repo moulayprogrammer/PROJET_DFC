@@ -4,7 +4,7 @@ import BddPackage.*;
 import Models.Facture;
 import Models.MarConBc;
 import Models.OrderePaiment;
-import Models.Organisme;
+import Models.Organism;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -39,7 +39,7 @@ public class DetailController implements Initializable {
     @FXML
     TableColumn<List<StringProperty>,String> tcNumSitTR,tcDateSitTr,tcMontantSitTr,tcRg,tcPr,tcNumOrdP,tcDateOrPai,tcMontantPaye;
 
-    private final OrganismeOperation organismeOperation = new OrganismeOperation();
+    private final OrganismOperation organismeOperation = new OrganismOperation();
     private final FactureOperation factureOperation = new FactureOperation();
     private final OrderPaymentOperation orderPaymentOperation = new OrderPaymentOperation();
     private int IdMar;
@@ -75,7 +75,7 @@ public class DetailController implements Initializable {
         this.IdMar = Integer.parseInt(data.get(0).getValue());
         int idOrg = Integer.parseInt(data.get(1).getValue());
 
-        Organisme organisme = organismeOperation.get(idOrg);
+        Organism organisme = organismeOperation.get(idOrg);
         tfEtb.setText(organisme.getRaisonSocial());
 
         refresh();

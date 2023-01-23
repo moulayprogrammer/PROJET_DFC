@@ -1,11 +1,8 @@
 package Controllers.ConventionControllers;
 
-import BddPackage.AvnentCoutOperation;
 import BddPackage.AvnentOperation;
-import Models.AvnentCout;
 import Models.AvnentMarConBc;
 import Models.MarConBc;
-import Models.Projet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

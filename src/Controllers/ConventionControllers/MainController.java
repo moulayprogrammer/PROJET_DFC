@@ -4,6 +4,7 @@ import BddPackage.AvnentOperation;
 import BddPackage.MarConBcOperation;
 import Models.MarConBc;
 import Models.ModelesTabels.ProjetTable;
+import Models.Project;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -13,10 +14,14 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -36,8 +41,7 @@ public class MainController implements Initializable {
     TableColumn<List<StringProperty>,String> idColumn,idOrgColumn,nbLogtsColumn;
 
 
-
-    private ProjetTable projet;
+    private Project project;
     private final ObservableList<List<StringProperty>> dataTable = FXCollections.observableArrayList();
     private final MarConBcOperation operation = new MarConBcOperation();
     private final AvnentOperation avnentOperation = new AvnentOperation();
@@ -60,7 +64,7 @@ public class MainController implements Initializable {
         dateColumn.setCellValueFactory(data -> data.getValue().get(11));
 
 
-        projet = new ProjetTable();
+        this.project = new Project();
         refresh();
     }
 
@@ -70,15 +74,22 @@ public class MainController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/SelectProjetView.fxml"));
             DialogPane temp = loader.load();
             SelectProjetController controller = loader.getController();
-            controller.Init(this.projet);
+            controller.Init(this.project);
             javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
             dialog.initOwner(this.tfRecherche.getScene().getWindow());
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            closeButton.setVisible(false);
             dialog.showAndWait();
 
-            tfProjet.setText(this.projet.getNom());
-            refreshByProjet();
+            if (this.project.getNom() != null){
+                tfProjet.setText(this.project.getNom());
+                refreshByProjet();
+            }else refresh();
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,38 +99,39 @@ public class MainController implements Initializable {
     @FXML
     private void ActionClearSelect(){
         tfProjet.clear();
-        projet = new ProjetTable();
+        project = new Project();
         refresh();
     }
 
     @FXML
     private void ActionAdd(){
-        String projet = tfProjet.getText().trim();
-        if (!projet.isEmpty()) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/AddView.fxml"));
-                DialogPane temp = loader.load();
-                AddController controller = loader.getController();
-                controller.Init(this.projet);
-                javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
-                dialog.initOwner(this.tfRecherche.getScene().getWindow());
-                dialog.setDialogPane(temp);
-                dialog.resizableProperty().setValue(false);
-                dialog.showAndWait();
 
-                refreshByProjet();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/AddView.fxml"));
+            DialogPane temp = loader.load();
+            javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
+            dialog.setDialogPane(temp);
+            dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            closeButton.setVisible(false);
+            dialog.showAndWait();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else {
-            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
-            alertWarning.setHeaderText("Attention ");
-            alertWarning.setContentText("svp sélectionner un projet");
-            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
-            Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
-            okButton.setText("d'accord");
-            alertWarning.showAndWait();
+            if (!tfProjet.getText().isEmpty()) refreshByProjet();
+            else refresh();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void tableClick(MouseEvent mouseEvent) {
+        if ( mouseEvent.getClickCount() == 2 && mouseEvent.getButton().equals(MouseButton.PRIMARY) ){
+
+            ActionUpdate();
         }
     }
 
@@ -137,6 +149,10 @@ public class MainController implements Initializable {
                 dialog.initOwner(this.tfRecherche.getScene().getWindow());
                 dialog.setDialogPane(temp);
                 dialog.resizableProperty().setValue(false);
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                closeButton.setVisible(false);
                 dialog.showAndWait();
 
                 if (tfProjet.getText().trim().isEmpty()) refresh();
@@ -203,6 +219,9 @@ public class MainController implements Initializable {
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
             dialog.initOwner(this.tfRecherche.getScene().getWindow());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            closeButton.setVisible(false);
             dialog.showAndWait();
 
             if (tfProjet.getText().isEmpty()) refresh();
@@ -228,6 +247,9 @@ public class MainController implements Initializable {
                 dialog.setDialogPane(temp);
                 dialog.resizableProperty().setValue(false);
                 dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                closeButton.setVisible(false);
                 dialog.showAndWait();
 
                 if (tfProjet.getText().isEmpty()) refresh();
@@ -262,6 +284,9 @@ public class MainController implements Initializable {
                 dialog.setDialogPane(temp);
                 dialog.resizableProperty().setValue(false);
                 dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                closeButton.setVisible(false);
                 dialog.showAndWait();
 
                 if (tfProjet.getText().isEmpty()) refresh();
@@ -279,6 +304,49 @@ public class MainController implements Initializable {
             okButton.setText("d'accord");
             alertWarning.showAndWait();
         }
+    }
+
+    @FXML
+    private void ActionRefresh(){
+        tfRecherche.clear();
+        if (tfProjet.getText().trim().isEmpty()) refresh();
+        else refreshByProjet();
+    }
+
+    private void refresh(){
+        marConBcs = operation.getAll();
+        chargeTable();
+    }
+
+    private void refreshByProjet(){
+        marConBcs = operation.getAllByProjet(project.getId());
+        chargeTable();
+    }
+
+    private void chargeTable(){
+        dataTable.clear();
+        marConBcs.forEach(marConBc -> {
+            List<StringProperty> data = new ArrayList<>();
+
+            double AvnSup = avnentOperation.getSum(marConBc.getId(), "SUPLEMENTAIRE") ;
+            double AvnDem = avnentOperation.getSum(marConBc.getId(), "DEMENITIVE") ;
+
+            data.add(0, new SimpleStringProperty(String.valueOf(marConBc.getId())));
+            data.add(1, new SimpleStringProperty(String.valueOf(marConBc.getIdOrganisme())));
+            data.add(2, new SimpleStringProperty(marConBc.getNomOrganisme()));
+            data.add(3, new SimpleStringProperty(marConBc.getNom()));
+            data.add(4, new SimpleStringProperty(marConBc.getNumero()));
+            data.add(5, new SimpleStringProperty(marConBc.getType()));
+            data.add(6, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",marConBc.getTtc())));
+            data.add(7, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",AvnSup)));
+            data.add(8, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",AvnDem)));
+            data.add(9, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",(marConBc.getTtc() + AvnSup + AvnDem) )));
+            data.add(10, new SimpleStringProperty(String.valueOf(marConBc.getNumbreLogts())));
+            data.add(11, new SimpleStringProperty(marConBc.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+
+            dataTable.add(data);
+        });
+        tvConvention.setItems(dataTable);
     }
 
     @FXML
@@ -309,48 +377,5 @@ public class MainController implements Initializable {
         sortedList.comparatorProperty().bind(tvConvention.comparatorProperty());
         tvConvention.setItems(sortedList);
 
-    }
-
-    @FXML
-    private void ActionRefresh(){
-        tfRecherche.clear();
-        if (tfProjet.getText().trim().isEmpty()) refresh();
-        else refreshByProjet();
-    }
-
-    private void refresh(){
-        marConBcs = operation.getAll();
-        chargeTable();
-    }
-
-    private void refreshByProjet(){
-        marConBcs = operation.getAllByProjet(projet.getId());
-        chargeTable();
-    }
-
-    private void chargeTable(){
-        dataTable.clear();
-        marConBcs.forEach(marConBc -> {
-            List<StringProperty> data = new ArrayList<>();
-
-            double AvnSup = avnentOperation.getSum(marConBc.getId(), "SUPLEMENTAIRE") ;
-            double AvnDem = avnentOperation.getSum(marConBc.getId(), "DEMENITIVE") ;
-
-            data.add(0, new SimpleStringProperty(String.valueOf(marConBc.getId())));
-            data.add(1, new SimpleStringProperty(String.valueOf(marConBc.getIdOrganisme())));
-            data.add(2, new SimpleStringProperty(marConBc.getNomOrganisme()));
-            data.add(3, new SimpleStringProperty(marConBc.getNom()));
-            data.add(4, new SimpleStringProperty(marConBc.getNumero()));
-            data.add(5, new SimpleStringProperty(marConBc.getType()));
-            data.add(6, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",marConBc.getTtc())));
-            data.add(7, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",AvnSup)));
-            data.add(8, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",AvnDem)));
-            data.add(9, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",(marConBc.getTtc() + AvnSup + AvnDem) )));
-            data.add(10, new SimpleStringProperty(String.valueOf(marConBc.getNumbreLogts())));
-            data.add(11, new SimpleStringProperty(marConBc.getDate()));
-
-            dataTable.add(data);
-        });
-        tvConvention.setItems(dataTable);
     }
 }

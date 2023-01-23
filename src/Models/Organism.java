@@ -1,6 +1,6 @@
 package Models;
 
-public class Organisme {
+public class Organism {
 
     private int id;
     private String raisonSocial;
@@ -9,10 +9,10 @@ public class Organisme {
     private String rc;
     private String nif;
 
-    public Organisme() {
+    public Organism() {
     }
 
-    public Organisme(int id, String raisonSocial, String adresse, String tel, String rc, String nif) {
+    public Organism(int id, String raisonSocial, String adresse, String tel, String rc, String nif) {
         this.id = id;
         this.raisonSocial = raisonSocial;
         this.adresse = adresse;

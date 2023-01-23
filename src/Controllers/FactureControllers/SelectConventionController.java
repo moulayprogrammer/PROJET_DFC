@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -127,7 +128,7 @@ public class SelectConventionController implements Initializable {
                 return true;
             } else if (mar.getType().contains(txtRecherche)) {
                 return true;
-            } else return mar.getDate().contains(txtRecherche);
+            } else return mar.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")).contains(txtRecherche);
         });
 
         SortedList<MarConBc> sortedList = new SortedList<>(filteredData);

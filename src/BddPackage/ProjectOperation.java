@@ -1,17 +1,17 @@
 package BddPackage;
 
-import Models.Programme;
-import Models.Projet;
+import Models.Project;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProjetOperation extends  BDD<Projet>{
+public class ProjectOperation extends  BDD<Project>{
 
     @Override
-    public boolean insert(Projet o) {
+    public boolean insert(Project o) {
         boolean ins = false;
         String query = "INSERT INTO `PROJET`( `ID_PROGRAMME`, `NOM`, `NUMBER_LOGTS`, `NUMERO_CF`, `DATE_INSCRIPTION` , `SITE` ) VALUES (?,?,?,?,?,?)";
         try {
@@ -20,7 +20,7 @@ public class ProjetOperation extends  BDD<Projet>{
             preparedStmt.setString(2,o.getNom());
             preparedStmt.setInt(3,o.getNomberLogts());
             preparedStmt.setString(4,o.getNumeroCF());
-            preparedStmt.setString(5,o.getDateInsription());
+            preparedStmt.setString(5, o.getDateInsription());
             preparedStmt.setString(6,o.getSite());
             int insert = preparedStmt.executeUpdate();
             if(insert != -1) ins = true;
@@ -31,19 +31,20 @@ public class ProjetOperation extends  BDD<Projet>{
     }
 
     @Override
-    public boolean update(Projet o1, Projet o2) {
+    public boolean update(Project o1, Project o2) {
         boolean upd = false;
-        String query = "UPDATE `PROJET` SET `NOM`=?,`NUMBER_LOGTS`=?,`NUMERO_CF`=?,`DATE_INSCRIPTION`= ? , `SITE` = ?" +
+        String query = "UPDATE `PROJET` SET `ID_PROGRAMME`= ?, `NOM`=?,`NUMBER_LOGTS`=?,`NUMERO_CF`=?,`DATE_INSCRIPTION`= ? , `SITE` = ?" +
                 "WHERE `ID` = ? ";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
 
-            preparedStmt.setString(1,o1.getNom());
-            preparedStmt.setInt(2,o1.getNomberLogts());
-            preparedStmt.setString(3,o1.getNumeroCF());
-            preparedStmt.setString(4,o1.getDateInsription());
-            preparedStmt.setString(5,o1.getSite());
-            preparedStmt.setInt(6,o2.getId());
+            preparedStmt.setInt(1,o1.getIdProgramme());
+            preparedStmt.setString(2,o1.getNom());
+            preparedStmt.setInt(3,o1.getNomberLogts());
+            preparedStmt.setString(4,o1.getNumeroCF());
+            preparedStmt.setString(5,o1.getDateInsription());
+            preparedStmt.setString(6,o1.getSite());
+            preparedStmt.setInt(7,o2.getId());
             int update = preparedStmt.executeUpdate();
             if(update != -1) upd = true;
         } catch (SQLException e) {
@@ -53,7 +54,7 @@ public class ProjetOperation extends  BDD<Projet>{
     }
 
     @Override
-    public boolean delete(Projet o) {
+    public boolean delete(Project o) {
         boolean del = false;
         String query = "DELETE FROM `PROJET` WHERE `ID` = ? ";
         try {
@@ -68,12 +69,12 @@ public class ProjetOperation extends  BDD<Projet>{
     }
 
     @Override
-    public boolean isExist(Projet o) {
+    public boolean isExist(Project o) {
         return false;
     }
 
-    public Projet get(Integer id) {
-        Projet projet = new Projet();
+    public Project get(Integer id) {
+        Project projet = new Project();
         String query = "SELECT * FROM `PROJET` WHERE `ID` = ?";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -97,14 +98,14 @@ public class ProjetOperation extends  BDD<Projet>{
     }
 
     @Override
-    public ArrayList<Projet> getAll() {
-        ArrayList<Projet> list = new ArrayList<>();
+    public ArrayList<Project> getAll() {
+        ArrayList<Project> list = new ArrayList<>();
         String query = "SELECT * FROM `PROJET` WHERE `ARCHIVE` = 0 ";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             ResultSet resultSet = preparedStmt.executeQuery();
             while (resultSet.next()){
-                Projet projet = new Projet();
+                Project projet = new Project();
                 projet.setId(resultSet.getInt("ID"));
                 projet.setIdProgramme(resultSet.getInt("ID_PROGRAMME"));
                 projet.setNom(resultSet.getString("NOM"));
@@ -136,15 +137,15 @@ public class ProjetOperation extends  BDD<Projet>{
         return id;
     }
 
-    public ArrayList<Projet> getAllByProgramme(int idProg) {
-        ArrayList<Projet> list = new ArrayList<>();
+    public ArrayList<Project> getAllByProgramme(int idProg) {
+        ArrayList<Project> list = new ArrayList<>();
         String query = "SELECT * FROM `PROJET` WHERE `ID_PROGRAMME` = ? && `ARCHIVE` = 0";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1,idProg);
             ResultSet resultSet = preparedStmt.executeQuery();
             while (resultSet.next()){
-                Projet projet = new Projet();
+                Project projet = new Project();
                 projet.setId(resultSet.getInt("ID"));
                 projet.setIdProgramme(resultSet.getInt("ID_PROGRAMME"));
                 projet.setNom(resultSet.getString("NOM"));
@@ -177,7 +178,7 @@ public class ProjetOperation extends  BDD<Projet>{
         return upd;
     }
 
-    public boolean DeleteFromArchive(Projet projet){
+    public boolean DeleteFromArchive(Project projet){
         boolean upd = false;
         String query = "UPDATE `PROJET` SET `ARCHIVE`= 0 WHERE `ID` = ? ";
         try {
@@ -193,14 +194,14 @@ public class ProjetOperation extends  BDD<Projet>{
         return upd;
     }
 
-    public ArrayList<Projet> getAllArchive() {
-        ArrayList<Projet> list = new ArrayList<>();
+    public ArrayList<Project> getAllArchive() {
+        ArrayList<Project> list = new ArrayList<>();
         String query = "SELECT * FROM `PROJET` WHERE `ARCHIVE` = 1 ";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             ResultSet resultSet = preparedStmt.executeQuery();
             while (resultSet.next()){
-                Projet projet = new Projet();
+                Project projet = new Project();
                 projet.setId(resultSet.getInt("ID"));
                 projet.setIdProgramme(resultSet.getInt("ID_PROGRAMME"));
                 projet.setNom(resultSet.getString("NOM"));

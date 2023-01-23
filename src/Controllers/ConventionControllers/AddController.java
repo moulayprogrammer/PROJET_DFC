@@ -1,88 +1,172 @@
 package Controllers.ConventionControllers;
 
 import BddPackage.MarConBcOperation;
+import BddPackage.OrganismOperation;
+import BddPackage.ProjectOperation;
 import Models.MarConBc;
-import Models.ModelesTabels.ProjetTable;
-import Models.Organisme;
+import Models.Organism;
+import Models.Project;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AddController implements Initializable {
 
     @FXML
-    TextField tfProjet,tfOrganisme,tfNumero,tfNbLogts,tfCoutHT,tfCoutTVA,tfCoutTTC,tfCompteNumero,tfCompteBank,tfCompteAgence,tfNom;
+    TextField tfDuree,tfNumero,tfNbLogts,tfCoutHT,tfCoutTVA,tfCoutTTC,tfCompteNumero,tfCompteBank,tfCompteAgence;
     @FXML
-    ComboBox<String> cbType;
+    TextArea tfNom;
     @FXML
-    DatePicker dpDate;
+    ComboBox<String> cbType,cbProject,cbDuree,cbOrganism;
+    @FXML
+    DatePicker dpDate,dpDateOds;
 
-    private ProjetTable projetTable;
-    private Organisme organisme;
+    private Project projectSelected;
+    private Organism organism;
     private final MarConBcOperation operation = new MarConBcOperation();
+    private final ProjectOperation projectOperation = new ProjectOperation();
+    private final OrganismOperation organismOperation = new OrganismOperation();
+
+
+    private final ObservableList<String> dataComboP = FXCollections.observableArrayList();
+    private final ObservableList<String> dataComboOrg = FXCollections.observableArrayList();
+    private ArrayList<Project> projects = new ArrayList<>();
+    private ArrayList<Organism> organisms = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.organisme = new Organisme();
+        this.organism = new Organism();
+        this.projectSelected = new Project();
 
         cbType.getItems().addAll("REALISATION","ETUDE","VRD");
+        cbDuree.getItems().addAll("JOURS","MOIS");
+        cbDuree.getSelectionModel().select(0);
+        refreshComboProjects();
+        refreshComboOrganism();
+
+        tfCoutHT.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                tfCoutHT.setText("0");
+                newValue = "0";
+            }
+            if (!tfCoutTVA.getText().isEmpty()) {
+                double tva = Double.parseDouble(tfCoutTVA.getText().trim());
+                double ht = Double.parseDouble(newValue);
+                double ttc = ((ht*tva)/100) + ht;
+                tfCoutTTC.setText(String.format("%.2f",ttc));
+            }
+        });
+
+        tfCoutTVA.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!tfCoutHT.getText().isEmpty()) {
+                double tva = Double.parseDouble(newValue);
+                double ht = Double.parseDouble(tfCoutHT.getText().trim());
+                double ttc = ((ht*tva)/100) + ht;
+                tfCoutTTC.setText(String.format("%.2f",ttc));
+            }
+        });
     }
 
-    public void Init(ProjetTable projetTable) {
+    private void refreshComboProjects() {
         try {
-            this.projetTable = projetTable;
-
-            tfProjet.setText(this.projetTable.getNom());
-
-            tfCoutHT.textProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue.isEmpty()) {
-                    tfCoutHT.setText("0");
-                    newValue = "0";
-                }
-                if (!tfCoutTVA.getText().isEmpty()) {
-                    double tva = Double.parseDouble(tfCoutTVA.getText().trim());
-                    double ht = Double.parseDouble(newValue);
-                    double ttc = ((ht*tva)/100) + ht;
-                    tfCoutTTC.setText(String.format("%.2f",ttc));
-                }
-            });
-
-            tfCoutTVA.textProperty().addListener((observable, oldValue, newValue) -> {
-                if (!tfCoutHT.getText().isEmpty()) {
-                    double tva = Double.parseDouble(newValue);
-                    double ht = Double.parseDouble(tfCoutHT.getText().trim());
-                    double ttc = ((ht*tva)/100) + ht;
-                    tfCoutTTC.setText(String.format("%.2f",ttc));
-                }
-            });
+            dataComboP.clear();
+            projects = projectOperation.getAll();
+            for (Project p : projects) {
+                dataComboP.add(p.getNom());
+            }
+            cbProject.setItems(dataComboP);
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
 
-
+    private void refreshComboOrganism() {
+        try {
+            dataComboOrg.clear();
+            organisms = organismOperation.getAll();
+            for (Organism org : organisms) {
+                dataComboOrg.add(org.getRaisonSocial());
+            }
+            cbOrganism.setItems(dataComboOrg);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    private void ActionSelectOrganisme(){
+    private void ActionSelectComboProject(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/SelectOrganismeView.fxml"));
+            int index = cbProject.getSelectionModel().getSelectedIndex();
+            if (index != -1) this.projectSelected = projects.get(index);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void ActionSelectComboOrganism(){
+        try {
+            int index = cbOrganism.getSelectionModel().getSelectedIndex();
+            if (index != -1) this.organism = organisms.get(index);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void ActionSelectProject() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/SelectProjetView.fxml"));
             DialogPane temp = loader.load();
-            SelectOrganismeController controller = loader.getController();
-            controller.Init(this.organisme);
+            SelectProjetController controller = loader.getController();
+            controller.Init(this.projectSelected);
+            javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
+            dialog.initOwner(this.tfNom.getScene().getWindow());
+            dialog.setDialogPane(temp);
+            dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfNom.getScene().getWindow());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            closeButton.setVisible(false);
+            dialog.showAndWait();
+
+            if (this.projectSelected.getNom() != null)
+                cbProject.getSelectionModel().select(this.projectSelected.getNom());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void ActionSelectOrganism(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/SelectOrganismView.fxml"));
+            DialogPane temp = loader.load();
+            SelectOrganismController controller = loader.getController();
+            controller.Init(this.organism);
             javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfNom.getScene().getWindow());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            closeButton.setVisible(false);
             dialog.showAndWait();
 
-            tfOrganisme.setText(this.organisme.getRaisonSocial());
+            if (this.organism.getRaisonSocial() != null)
+                cbOrganism.getSelectionModel().select(this.organism.getRaisonSocial());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,26 +176,28 @@ public class AddController implements Initializable {
     @FXML
     private void ActionInsert(){
 
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         String nom = tfNom.getText().trim();
         String numero = tfNumero.getText().trim();
         String type = cbType.getSelectionModel().getSelectedItem();
         String nbLogts = tfNbLogts.getText().trim();
-        String date = dateFormatter.format(dpDate.getValue());
+        LocalDate date = dpDate.getValue();
         String ht = tfCoutHT.getText().trim();
         String tva = tfCoutTVA.getText().trim();
         String ttc = tfCoutTTC.getText().trim();
         String numeroCompte = tfCompteNumero.getText().trim();
         String bankCompte = tfCompteBank.getText().trim();
         String agenceCompte = tfCompteAgence.getText().trim();
+        String duree = tfDuree.getText().trim();
+        LocalDate ods = dpDateOds.getValue();
 
-        if (!nom.isEmpty()  && !numero.isEmpty() && !type.isEmpty() && !nbLogts.isEmpty() && !date.isEmpty()
-                && !ht.isEmpty() && !tva.isEmpty() && !ttc.isEmpty() && !numeroCompte.isEmpty() && !bankCompte.isEmpty() && !agenceCompte.isEmpty()){
+        if (!nom.isEmpty()  && !numero.isEmpty() && !type.isEmpty() && !nbLogts.isEmpty() && date != null
+                && !ht.isEmpty() && !tva.isEmpty() && !ttc.isEmpty() && !numeroCompte.isEmpty() && !bankCompte.isEmpty()
+                && !agenceCompte.isEmpty() && !duree.isEmpty() && ods != null){
 
             MarConBc mar = new MarConBc();
-            mar.setIdProjet(this.projetTable.getId());
-            mar.setIdOrganisme(this.organisme.getId());
+            mar.setIdProjet(this.projectSelected.getId());
+            mar.setIdOrganisme(this.organism.getId());
             mar.setNom(nom);
             mar.setNumero(numero);
             mar.setType(type);
@@ -123,6 +209,9 @@ public class AddController implements Initializable {
             mar.setCompteNumero(numeroCompte);
             mar.setCompteBank(bankCompte);
             mar.setCompteAgence(agenceCompte);
+            mar.setTypeDuree(cbDuree.getSelectionModel().getSelectedItem());
+            mar.setDuree(Integer.parseInt(duree));
+            mar.setOds(ods);
 
             boolean ins = insert(mar);
             if (ins) ActionAnnuler();
@@ -147,7 +236,7 @@ public class AddController implements Initializable {
 
     @FXML
     private void ActionAnnuler(){
-        ((Stage)tfProjet.getScene().getWindow()).close();
+        ((Stage)tfNom.getScene().getWindow()).close();
     }
 
     private boolean insert(MarConBc marConBc) {

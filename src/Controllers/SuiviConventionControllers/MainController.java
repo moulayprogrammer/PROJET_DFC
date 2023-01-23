@@ -1,7 +1,7 @@
 package Controllers.SuiviConventionControllers;
 
 import BddPackage.*;
-import Controllers.ConventionControllers.SelectOrganismeController;
+import Controllers.ConventionControllers.SelectOrganismController;
 import Models.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
@@ -48,7 +48,7 @@ public class MainController implements Initializable {
 
 
     private final ObservableList<List<List<StringProperty>>> dataTable = FXCollections.observableArrayList();
-    private final ProjetOperation projetOperation = new ProjetOperation();
+    private final ProjectOperation projetOperation = new ProjectOperation();
     private final CoutOperation coutOperation = new CoutOperation();
     private final AvnentCoutOperation avnentCoutOperation = new AvnentCoutOperation();
     private final MarConBcOperation marConBcOperation = new MarConBcOperation();
@@ -58,13 +58,13 @@ public class MainController implements Initializable {
     private final FactureOperation factureOperation = new FactureOperation();
     private final OrderPaymentOperation orderPaymentOperation = new OrderPaymentOperation();
     private Connection conn;
-    private Organisme organisme;
+    private Organism organisme;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         conn = connectBD.connect();
-        organisme = new Organisme();
+        organisme = new Organism();
 
         idProj.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(0).get(0).getValue()));
         idProg.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().get(0).get(1).getValue()));
@@ -116,7 +116,7 @@ public class MainController implements Initializable {
         try {
             dataTable.clear();
 
-            List<Projet> projets = projetOperation.getAll();
+            List<Project> projets = projetOperation.getAll();
             projets.forEach(projet -> {
 
                 Cout coutR = coutOperation.getCoutByProjet(projet.getId(), "REALISATION");
@@ -260,11 +260,11 @@ public class MainController implements Initializable {
     private void ActionOrganisme(){
         try {
             tfEtb.clear();
-            this.organisme = new Organisme();
+            this.organisme = new Organism();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/SuiviEtbViews/SelectOrganismeView.fxml"));
             DialogPane temp = loader.load();
-            SelectOrganismeController controller = loader.getController();
+            SelectOrganismController controller = loader.getController();
             controller.Init(this.organisme);
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(temp);
@@ -325,7 +325,7 @@ public class MainController implements Initializable {
     @FXML
     private void ActionRefreshOrganisme(){
         tfEtb.clear();
-        this.organisme = new Organisme();
+        this.organisme = new Organism();
         LocalDate dateFrom = dpFrom.getValue();
         LocalDate dateTo = dpTo.getValue();
         if (dateFrom != null && dateTo != null) {

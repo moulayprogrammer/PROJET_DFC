@@ -1,6 +1,8 @@
 package Models;
 
 
+import java.time.LocalDate;
+
 public class MarConBc {
 
     private int id;
@@ -11,13 +13,16 @@ public class MarConBc {
     private String type;
     private String numero;
     private int numbreLogts;
-    private String date;
+    private LocalDate date;
     private double ht;
     private double tva;
     private double ttc;
     private String compteNumero;
     private String compteBank;
     private String compteAgence;
+    private  String typeDuree;
+    private int duree;
+    private LocalDate ods;
 
     public MarConBc() {
     }
@@ -26,11 +31,11 @@ public class MarConBc {
         this.id = id;
     }
 
-    public MarConBc(int id, int idProjet, int idOrganisme, String nom, String type, String numero, int numbreLogts, String date,
-                    double ht, double tva, double ttc) {
+    public MarConBc(int id, int idProjet, int idOrganisme, String nomOrganisme, String nom, String type, String numero, int numbreLogts, LocalDate date, double ht, double tva, double ttc) {
         this.id = id;
         this.idProjet = idProjet;
         this.idOrganisme = idOrganisme;
+        this.nomOrganisme = nomOrganisme;
         this.nom = nom;
         this.type = type;
         this.numero = numero;
@@ -41,11 +46,11 @@ public class MarConBc {
         this.ttc = ttc;
     }
 
-    public MarConBc(int id, int idProjet, int idOrganisme, String nom, String type, String numero, int numbreLogts, String date, double ht,
-                    double tva, double ttc, String compteNumero, String compteBank, String compteAgence) {
+    public MarConBc(int id, int idProjet, int idOrganisme, String nomOrganisme, String nom, String type, String numero, int numbreLogts, LocalDate date, double ht, double tva, double ttc, String compteNumero, String compteBank, String compteAgence) {
         this.id = id;
         this.idProjet = idProjet;
         this.idOrganisme = idOrganisme;
+        this.nomOrganisme = nomOrganisme;
         this.nom = nom;
         this.type = type;
         this.numero = numero;
@@ -57,6 +62,27 @@ public class MarConBc {
         this.compteNumero = compteNumero;
         this.compteBank = compteBank;
         this.compteAgence = compteAgence;
+    }
+
+    public MarConBc(int id, int idProjet, int idOrganisme, String nomOrganisme, String nom, String type, String numero, int numbreLogts, LocalDate date, double ht, double tva, double ttc, String compteNumero, String compteBank, String compteAgence, String typeDuree, int duree, LocalDate ods) {
+        this.id = id;
+        this.idProjet = idProjet;
+        this.idOrganisme = idOrganisme;
+        this.nomOrganisme = nomOrganisme;
+        this.nom = nom;
+        this.type = type;
+        this.numero = numero;
+        this.numbreLogts = numbreLogts;
+        this.date = date;
+        this.ht = ht;
+        this.tva = tva;
+        this.ttc = ttc;
+        this.compteNumero = compteNumero;
+        this.compteBank = compteBank;
+        this.compteAgence = compteAgence;
+        this.typeDuree = typeDuree;
+        this.duree = duree;
+        this.ods = ods;
     }
 
     public int getId() {
@@ -115,11 +141,11 @@ public class MarConBc {
         this.numbreLogts = numbreLogts;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -177,5 +203,29 @@ public class MarConBc {
 
     public void setNomOrganisme(String nomOrganisme) {
         this.nomOrganisme = nomOrganisme;
+    }
+
+    public String getTypeDuree() {
+        return typeDuree;
+    }
+
+    public void setTypeDuree(String typeDuree) {
+        this.typeDuree = typeDuree;
+    }
+
+    public int getDuree() {
+        return duree;
+    }
+
+    public void setDuree(int duree) {
+        this.duree = duree;
+    }
+
+    public LocalDate getOds() {
+        return ods;
+    }
+
+    public void setOds(LocalDate ods) {
+        this.ods = ods;
     }
 }
