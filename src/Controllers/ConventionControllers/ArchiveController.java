@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -26,7 +28,7 @@ public class ArchiveController implements Initializable {
     @FXML
     TableView<MarConBc> tvConvention;
     @FXML
-    TableColumn<MarConBc,String> organismeColumnn,NomColumnn,NumerColumn,typeColumn,htColumn,tvaColumn,ttcColumn,dateColumn;
+    TableColumn<MarConBc,String> organismeColumnn,NomColumnn,NumerColumn,typeColumn,dateColumn;
     @FXML
     TableColumn<MarConBc,Integer> idColumn,idOrgColumn,nbLogtsColumn;
 
@@ -43,16 +45,19 @@ public class ArchiveController implements Initializable {
         NomColumnn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         NumerColumn.setCellValueFactory(new PropertyValueFactory<>("numero"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        htColumn.setCellValueFactory(new PropertyValueFactory<>("ht"));
-        tvaColumn.setCellValueFactory(new PropertyValueFactory<>("tva"));
-        ttcColumn.setCellValueFactory(new PropertyValueFactory<>("ttc"));
         nbLogtsColumn.setCellValueFactory(new PropertyValueFactory<>("numbreLogts"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         refresh();
 
     }
+    @FXML
+    private void tableClick(MouseEvent mouseEvent) {
+        if ( mouseEvent.getClickCount() == 2 && mouseEvent.getButton().equals(MouseButton.PRIMARY) ){
 
+            ActionDeleteFromArchive();
+        }
+    }
 
     @FXML
     private void ActionDeleteFromArchive(){
@@ -64,7 +69,8 @@ public class ArchiveController implements Initializable {
 
                 Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
                 alertConfirmation.setHeaderText("Confirmer désarchivage");
-                alertConfirmation.setContentText("Êtes-vous sûr de vouloir désarchiver la convention ");
+                alertConfirmation.setContentText("Êtes-vous sûr de vouloir désarchiver la convention numéro : " + mar.getNumero());
+                alertConfirmation.initOwner(this.tfRecherche.getScene().getWindow());
                 Button okButton = (Button) alertConfirmation.getDialogPane().lookupButton(ButtonType.OK);
                 okButton.setText("D'accord");
 
@@ -88,10 +94,28 @@ public class ArchiveController implements Initializable {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
             alertWarning.setHeaderText("Attention ");
             alertWarning.setContentText("Veuillez choisir la convention pour désarchiver");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
             Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
             okButton.setText("d'accord");
             alertWarning.showAndWait();
         }
+    }
+
+    @FXML
+    private void ActionRefresh(){
+        tfRecherche.clear();
+        refresh();
+    }
+
+    @FXML
+    private void ActionAnnuler(){
+        ((Stage)tfRecherche.getScene().getWindow()).close();
+    }
+
+    private void refresh(){
+        ArrayList<MarConBc> marConBcs = operation.getAllArchived();
+        dataTable.setAll(marConBcs);
+        tvConvention.setItems(dataTable);
     }
 
     @FXML
@@ -121,20 +145,5 @@ public class ArchiveController implements Initializable {
         tvConvention.setItems(sortedList);
     }
 
-    @FXML
-    private void ActionRefresh(){
-        tfRecherche.clear();
-        refresh();
-    }
 
-    @FXML
-    private void ActionAnnuler(){
-        ((Stage)tfRecherche.getScene().getWindow()).close();
-    }
-
-    private void refresh(){
-        ArrayList<MarConBc> marConBcs = operation.getAllArchived();
-        dataTable.setAll(marConBcs);
-        tvConvention.setItems(dataTable);
-    }
 }
