@@ -3,6 +3,7 @@ package BddPackage;
 import Models.AvnentMarConBc;
 import sun.dc.pr.PRError;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ public class AvnentOperation extends  BDD<AvnentMarConBc>{
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1,o.getIdMarConBc());
             preparedStmt.setString(2,o.getType());
-            preparedStmt.setString(3,o.getDate());
+            preparedStmt.setDate(3, Date.valueOf(o.getDate()));
             preparedStmt.setDouble(4,o.getMontant());
             int insert = preparedStmt.executeUpdate();
             if(insert != -1) ins = true;
@@ -36,7 +37,7 @@ public class AvnentOperation extends  BDD<AvnentMarConBc>{
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setString(1,o.getType());
-            preparedStmt.setString(2,o.getDate());
+            preparedStmt.setDate(2,Date.valueOf(o.getDate()));
             preparedStmt.setDouble(3,o.getMontant());
             preparedStmt.setInt(4,o2.getId());
             int update = preparedStmt.executeUpdate();
@@ -79,7 +80,7 @@ public class AvnentOperation extends  BDD<AvnentMarConBc>{
                 avnentMarConBc.setId(resultSet.getInt("ID"));
                 avnentMarConBc.setIdMarConBc(resultSet.getInt("ID_MAR_CON_BC"));
                 avnentMarConBc.setType(resultSet.getString("TYPE"));
-                avnentMarConBc.setDate(resultSet.getString("DATE"));
+                avnentMarConBc.setDate(resultSet.getDate("DATE").toLocalDate());
                 avnentMarConBc.setMontant(resultSet.getDouble("MONTANT"));
 
                 list.add(avnentMarConBc);
@@ -102,7 +103,7 @@ public class AvnentOperation extends  BDD<AvnentMarConBc>{
                 avnentMarConBc.setId(resultSet.getInt("ID"));
                 avnentMarConBc.setIdMarConBc(resultSet.getInt("ID_MAR_CON_BC"));
                 avnentMarConBc.setType(resultSet.getString("TYPE"));
-                avnentMarConBc.setDate(resultSet.getString("DATE"));
+                avnentMarConBc.setDate(resultSet.getDate("DATE").toLocalDate());
                 avnentMarConBc.setMontant(resultSet.getDouble("MONTANT"));
 
                 list.add(avnentMarConBc);
@@ -126,7 +127,7 @@ public class AvnentOperation extends  BDD<AvnentMarConBc>{
                 avnentMarConBc.setId(resultSet.getInt("ID"));
                 avnentMarConBc.setIdMarConBc(resultSet.getInt("ID_MAR_CON_BC"));
                 avnentMarConBc.setType(resultSet.getString("TYPE"));
-                avnentMarConBc.setDate(resultSet.getString("DATE"));
+                avnentMarConBc.setDate(resultSet.getDate("DATE").toLocalDate());
                 avnentMarConBc.setMontant(resultSet.getDouble("MONTANT"));
 
                 list.add(avnentMarConBc);

@@ -1,17 +1,19 @@
 package Models;
 
+import java.time.LocalDate;
+
 public class AvnentMarConBc {
 
     private int id;
     private int idMarConBc;
     private String type;
-    private String date;
+    private LocalDate date;
     private double montant;
 
     public AvnentMarConBc() {
     }
 
-    public AvnentMarConBc(int id, int idMarConBc, String type, String date, double montant) {
+    public AvnentMarConBc(int id, int idMarConBc, String type, LocalDate date, double montant) {
         this.id = id;
         this.idMarConBc = idMarConBc;
         this.type = type;
@@ -19,7 +21,7 @@ public class AvnentMarConBc {
         this.montant = montant;
     }
 
-    public AvnentMarConBc(int id, String type, String date, double montant) {
+    public AvnentMarConBc(int id, String type, LocalDate date, double montant) {
         this.id = id;
         this.type = type;
         this.date = date;
@@ -50,11 +52,11 @@ public class AvnentMarConBc {
         this.type = type;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

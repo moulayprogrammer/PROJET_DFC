@@ -38,9 +38,7 @@ public class UpdateAvnantController implements Initializable {
         tfAvnantMontant.setText(String.format("%.2f",avnentMarConBc.getMontant()));
 
         cbAvnantType.getSelectionModel().select(avnentMarConBc.getType());
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        dpAvnant.setValue(LocalDate.parse(avnentMarConBc.getDate(),formatter));
+        dpAvnant.setValue(avnentMarConBc.getDate());
     }
 
     @FXML
@@ -48,11 +46,11 @@ public class UpdateAvnantController implements Initializable {
         try {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-            String dateAv = dateFormatter.format(dpAvnant.getValue());
+            LocalDate dateAv = dpAvnant.getValue();
             String typeAv = cbAvnantType.getSelectionModel().getSelectedItem();
             double montantAv = Double.parseDouble(tfAvnantMontant.getText().trim());
 
-            if (!dateAv.isEmpty() && !typeAv.isEmpty() ){
+            if (dateAv != null && !typeAv.isEmpty() ){
 
                 if (typeAv.equals("DEMENITIVE") && montantAv > 0 ) montantAv = montantAv * -1;
                 if (typeAv.equals("SUPLEMENTAIRE") && montantAv < 0 ) montantAv = montantAv * -1;

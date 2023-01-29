@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -73,7 +74,7 @@ public class ListAvnantController implements Initializable {
             if (txtRecherche.isEmpty()) {
                 //loadDataInTable();
                 return true;
-            } else if (avnentCout.getDate().contains(txtRecherche)) {
+            } else if (avnentCout.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")).contains(txtRecherche)) {
                 return true;
             } else if (avnentCout.getType().contains(txtRecherche)) {
                 return true;

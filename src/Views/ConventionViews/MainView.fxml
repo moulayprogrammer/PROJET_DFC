@@ -113,6 +113,29 @@
                      </children>
                   </VBox>
                   <Separator layoutX="214.0" layoutY="20.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="4.0" />
+                  <VBox alignment="CENTER_LEFT" layoutX="230.0" layoutY="20.0" maxWidth="1.7976931348623157E308" prefHeight="120.0" spacing="10.0">
+                     <children>
+                        <Button graphicTextGap="15.0" mnemonicParsing="false" onAction="#ActionAddAvnant" prefWidth="165.0" text="Arrête / Reprise">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/button.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="102.0" mnemonicParsing="false" onAction="#ActionListAvnant" prefWidth="165.0" text="Liste des arrêtés">
+                           <graphic>
+                              <ImageView fitHeight="31.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/playlist.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Separator layoutX="1014.0" layoutY="20.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="4.0" />
                   <VBox maxWidth="1.7976931348623157E308" prefHeight="120.0" spacing="20.0">
                      <children>
                         <HBox spacing="20.0">
