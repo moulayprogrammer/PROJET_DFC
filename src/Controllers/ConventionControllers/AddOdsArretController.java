@@ -2,7 +2,9 @@ package Controllers.ConventionControllers;
 
 import BddPackage.AvnentCompteOperation;
 import BddPackage.AvnentOperation;
-import Models.*;
+import Models.AvnentCompteMarConBc;
+import Models.AvnentMarConBc;
+import Models.MarConBc;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -12,20 +14,15 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class AddAvnantController implements Initializable {
+public class AddOdsArretController implements Initializable {
 
 
     @FXML
-    TextField tfAvnantMontant,tfAvnantNumero,tfAvnantCompteNumero,tfAvnantCompteBank,tfAvnantCompteAgence;
+    TextField tfNumero;
     @FXML
-    TextArea tfConvention,tfConventionCompte;
+    TextArea taRaison;
     @FXML
-    ComboBox<String> cbAvnantType;
-    @FXML
-    DatePicker dpAvnant,dpAvenantCompte;
-    @FXML
-    TabPane tabPane;
-
+    DatePicker dpDate;
 
     private MarConBc marConBc;
     private final AvnentOperation operation = new AvnentOperation();
@@ -41,7 +38,7 @@ public class AddAvnantController implements Initializable {
 
         this.marConBc = marConBc;
 
-        tfConvention.setText(marConBc.getNom());
+        /*tfConvention.setText(marConBc.getNom());
         cbAvnantType.getItems().addAll("SUPLEMENTAIRE","DEMENITIVE");
         cbAvnantType.getSelectionModel().select(0);
 
@@ -55,21 +52,21 @@ public class AddAvnantController implements Initializable {
                     tfConventionCompte.setText(marConBc.getNom());
                     break;
             }
-        });
+        });*/
 
     }
 
     @FXML
     private void ActionAdd(){
 
-        String tabId = tabPane.getSelectionModel().getSelectedItem().getId();
+        /*String tabId = tabPane.getSelectionModel().getSelectedItem().getId();
         switch (tabId){
             case "tabMontant":
                 try {
 
-                    LocalDate dateAv = dpAvnant.getValue();
+                    LocalDate dateAv = dpDate.getValue();
                     String typeAv = cbAvnantType.getSelectionModel().getSelectedItem();
-                    double montantAv = Double.parseDouble(tfAvnantMontant.getText().trim());
+                    double montantAv = Double.parseDouble(tfNumero.getText().trim());
 
                     if ( dateAv != null && !typeAv.isEmpty() ){
 
@@ -149,7 +146,7 @@ public class AddAvnantController implements Initializable {
                     alertWarning.showAndWait();
                 }
                 break;
-        }
+        }*/
     }
 
     private boolean insert(AvnentMarConBc avnentCout){
@@ -174,6 +171,6 @@ public class AddAvnantController implements Initializable {
 
     @FXML
     private void ActionAnnuler(){
-        ((Stage)tfConvention.getScene().getWindow()).close();
+//        ((Stage)tfConvention.getScene().getWindow()).close();
     }
 }

@@ -77,7 +77,7 @@ public class AvnentCompteOperation extends  BDD<AvnentCompteMarConBc>{
     @Override
     public ArrayList<AvnentCompteMarConBc> getAll() {
         ArrayList<AvnentCompteMarConBc> list = new ArrayList<>();
-        String query = "SELECT * FROM `AVENANT_MAR_CON_BC`";
+        String query = "SELECT * FROM `avenant_compte_mar_con_bc`";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             ResultSet resultSet = preparedStmt.executeQuery();
@@ -105,7 +105,7 @@ public class AvnentCompteOperation extends  BDD<AvnentCompteMarConBc>{
 
     public ArrayList<AvnentCompteMarConBc> getAllByConvention(int id) {
         ArrayList<AvnentCompteMarConBc> list = new ArrayList<>();
-        String query = "SELECT * FROM `AVENANT_MAR_CON_BC` WHERE `ID_MAR_CON_BC` = ? ";
+        String query = "SELECT * FROM `avenant_compte_mar_con_bc` WHERE `ID_MAR_CON_BC` = ? ";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1,id);

@@ -76,7 +76,7 @@
                <tabs>
                   <Tab fx:id="tabMontant" closable="false" text="Avenants Montant">
                      <content>
-                        <TableView fx:id="tvAvnant" prefHeight="450.0" prefWidth="600.0" styleClass="container-table">
+                        <TableView fx:id="tvAvnant" onMouseClicked="#tableClick" prefHeight="450.0" prefWidth="600.0" styleClass="container-table">
                            <columns>
                               <TableColumn fx:id="idColumn" prefWidth="200.0" text="id" visible="false" />
                               <TableColumn fx:id="dateColumn" prefWidth="200.0" text="Date" />
@@ -88,7 +88,7 @@
                   </Tab>
                   <Tab fx:id="tabCompte" closable="false" text="Avenants Compte">
                      <content>
-                        <TableView fx:id="tvAvnantCompte" prefHeight="450.0" prefWidth="600.0" styleClass="container-table">
+                        <TableView fx:id="tvAvnantCompte" onMouseClicked="#tableClick" prefHeight="450.0" prefWidth="600.0" styleClass="container-table">
                            <columns>
                               <TableColumn fx:id="idColumnC" prefWidth="200.0" text="id" visible="false" />
                               <TableColumn fx:id="NumeroColumn" prefWidth="100.0" text="Numero" />

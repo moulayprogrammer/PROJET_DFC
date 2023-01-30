@@ -12,12 +12,16 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -86,74 +90,181 @@ public class ListAvnantController implements Initializable {
             }
         });
     }
+    @FXML
+    private void tableClick(MouseEvent mouseEvent) {
+        if ( mouseEvent.getClickCount() == 2 && mouseEvent.getButton().equals(MouseButton.PRIMARY) ){
 
-
-
+            ActionUpdateAvnant();
+        }
+    }
     @FXML
     private void ActionUpdateAvnant(){
+        String tabId = tabPane.getSelectionModel().getSelectedItem().getId();
+        switch (tabId){
+            case "tabMontant":
+                try {
+                    AvnentMarConBc avnentCout = tvAvnant.getSelectionModel().getSelectedItem();
 
-        AvnentMarConBc avnentCout = tvAvnant.getSelectionModel().getSelectedItem();
+                    if (avnentCout != null){
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/UpdateAvnantView.fxml"));
+                            DialogPane temp = loader.load();
+                            UpdateAvnantController controller = loader.getController();
+                            controller.Init(avnentCout);
+                            Dialog<ButtonType> dialog = new Dialog<>();
+                            dialog.setDialogPane(temp);
+                            dialog.resizableProperty().setValue(false);
+                            dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                            closeButton.setVisible(false);
+                            dialog.showAndWait();
 
-        if (avnentCout != null){
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/UpdateAvnantView.fxml"));
-                DialogPane temp = loader.load();
-                UpdateAvnantController controller = loader.getController();
-                controller.Init(avnentCout);
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(temp);
-                dialog.resizableProperty().setValue(false);
-                dialog.showAndWait();
+                            refresh();
 
-                refresh();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                        alertWarning.setHeaderText("Attention ");
+                        alertWarning.setContentText("svp sélectionner un Avnant");
+                        alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
+                        Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
+                        okButton.setText("d'accord");
+                        alertWarning.showAndWait();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            case "tabCompte":
+                try {
+                    AvnentCompteMarConBc avnentCout = tvAvnantCompte.getSelectionModel().getSelectedItem();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else {
-            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
-            alertWarning.setHeaderText("Attention ");
-            alertWarning.setContentText("svp sélectionner un Avnant");
-            Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
-            okButton.setText("d'accord");
-            alertWarning.showAndWait();
+                    if (avnentCout != null){
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/UpdateAvnantCompteView.fxml"));
+                            DialogPane temp = loader.load();
+                            UpdateAvnantCompteController controller = loader.getController();
+                            controller.Init(avnentCout);
+                            Dialog<ButtonType> dialog = new Dialog<>();
+                            dialog.setDialogPane(temp);
+                            dialog.resizableProperty().setValue(false);
+                            dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                            closeButton.setVisible(false);
+                            dialog.showAndWait();
+
+                            refreshCompte();
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                        alertWarning.setHeaderText("Attention ");
+                        alertWarning.setContentText("svp sélectionner un Avnant");
+                        alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
+                        Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
+                        okButton.setText("d'accord");
+                        alertWarning.showAndWait();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
         }
     }
 
     @FXML
     private void ActionDeleteAvnant(){
-        AvnentMarConBc avnentCout = tvAvnant.getSelectionModel().getSelectedItem();
+        String tabId = tabPane.getSelectionModel().getSelectedItem().getId();
+        switch (tabId){
+            case "tabMontant":
+                try {
+                    AvnentMarConBc avnentCout = tvAvnant.getSelectionModel().getSelectedItem();
 
-        if (avnentCout != null){
-            try {
-                Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
-                alertConfirmation.setHeaderText("Confirmer la suppression");
-                alertConfirmation.setContentText("Êtes-vous sûr de vouloir supprimer l'Avnant " );
-                Button okButton = (Button) alertConfirmation.getDialogPane().lookupButton(ButtonType.OK);
-                okButton.setText("D'accord");
+                    if (avnentCout != null){
+                        try {
+                            Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
+                            alertConfirmation.setHeaderText("Confirmer la suppression");
+                            alertConfirmation.setContentText("Êtes-vous sûr de vouloir supprimer l'Avnant " );
+                            alertConfirmation.initOwner(this.tfRecherche.getScene().getWindow());
+                            Button okButton = (Button) alertConfirmation.getDialogPane().lookupButton(ButtonType.OK);
+                            okButton.setText("D'accord");
 
-                Button cancel = (Button) alertConfirmation.getDialogPane().lookupButton(ButtonType.CANCEL);
-                cancel.setText("Annuler");
+                            Button cancel = (Button) alertConfirmation.getDialogPane().lookupButton(ButtonType.CANCEL);
+                            cancel.setText("Annuler");
 
-                alertConfirmation.showAndWait().ifPresent(response -> {
-                    if (response == ButtonType.CANCEL) {
-                        alertConfirmation.close();
-                    } else if (response == ButtonType.OK) {
-                        operation.delete(avnentCout);
-                        refresh();
+                            alertConfirmation.showAndWait().ifPresent(response -> {
+                                if (response == ButtonType.CANCEL) {
+                                    alertConfirmation.close();
+                                } else if (response == ButtonType.OK) {
+                                    operation.delete(avnentCout);
+                                    refresh();
+                                }
+                            });
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                        alertWarning.setHeaderText("Attention ");
+                        alertWarning.setContentText("svp sélectionner un Avnant");
+                        alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
+                        Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
+                        okButton.setText("d'accord");
+                        alertWarning.showAndWait();
                     }
-                });
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }else {
-            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
-            alertWarning.setHeaderText("Attention ");
-            alertWarning.setContentText("svp sélectionner un Avnant");
-            Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
-            okButton.setText("d'accord");
-            alertWarning.showAndWait();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            case "tabCompte":
+                try {
+                    AvnentCompteMarConBc avnentCout = tvAvnantCompte.getSelectionModel().getSelectedItem();
+
+                    if (avnentCout != null){
+                        try {
+                            Alert alertConfirmation = new Alert(Alert.AlertType.CONFIRMATION);
+                            alertConfirmation.setHeaderText("Confirmer la suppression");
+                            alertConfirmation.setContentText("Êtes-vous sûr de vouloir supprimer l'Avnant " );
+                            alertConfirmation.initOwner(this.tfRecherche.getScene().getWindow());
+                            Button okButton = (Button) alertConfirmation.getDialogPane().lookupButton(ButtonType.OK);
+                            okButton.setText("D'accord");
+
+                            Button cancel = (Button) alertConfirmation.getDialogPane().lookupButton(ButtonType.CANCEL);
+                            cancel.setText("Annuler");
+
+                            alertConfirmation.showAndWait().ifPresent(response -> {
+                                if (response == ButtonType.CANCEL) {
+                                    alertConfirmation.close();
+                                } else if (response == ButtonType.OK) {
+                                    avnentCompteOperation.delete(avnentCout);
+                                    refreshCompte();
+                                }
+                            });
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                        alertWarning.setHeaderText("Attention ");
+                        alertWarning.setContentText("svp sélectionner un Avnant");
+                        alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
+                        Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
+                        okButton.setText("d'accord");
+                        alertWarning.showAndWait();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
         }
     }
 
@@ -164,9 +275,9 @@ public class ListAvnantController implements Initializable {
     }
 
     private void refreshCompte(){
-        avnentCouts = operation.getAllByConvention(marConBc.getId());
-        dataTable.setAll(avnentCouts);
-        tvAvnant.setItems(dataTable);
+        avnentComptes = avnentCompteOperation.getAllByConvention(marConBc.getId());
+        dataTableCompte.setAll(avnentComptes);
+        tvAvnantCompte.setItems(dataTableCompte);
     }
 
     @FXML
