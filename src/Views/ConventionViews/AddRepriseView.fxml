@@ -5,18 +5,17 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane expanded="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="370.0" prefWidth="450.0" stylesheets="@../../resource/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ConventionControllers.AddOdsArretController">
+<DialogPane expanded="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="270.0" prefWidth="450.0" stylesheets="@../../resource/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ConventionControllers.AddOdsRepriseController">
    <header>
       <AnchorPane minHeight="50.0" prefHeight="50.0" style="-fx-background-color: #EFF;">
          <children>
-            <Label layoutX="26.0" layoutY="20.0" style="-fx-font-size: 22;" text="Ods D'Arrêt" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <Label layoutX="26.0" layoutY="20.0" style="-fx-font-size: 22;" text="Ods De Reprise" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -47,16 +46,6 @@
                   <DatePicker fx:id="dpDate" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="95.0">
-               <children>
-                  <Label maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="160.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Raison">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextArea fx:id="taRaison" maxWidth="1.7976931348623157E308" prefHeight="100.0" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
             <HBox alignment="TOP_RIGHT" spacing="30.0">
                <children>
                   <Button fx:id="btnInsertAvnant" defaultButton="true" mnemonicParsing="false" onAction="#ActionAdd" prefWidth="120.0" style="-fx-font-size: 14;" styleClass="primary" text="Enregistrer" textFill="#2005a8">
@@ -71,7 +60,7 @@
                   </Button>
                </children>
                <VBox.margin>
-                  <Insets top="50.0" />
+                  <Insets top="70.0" />
                </VBox.margin>
             </HBox>
          </children>

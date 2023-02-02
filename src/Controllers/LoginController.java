@@ -53,7 +53,7 @@ public class    LoginController implements Initializable {
 
     private void login(User user){
         UserOperation userOperation = new UserOperation();
-        boolean log = true; // userOperation.isExist(user);
+        boolean log = userOperation.isExist(user);
         if (log){
             try {
                 Stage stage = new Stage();

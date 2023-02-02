@@ -115,7 +115,7 @@
                   <Separator layoutX="214.0" layoutY="20.0" orientation="VERTICAL" prefHeight="100.0" prefWidth="4.0" />
                   <VBox alignment="CENTER_LEFT" layoutX="230.0" layoutY="20.0" maxWidth="1.7976931348623157E308" prefHeight="120.0" spacing="10.0">
                      <children>
-                        <Button graphicTextGap="15.0" mnemonicParsing="false" onAction="#ActionAddAvnant" prefWidth="165.0" text="Arrête / Reprise">
+                        <Button graphicTextGap="15.0" mnemonicParsing="false" onAction="#ActionAddOds" prefWidth="165.0" text="Arrête / Reprise">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

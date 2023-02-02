@@ -2,8 +2,12 @@ package Controllers.ConventionControllers;
 
 import BddPackage.AvnentOperation;
 import BddPackage.MarConBcOperation;
+import BddPackage.OdsArretOperation;
+import BddPackage.OdsRepriseOperation;
 import Models.MarConBc;
 import Models.ModelesTabels.ProjetTable;
+import Models.OdsArret;
+import Models.OdsReprise;
 import Models.Project;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -279,6 +283,61 @@ public class MainController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/ListAvnantView.fxml"));
                 DialogPane temp = loader.load();
                 ListAvnantController controller = loader.getController();
+                controller.Init(convention);
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(temp);
+                dialog.resizableProperty().setValue(false);
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                closeButton.setVisible(false);
+                dialog.showAndWait();
+
+                if (tfProjet.getText().isEmpty()) refresh();
+                else refreshByProjet();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setHeaderText("Attention ");
+            alertWarning.setContentText("svp sélectionner un Convention");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
+            Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
+            okButton.setText("d'accord");
+            alertWarning.showAndWait();
+        }
+    }
+
+    @FXML
+    private void ActionAddOds(){
+        try {
+
+            List<StringProperty> selected = tvConvention.getSelectionModel().getSelectedItem();
+
+            if (selected != null) {
+                OdsArret odsArret = new OdsArretOperation().getLast(Integer.parseInt(selected.get(0).getValue()));
+                OdsReprise odsReprise = new OdsRepriseOperation().getLast(Integer.parseInt(selected.get(0).getValue()));
+
+                int i = odsArret.getDate().compareTo(odsReprise.getDate());
+                System.out.println("i = " + i);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void ActionAddOdsArret(){
+        List<StringProperty> selected = tvConvention.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            MarConBc convention = operation.get(Integer.valueOf(selected.get(0).getValue()));
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/AddAretteView.fxml"));
+                DialogPane temp = loader.load();
+                AddOdsArretController controller = loader.getController();
                 controller.Init(convention);
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(temp);

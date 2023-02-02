@@ -1,8 +1,8 @@
 package Controllers.ConventionControllers;
 
-import BddPackage.OdsArretOperation;
+import BddPackage.OdsRepriseOperation;
 import Models.MarConBc;
-import Models.OdsArret;
+import Models.OdsReprise;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -12,18 +12,16 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class AddOdsArretController implements Initializable {
+public class AddOdsRepriseController implements Initializable {
 
 
     @FXML
     TextField tfNumero;
     @FXML
-    TextArea taRaison;
-    @FXML
     DatePicker dpDate;
 
     private MarConBc marConBc;
-    private final OdsArretOperation operation = new OdsArretOperation();
+    private final OdsRepriseOperation operation = new OdsRepriseOperation();
 
 
     @Override
@@ -44,18 +42,15 @@ public class AddOdsArretController implements Initializable {
 
             String number = tfNumero.getText().trim();
             LocalDate date = dpDate.getValue();
-            String raison = taRaison.getText().trim();
-
 
             if ( date != null && !number.isEmpty() ){
 
-                OdsArret odsArret = new OdsArret();
-                odsArret.setIdConvention(this.marConBc.getId());
-                odsArret.setNumber(number);
-                odsArret.setDate(date);
-                odsArret.setRaison(raison);
+                OdsReprise odsReprise = new OdsReprise();
+                odsReprise.setIdConvention(this.marConBc.getId());
+                odsReprise.setNumber(number);
+                odsReprise.setDate(date);
 
-                boolean ins = insert(odsArret);
+                boolean ins = insert(odsReprise);
                 if (ins) ActionAnnuler();
 
             }else {
@@ -80,10 +75,10 @@ public class AddOdsArretController implements Initializable {
         }
     }
 
-    private boolean insert(OdsArret odsArret){
+    private boolean insert(OdsReprise odsReprise){
         boolean ins = false;
         try {
-            ins = operation.insert(odsArret);
+            ins = operation.insert(odsReprise);
         }catch (Exception e){
             e.printStackTrace();
         }
