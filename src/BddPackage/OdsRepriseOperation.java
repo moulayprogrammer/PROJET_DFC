@@ -13,7 +13,7 @@ public class OdsRepriseOperation extends BDD<OdsReprise> {
     @Override
     public boolean insert(OdsReprise o) {
         boolean ins = false;
-        String query = "INSERT INTO `ods_reprise`(`ID_MAR_CON_BC`, `NUMBER`, `DATE`) (?,?,?)";
+        String query = "INSERT INTO `ods_reprise` (`ID_MAR_CON_BC`, `NUMBER`, `DATE`) VALUES (?,?,?)";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1,o.getIdConvention());

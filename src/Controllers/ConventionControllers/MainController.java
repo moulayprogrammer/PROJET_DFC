@@ -320,16 +320,17 @@ public class MainController implements Initializable {
                 OdsArret odsArret = new OdsArretOperation().getLast(Integer.parseInt(selected.get(0).getValue()));
                 OdsReprise odsReprise = new OdsRepriseOperation().getLast(Integer.parseInt(selected.get(0).getValue()));
 
-                int i = odsArret.getDate().compareTo(odsReprise.getDate());
-                System.out.println("i = " + i);
+                if (odsArret.getId() == 0) AddOdsArret();
+                else if (odsReprise.getId() == 0) AddOdsReprise();
+                else if (odsArret.getDate().isAfter(odsReprise.getDate())) AddOdsReprise();
+                else AddOdsArret();
             }
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    @FXML
-    private void ActionAddOdsArret(){
+    private void AddOdsArret(){
         List<StringProperty> selected = tvConvention.getSelectionModel().getSelectedItem();
         if (selected != null) {
             MarConBc convention = operation.get(Integer.valueOf(selected.get(0).getValue()));
@@ -338,6 +339,42 @@ public class MainController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/AddAretteView.fxml"));
                 DialogPane temp = loader.load();
                 AddOdsArretController controller = loader.getController();
+                controller.Init(convention);
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(temp);
+                dialog.resizableProperty().setValue(false);
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                closeButton.setVisible(false);
+                dialog.showAndWait();
+
+                if (tfProjet.getText().isEmpty()) refresh();
+                else refreshByProjet();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setHeaderText("Attention ");
+            alertWarning.setContentText("svp sélectionner un Convention");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
+            Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
+            okButton.setText("d'accord");
+            alertWarning.showAndWait();
+        }
+    }
+
+    private void AddOdsReprise(){
+        List<StringProperty> selected = tvConvention.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            MarConBc convention = operation.get(Integer.valueOf(selected.get(0).getValue()));
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/AddRepriseView.fxml"));
+                DialogPane temp = loader.load();
+                AddOdsRepriseController controller = loader.getController();
                 controller.Init(convention);
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(temp);
