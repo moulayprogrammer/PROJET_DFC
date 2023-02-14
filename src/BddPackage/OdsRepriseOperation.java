@@ -30,14 +30,13 @@ public class OdsRepriseOperation extends BDD<OdsReprise> {
     @Override
     public boolean update(OdsReprise o, OdsReprise o2) {
         boolean upd = false;
-        String query = "UPDATE `ods_reprise` SET `ID_MAR_CON_BC`= ?,`NUMBER`= ?,`DATE`= ? " +
+        String query = "UPDATE `ods_reprise` SET `NUMBER`= ?,`DATE`= ? " +
                 "WHERE `ID` = ? ";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setInt(1,o.getIdConvention());
-            preparedStmt.setString(2,o.getNumber());
-            preparedStmt.setDate(3, Date.valueOf(o.getDate()));
-            preparedStmt.setInt(4,o2.getId());
+            preparedStmt.setString(1,o.getNumber());
+            preparedStmt.setDate(2, Date.valueOf(o.getDate()));
+            preparedStmt.setInt(3,o2.getId());
             int update = preparedStmt.executeUpdate();
             if(update != -1) upd = true;
         } catch (SQLException e) {
@@ -110,4 +109,29 @@ public class OdsRepriseOperation extends BDD<OdsReprise> {
         }
         return odsReprise;
     }
+
+    public ArrayList<OdsReprise> getAllByConvention(int idConv) {
+        ArrayList<OdsReprise> list = new ArrayList<>();
+        String query = "SELECT * FROM `ods_reprise` WHERE `ID_MAR_CON_BC` = ? ";
+        try {
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1,idConv);
+            ResultSet resultSet = preparedStmt.executeQuery();
+            while (resultSet.next()){
+
+                OdsReprise odsReprise = new OdsReprise();
+
+                odsReprise.setId(resultSet.getInt("ID"));
+                odsReprise.setIdConvention(resultSet.getInt("ID_MAR_CON_BC"));
+                odsReprise.setNumber(resultSet.getString("NUMBER"));
+                odsReprise.setDate(resultSet.getDate("DATE").toLocalDate());
+
+                list.add(odsReprise);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 }

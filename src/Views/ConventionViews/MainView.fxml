@@ -124,7 +124,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="10.0" layoutY="102.0" mnemonicParsing="false" onAction="#ActionListAvnant" prefWidth="165.0" text="Liste des arrêtés">
+                        <Button layoutX="10.0" layoutY="102.0" mnemonicParsing="false" onAction="#ActionListOds" prefWidth="165.0" text="Liste des arrêtés">
                            <graphic>
                               <ImageView fitHeight="31.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

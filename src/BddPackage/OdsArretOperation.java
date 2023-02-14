@@ -31,15 +31,14 @@ public class OdsArretOperation extends BDD<OdsArret> {
     @Override
     public boolean update(OdsArret o, OdsArret o2) {
         boolean upd = false;
-        String query = "UPDATE `ods_arret` SET `ID_MAR_CON_BC`= ?,`NUMBER`= ?,`DATE`= ?,`RAISON`= ? " +
+        String query = "UPDATE `ods_arret` SET `NUMBER`= ?,`DATE`= ?,`RAISON`= ? " +
                 "WHERE `ID` = ? ";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setInt(1,o.getIdConvention());
-            preparedStmt.setString(2,o.getNumber());
-            preparedStmt.setDate(3, Date.valueOf(o.getDate()));
-            preparedStmt.setString(4,o.getRaison());
-            preparedStmt.setInt(5,o2.getId());
+            preparedStmt.setString(1,o.getNumber());
+            preparedStmt.setDate(2, Date.valueOf(o.getDate()));
+            preparedStmt.setString(3,o.getRaison());
+            preparedStmt.setInt(4,o2.getId());
             int update = preparedStmt.executeUpdate();
             if(update != -1) upd = true;
         } catch (SQLException e) {
@@ -112,5 +111,30 @@ public class OdsArretOperation extends BDD<OdsArret> {
             e.printStackTrace();
         }
         return odsArret;
+    }
+
+    public ArrayList<OdsArret> getAllByConvention(int idConv) {
+        ArrayList<OdsArret> list = new ArrayList<>();
+        String query = "SELECT * FROM `ods_arret` WHERE `ID_MAR_CON_BC` = ?  ";
+        try {
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1,idConv);
+            ResultSet resultSet = preparedStmt.executeQuery();
+            while (resultSet.next()){
+
+                OdsArret odsArret = new OdsArret();
+
+                odsArret.setId(resultSet.getInt("ID"));
+                odsArret.setIdConvention(resultSet.getInt("ID_MAR_CON_BC"));
+                odsArret.setNumber(resultSet.getString("NUMBER"));
+                odsArret.setDate(resultSet.getDate("DATE").toLocalDate());
+                odsArret.setRaison(resultSet.getString("RAISON"));
+
+                list.add(odsArret);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

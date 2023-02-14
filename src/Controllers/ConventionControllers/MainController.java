@@ -5,7 +5,6 @@ import BddPackage.MarConBcOperation;
 import BddPackage.OdsArretOperation;
 import BddPackage.OdsRepriseOperation;
 import Models.MarConBc;
-import Models.ModelesTabels.ProjetTable;
 import Models.OdsArret;
 import Models.OdsReprise;
 import Models.Project;
@@ -36,14 +35,12 @@ public class MainController implements Initializable {
 
     @FXML
     TextField tfProjet,tfRecherche;
-
     @FXML
     TableView<List<StringProperty>> tvConvention;
     @FXML
     TableColumn<List<StringProperty>,String> organismeColumnn,NomColumnn,NumerColumn,typeColumn,MontInit,AvnSup,AvnDem,MontEnga,dateColumn;
     @FXML
     TableColumn<List<StringProperty>,String> idColumn,idOrgColumn,nbLogtsColumn;
-
 
     private Project project;
     private final ObservableList<List<StringProperty>> dataTable = FXCollections.observableArrayList();
@@ -375,6 +372,43 @@ public class MainController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/AddRepriseView.fxml"));
                 DialogPane temp = loader.load();
                 AddOdsRepriseController controller = loader.getController();
+                controller.Init(convention);
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(temp);
+                dialog.resizableProperty().setValue(false);
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                closeButton.setVisible(false);
+                dialog.showAndWait();
+
+                if (tfProjet.getText().isEmpty()) refresh();
+                else refreshByProjet();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setHeaderText("Attention ");
+            alertWarning.setContentText("svp sélectionner un Convention");
+            alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
+            Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
+            okButton.setText("d'accord");
+            alertWarning.showAndWait();
+        }
+    }
+
+    @FXML
+    private void ActionListOds(){
+        List<StringProperty> selected = tvConvention.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            MarConBc convention = operation.get(Integer.valueOf(selected.get(0).getValue()));
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/ListOdsView.fxml"));
+                DialogPane temp = loader.load();
+                ListOdsController controller = loader.getController();
                 controller.Init(convention);
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(temp);
