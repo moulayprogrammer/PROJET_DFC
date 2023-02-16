@@ -32,14 +32,15 @@ public class FactureOperation extends BDD<Facture>{
     @Override
     public boolean update(Facture o, Facture o2) {
         boolean upd = false;
-        String query = "UPDATE `FACTURE` SET `NUMERO`= ?,`DATE`= ?,`MONTANT`= ? " +
+        String query = "UPDATE `FACTURE` SET `ID_MAR_CON_BC`= ?, `NUMERO`= ?,`DATE`= ?,`MONTANT`= ? " +
                 "WHERE `ID` = ? ";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setString(1,o.getNumero());
-            preparedStmt.setDate(2,Date.valueOf(o.getDate()));
-            preparedStmt.setDouble(3,o.getMontant());
-            preparedStmt.setInt(4,o2.getId());
+            preparedStmt.setInt(1,o.getIdMarConBc());
+            preparedStmt.setString(2,o.getNumero());
+            preparedStmt.setDate(3,Date.valueOf(o.getDate()));
+            preparedStmt.setDouble(4,o.getMontant());
+            preparedStmt.setInt(5,o2.getId());
             int update = preparedStmt.executeUpdate();
             if(update != -1) upd = true;
         } catch (SQLException e) {

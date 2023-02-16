@@ -12,7 +12,10 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -70,6 +73,10 @@ public class MainController implements Initializable {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            closeButton.setVisible(false);
             dialog.showAndWait();
 
             if (this.mar.getNumero() != null) {
@@ -93,30 +100,23 @@ public class MainController implements Initializable {
 
     @FXML
     private void ActionAdd(){
-        String projet = tfConvention.getText().trim();
-        if (!projet.isEmpty()) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/FactureViews/AddView.fxml"));
-                DialogPane temp = loader.load();
-                AddController controller = loader.getController();
-                controller.Init(this.mar);
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(temp);
-                dialog.resizableProperty().setValue(false);
-                dialog.showAndWait();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/FactureViews/AddView.fxml"));
+            DialogPane temp = loader.load();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(temp);
+            dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            closeButton.setVisible(false);
+            dialog.showAndWait();
 
-                refreshByConvention();
+            if(tfConvention.getText().isEmpty()) refresh();
+            else refreshByConvention();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else {
-            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
-            alertWarning.setHeaderText("Attention ");
-            alertWarning.setContentText("svp sélectionner un projet");
-            Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
-            okButton.setText("d'accord");
-            alertWarning.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -126,22 +126,37 @@ public class MainController implements Initializable {
 
         if (selected != null) {
             Facture facture = operation.get(Integer.parseInt(selected.get(0).getValue()));
+            OrderePaiment op = paimentOperation.getByFacture(facture.getId());
 
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/FactureViews/AddOpView.fxml"));
-                DialogPane temp = loader.load();
-                AddOpController controller = loader.getController();
-                controller.Init(facture);
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(temp);
-                dialog.resizableProperty().setValue(false);
-                dialog.showAndWait();
+            if (op.getId() <= 0 ) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/FactureViews/AddOpView.fxml"));
+                    DialogPane temp = loader.load();
+                    AddOpController controller = loader.getController();
+                    controller.Init(facture);
+                    Dialog<ButtonType> dialog = new Dialog<>();
+                    dialog.setDialogPane(temp);
+                    dialog.resizableProperty().setValue(false);
+                    dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                    dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                    Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                    closeButton.setVisible(false);
+                    dialog.showAndWait();
 
-                if(tfConvention.getText().isEmpty()) refresh();
-                else refreshByConvention();
+                    if (tfConvention.getText().isEmpty()) refresh();
+                    else refreshByConvention();
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                alertWarning.setHeaderText("Attention ");
+                alertWarning.setContentText("cette facture est déja payé");
+                alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
+                Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
+                okButton.setText("d'accord");
+                alertWarning.showAndWait();
             }
         }else {
             Alert alertWarning = new Alert(Alert.AlertType.WARNING);
@@ -152,13 +167,20 @@ public class MainController implements Initializable {
             alertWarning.showAndWait();
         }
     }
+    @FXML
+    private void tableClick(MouseEvent mouseEvent) {
+        if ( mouseEvent.getClickCount() == 2 && mouseEvent.getButton().equals(MouseButton.PRIMARY) ){
 
+            ActionUpdate();
+        }
+    }
     @FXML
     private void ActionUpdate(){
         List<StringProperty> selected = tvFacture.getSelectionModel().getSelectedItem();
 
         if (selected != null) {
             Facture facture = operation.get(Integer.parseInt(selected.get(0).getValue()));
+
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/FactureViews/UpdateView.fxml"));
                 DialogPane temp = loader.load();
@@ -167,6 +189,10 @@ public class MainController implements Initializable {
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(temp);
                 dialog.resizableProperty().setValue(false);
+                dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                closeButton.setVisible(false);
                 dialog.showAndWait();
 
                 if (tfConvention.getText().trim().isEmpty()) refresh();
@@ -193,21 +219,36 @@ public class MainController implements Initializable {
             if(!selected.get(5).getValue().equals("0")) {
                 Facture facture = operation.get(Integer.parseInt(selected.get(0).getValue()));
                 OrderePaiment orderePaiment = paimentOperation.getByFacture(facture.getId());
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/FactureViews/UpdateOpView.fxml"));
-                    DialogPane temp = loader.load();
-                    UpdateOpController controller = loader.getController();
-                    controller.Init(facture,orderePaiment);
-                    Dialog<ButtonType> dialog = new Dialog<>();
-                    dialog.setDialogPane(temp);
-                    dialog.resizableProperty().setValue(false);
-                    dialog.showAndWait();
 
-                    if (tfConvention.getText().isEmpty()) refresh();
-                    else refreshByConvention();
+                if (orderePaiment.getId() > 0) {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/FactureViews/UpdateOpView.fxml"));
+                        DialogPane temp = loader.load();
+                        UpdateOpController controller = loader.getController();
+                        controller.Init(facture, orderePaiment);
+                        Dialog<ButtonType> dialog = new Dialog<>();
+                        dialog.setDialogPane(temp);
+                        dialog.resizableProperty().setValue(false);
+                        dialog.initOwner(this.tfRecherche.getScene().getWindow());
+                        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                        Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+                        closeButton.setVisible(false);
+                        dialog.showAndWait();
 
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        if (tfConvention.getText().isEmpty()) refresh();
+                        else refreshByConvention();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+                    alertWarning.setHeaderText("Attention ");
+                    alertWarning.setContentText("cette facture n'est pas payé");
+                    alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
+                    Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
+                    okButton.setText("d'accord");
+                    alertWarning.showAndWait();
                 }
             }else {
                 Alert alertWarning = new Alert(Alert.AlertType.WARNING);
@@ -273,6 +314,10 @@ public class MainController implements Initializable {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
+            dialog.initOwner(this.tfRecherche.getScene().getWindow());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+            Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            closeButton.setVisible(false);
             dialog.showAndWait();
 
             if (tfConvention.getText().isEmpty()) refresh();

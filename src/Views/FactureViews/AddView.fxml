@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
@@ -13,90 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane expanded="true" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.FactureControllers.AddController">
-   <content>
-      <AnchorPane prefHeight="493.0" prefWidth="550.0" style="-fx-background-color: #FFF;">
-         <children>
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="250.0" spacing="30.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Label prefHeight="26.0" text="Convention">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="10.0" layoutY="10.0" prefHeight="26.0" text="Organisme">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="26.0" text="Numero">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="10.0" layoutY="234.0" prefHeight="26.0" text="Date">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="26.0" text="Montant">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <HBox.margin>
-                        <Insets left="20.0" top="20.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="300.0" spacing="30.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <TextField fx:id="tfConvention" disable="true" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfOrganisme" disable="true" layoutX="10.0" layoutY="30.0" prefHeight="26.0" prefWidth="268.0" />
-                        <TextField fx:id="tfNumero" prefHeight="26.0" prefWidth="268.0" />
-                        <DatePicker fx:id="dpDate" prefHeight="26.0" prefWidth="286.0" />
-                        <TextField fx:id="tfMontant" prefHeight="26.0" prefWidth="268.0" />
-                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" />
-                     </children>
-                     <padding>
-                        <Insets right="10.0" top="20.0" />
-                     </padding>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </AnchorPane>
-   </content>
+<DialogPane expanded="true" maxHeight="450.0" maxWidth="450.0" minHeight="450.0" minWidth="450.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="450.0" stylesheets="@../../resource/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.FactureControllers.AddController">
    <header>
-      <AnchorPane prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #EFF;">
+      <AnchorPane minHeight="50.0" prefHeight="50.0" style="-fx-background-color: #EFF;">
          <children>
-            <Button fx:id="btnInsert" defaultButton="true" layoutX="645.0" layoutY="13.0" mnemonicParsing="false" onAction="#ActionInsert" prefHeight="34.0" prefWidth="163.0" style="-fx-background-color: #FFF; -fx-border-color: #2005a8;" text="enregistrer" textFill="#2005a8" AnchorPane.rightAnchor="192.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Icons/Save.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button cancelButton="true" layoutX="833.0" layoutY="13.0" mnemonicParsing="false" onAction="#ActionAnnuler" prefHeight="32.0" prefWidth="144.0" style="-fx-background-color: #FFF; -fx-border-color: #dd0000;" text="Annuler" textFill="#dd0000">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Icons/delete.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label layoutX="14.0" layoutY="19.0" text="Ajouter Facture">
+            <Label layoutX="26.0" layoutY="20.0" style="-fx-font-size: 22;" text="Ajouter Situation Traveaux" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -104,4 +26,91 @@
          </children>
       </AnchorPane>
    </header>
+   <content>
+      <AnchorPane prefHeight="400.0" prefWidth="450.0" style="-fx-background-color: #FFF;">
+         <children>
+            <VBox prefWidth="200.0" spacing="20.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <HBox layoutX="10.0" layoutY="10.0">
+                     <children>
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Convention">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbConvention" maxWidth="1.7976931348623157E308" onAction="#ActionSelectComboConv" prefWidth="150.0" HBox.hgrow="ALWAYS" />
+                        <ImageView fitHeight="29.0" fitWidth="108.0" onMouseClicked="#ActionSelectConv" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Icons/recherche.png.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Organisme">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfOrganisme" disable="true" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Numero">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfNumero" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Date">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <DatePicker fx:id="dpDate" maxWidth="1.7976931348623157E308" onAction="#calcPeriod" />
+                              <Label fx:id="lbPeriod" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="157.0">
+                     <children>
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Montant">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfMontant" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Button fx:id="btnInsert" defaultButton="true" mnemonicParsing="false" onAction="#ActionInsert" prefWidth="120.0" style="-fx-font-size: 14;" styleClass="primary" text="Enregistrer" textFill="#2005a8">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button cancelButton="true" mnemonicParsing="false" onAction="#ActionAnnuler" prefWidth="120.0" style="-fx-font-size: 14;" styleClass="danger" text="Annuler" textFill="#dd0000">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </content>
 </DialogPane>
