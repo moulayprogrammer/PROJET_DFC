@@ -80,7 +80,7 @@
                                     <Image url="@../../Icons/print.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="34.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="34.0" fitWidth="28.0" onMouseClicked="#printOp" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../Icons/excel.png" />
                                  </image>
