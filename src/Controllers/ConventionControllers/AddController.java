@@ -26,9 +26,9 @@ public class AddController implements Initializable {
     @FXML
     TextField tfDuree,tfNumero,tfNbLogts,tfCoutHT,tfCoutTVA,tfCoutTTC,tfCompteNumero,tfCompteBank,tfCompteAgence;
     @FXML
-    TextArea tfNom;
+    TextArea taNom,taObject;
     @FXML
-    ComboBox<String> cbType,cbProject,cbDuree,cbOrganism;
+    ComboBox<String> cbRebrique,cbType,cbProject,cbDuree,cbOrganism;
     @FXML
     DatePicker dpDate,dpDateOds;
 
@@ -49,7 +49,8 @@ public class AddController implements Initializable {
         this.organism = new Organism();
         this.projectSelected = new Project();
 
-        cbType.getItems().addAll("REALISATION","ETUDE","VRD");
+        cbRebrique.getItems().addAll("REALISATION","ETUDE","VRD","ETUDE ET REALISATION","ETUDE ET REALISATION VRD");
+        cbType.getItems().addAll("MARCHE","CONVENTION","BON DE COMMANDE");
         cbDuree.getItems().addAll("JOURS","MOIS");
         cbDuree.getSelectionModel().select(0);
         refreshComboProjects();
@@ -132,10 +133,10 @@ public class AddController implements Initializable {
             SelectProjetController controller = loader.getController();
             controller.Init(this.projectSelected);
             javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
-            dialog.initOwner(this.tfNom.getScene().getWindow());
+            dialog.initOwner(this.taNom.getScene().getWindow());
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
-            dialog.initOwner(this.tfNom.getScene().getWindow());
+            dialog.initOwner(this.taNom.getScene().getWindow());
             dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
             Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
             closeButton.setVisible(false);
@@ -159,7 +160,7 @@ public class AddController implements Initializable {
             javafx.scene.control.Dialog<ButtonType> dialog = new javafx.scene.control.Dialog<>();
             dialog.setDialogPane(temp);
             dialog.resizableProperty().setValue(false);
-            dialog.initOwner(this.tfNom.getScene().getWindow());
+            dialog.initOwner(this.taNom.getScene().getWindow());
             dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
             Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
             closeButton.setVisible(false);
@@ -176,9 +177,10 @@ public class AddController implements Initializable {
     @FXML
     private void ActionInsert(){
 
-
-        String nom = tfNom.getText().trim();
         String numero = tfNumero.getText().trim();
+        String nom = taNom.getText().trim();
+        String object = taObject.getText().trim();
+        String rebrique = cbRebrique.getSelectionModel().getSelectedItem();
         String type = cbType.getSelectionModel().getSelectedItem();
         String nbLogts = tfNbLogts.getText().trim();
         LocalDate date = dpDate.getValue();
@@ -193,14 +195,16 @@ public class AddController implements Initializable {
 
         if (!nom.isEmpty()  && !numero.isEmpty() && !type.isEmpty() && !nbLogts.isEmpty() && date != null
                 && !ht.isEmpty() && !tva.isEmpty() && !ttc.isEmpty() && !numeroCompte.isEmpty() && !bankCompte.isEmpty()
-                && !agenceCompte.isEmpty() && !duree.isEmpty() && ods != null){
+                && !agenceCompte.isEmpty() && !duree.isEmpty() && ods != null && !object.isEmpty() && !rebrique.isEmpty()){
 
             MarConBc mar = new MarConBc();
             mar.setIdProjet(this.projectSelected.getId());
             mar.setIdOrganisme(this.organism.getId());
             mar.setNom(nom);
+            mar.setObject(object);
             mar.setNumero(numero);
             mar.setType(type);
+            mar.setRebrique(rebrique);
             mar.setNumbreLogts(Integer.parseInt(nbLogts));
             mar.setDate(date);
             mar.setHt(Double.parseDouble(ht));
@@ -236,7 +240,7 @@ public class AddController implements Initializable {
 
     @FXML
     private void ActionAnnuler(){
-        ((Stage)tfNom.getScene().getWindow()).close();
+        ((Stage) taNom.getScene().getWindow()).close();
     }
 
     private boolean insert(MarConBc marConBc) {

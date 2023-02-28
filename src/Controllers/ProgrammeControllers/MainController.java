@@ -1,8 +1,6 @@
 package Controllers.ProgrammeControllers;
 
 import BddPackage.ProgrammeOperation;
-import Models.ModelesTabels.ProjetProgrammeList;
-import Models.ModelesTabels.ProjetTable;
 import Models.Programme;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

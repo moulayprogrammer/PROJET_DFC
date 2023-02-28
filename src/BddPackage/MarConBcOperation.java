@@ -13,7 +13,9 @@ public class MarConBcOperation extends BDD<MarConBc>{
     @Override
     public boolean insert(MarConBc o) {
         boolean ins = false;
-        String query = "INSERT INTO `MAR_CON_BC`(`ID_PROJET`, `ID_ORGANISME`, `NOM`, `TYPE`, `NUMERO`, `HT`, `TVA`, `TTC`, `COMPTE_NUMERO`, `COMPTE_BANCK`, `COMPTE_AGENCE`, `NUMBER_LOGTS`, `DATE`, `TYPE_DUREE`, `DUREE`, `ODS`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO `MAR_CON_BC`(`ID_PROJET`, `ID_ORGANISME`, `NOM`, `TYPE`, `NUMERO`," +
+                " `REBRIQUE`, `OBJECT`, `HT`, `TVA`, `TTC`, `COMPTE_NUMERO`, `COMPTE_BANCK`, `COMPTE_AGENCE`, `NUMBER_LOGTS`," +
+                " `DATE`, `TYPE_DUREE`, `DUREE`, `ODS`) VALUES (?,?,?,?,?,?,,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1,o.getIdProjet());
@@ -21,17 +23,19 @@ public class MarConBcOperation extends BDD<MarConBc>{
             preparedStmt.setString(3,o.getNom());
             preparedStmt.setString(4,o.getType());
             preparedStmt.setString(5,o.getNumero());
-            preparedStmt.setDouble(6,o.getHt());
-            preparedStmt.setDouble(7,o.getTva());
-            preparedStmt.setDouble(8,o.getTtc());
-            preparedStmt.setString(9,o.getCompteNumero());
-            preparedStmt.setString(10,o.getCompteBank());
-            preparedStmt.setString(11,o.getCompteAgence());
-            preparedStmt.setInt(12,o.getNumbreLogts());
-            preparedStmt.setDate(13, Date.valueOf(o.getDate()));
-            preparedStmt.setString(14, o.getTypeDuree());
-            preparedStmt.setInt(15, o.getDuree());
-            preparedStmt.setDate(16, Date.valueOf(o.getOds()));
+            preparedStmt.setString(6,o.getRebrique());
+            preparedStmt.setString(7,o.getObject());
+            preparedStmt.setDouble(8,o.getHt());
+            preparedStmt.setDouble(9,o.getTva());
+            preparedStmt.setDouble(10,o.getTtc());
+            preparedStmt.setString(11,o.getCompteNumero());
+            preparedStmt.setString(12,o.getCompteBank());
+            preparedStmt.setString(13,o.getCompteAgence());
+            preparedStmt.setInt(14,o.getNumbreLogts());
+            preparedStmt.setDate(15, Date.valueOf(o.getDate()));
+            preparedStmt.setString(16, o.getTypeDuree());
+            preparedStmt.setInt(17, o.getDuree());
+            preparedStmt.setDate(18, Date.valueOf(o.getOds()));
             int insert = preparedStmt.executeUpdate();
             if(insert != -1) ins = true;
         } catch (SQLException e) {

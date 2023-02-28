@@ -28,7 +28,7 @@
       </AnchorPane>
    </header>
    <content>
-      <HBox prefHeight="530.0" spacing="20.0" style="-fx-background-color: #FFF;">
+      <HBox prefHeight="530.0" spacing="30.0" style="-fx-background-color: #FFF;">
          <children>
             <VBox prefWidth="450.0" spacing="20.0">
                <children>
@@ -64,27 +64,17 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="tfNom" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="65.0" prefRowCount="3" prefWidth="200.0" wrapText="true" HBox.hgrow="ALWAYS" />
+                        <TextArea fx:id="taNom" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="65.0" prefRowCount="3" prefWidth="200.0" wrapText="true" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="10.0" spacing="10.0">
+                  <HBox layoutX="10.0" layoutY="109.0">
                      <children>
-                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Type">
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="160.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Objet" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbType" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="combo-box" HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
-                  <HBox>
-                     <children>
-                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="160.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Nombre LOGTS">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="tfNbLogts" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
+                        <TextArea fx:id="taObject" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="65.0" prefRowCount="3" prefWidth="200.0" wrapText="true" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox>
@@ -97,25 +87,34 @@
                         <DatePicker fx:id="dpDate" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="343.0" spacing="5.0">
+                  <HBox layoutX="10.0" layoutY="279.0" spacing="10.0">
                      <children>
-                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="160.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Durée">
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Type">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tfDuree" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
-                        <ComboBox fx:id="cbDuree" prefWidth="100.0" />
+                        <ComboBox fx:id="cbType" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="combo-box" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="293.0">
+                  <HBox layoutX="10.0" layoutY="10.0" spacing="10.0">
                      <children>
-                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="160.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Date ODS">
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Rebrique">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dpDateOds" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                        <ComboBox fx:id="cbRebrique" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="combo-box" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="160.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Nombre LOGTS">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfNbLogts" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                </children>
@@ -124,6 +123,30 @@
                <children>
                   <VBox prefWidth="200.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <HBox>
+                           <children>
+                              <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Durée">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfDuree" maxWidth="1.7976931348623157E308" prefHeight="29.0" HBox.hgrow="ALWAYS" />
+                              <ComboBox fx:id="cbDuree" prefWidth="100.0">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin></ComboBox>
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Date ODS">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="dpDateOds" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
                         <HBox>
                            <children>
                               <Label maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 17; -fx-pref-height: 29;" text="Cout HT">
@@ -166,8 +189,8 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="cbOrganism" onAction="#ActionSelectComboOrganism" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="combo-box" HBox.hgrow="ALWAYS" />
-                              <ImageView onMouseClicked="#ActionSelectOrganism" fitHeight="30.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                              <ComboBox fx:id="cbOrganism" maxWidth="1.7976931348623157E308" onAction="#ActionSelectComboOrganism" prefWidth="150.0" styleClass="combo-box" HBox.hgrow="ALWAYS" />
+                              <ImageView fitHeight="30.0" fitWidth="58.0" onMouseClicked="#ActionSelectOrganism" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../Icons/recherche.png.png" />
                                  </image>

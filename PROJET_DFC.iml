@@ -12,5 +12,6 @@
     <orderEntry type="library" name="jfoenix-8.1.8" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.48" level="project" />
     <orderEntry type="library" name="apache.poi.ooxml" level="project" />
+    <orderEntry type="library" name="converter-1.1" level="project" />
   </component>
 </module>

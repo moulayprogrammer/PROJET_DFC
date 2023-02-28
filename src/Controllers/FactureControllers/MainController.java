@@ -3,6 +3,7 @@ package Controllers.FactureControllers;
 import BddPackage.FactureOperation;
 import BddPackage.OrderPaymentOperation;
 import Models.*;
+import com.github.royken.converter.FrenchNumberToWords;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -16,14 +17,13 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -429,41 +429,50 @@ public class MainController implements Initializable {
         List<StringProperty> selected = tvFacture.getSelectionModel().getSelectedItem();
 
         if (selected != null) {
-            if(!selected.get(5).getValue().equals("0")) {
-                Facture facture = operation.get(Integer.parseInt(selected.get(0).getValue()));
-                OrderePaiment orderePaiment = paimentOperation.getByFacture(facture.getId());
+            Facture facture = operation.get(Integer.parseInt(selected.get(0).getValue()));
+            OrderePaiment orderePaiment = paimentOperation.getByFacture(facture.getId());
 
-                if (orderePaiment.getId() > 0) {
-                    try {
-                        XSSFWorkbook wb = new XSSFWorkbook(Files.newInputStream(Paths.get("src/OP.xlsx")));
-                        FileOutputStream fileOut = new FileOutputStream("src/new.xlsx");
-                        //Sheet mySheet = wb.getSheetAt(0);
-                        XSSFSheet sheet1 = wb.getSheetAt(0);
-                        XSSFRow row = sheet1.getRow(10);
-                        XSSFCell cell = row.getCell(2);
-                        System.out.println("val = " + cell.getStringCellValue());
-                        cell.setCellValue("PLS110/81/01/2023/02/11/01/2023");
+            if (orderePaiment.getId() > 0) {
+                try {
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.getExtensionFilters().addAll(
+                            new FileChooser.ExtensionFilter("Excel file", "xls", "xlsx"),
+                            new FileChooser.ExtensionFilter("All Files", "*.*")
+                    );
+                    fileChooser.setTitle("Enregistrer l'ordre paiement");
+                    String name = "op-fact-" + facture.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    fileChooser.setInitialFileName(name + ".xlsx");
+                    File file = fileChooser.showSaveDialog(tfRecherche.getScene().getWindow());
+
+                    if (file != null) {
+                        String filePath = file.getPath();
+
+                        XSSFWorkbook wb = new XSSFWorkbook(Files.newInputStream(Paths.get("src/Excels/OP.xlsx")));
+                        FileOutputStream fileOut = new FileOutputStream(filePath);
+
+                        XSSFSheet sheet = wb.getSheetAt(0);
+
+                        sheet.getRow(7).getCell(3).setCellValue(orderePaiment.getNumero());
+
+
+                        XSSFRow row = sheet.getRow(20);
+                        XSSFCell cell = row.getCell(1);
+                        int val = 123456;
+                        cell.setCellValue(FrenchNumberToWords.convert(val).toUpperCase());
 
                         wb.write(fileOut);
                         System.out.println("Written xls file");
                         fileOut.close();
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-                }else {
-                    Alert alertWarning = new Alert(Alert.AlertType.WARNING);
-                    alertWarning.setHeaderText("Attention ");
-                    alertWarning.setContentText("cette facture n'est pas payé");
-                    alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
-                    Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
-                    okButton.setText("d'accord");
-                    alertWarning.showAndWait();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }else {
                 Alert alertWarning = new Alert(Alert.AlertType.WARNING);
                 alertWarning.setHeaderText("Attention ");
-                alertWarning.setContentText("svp sélectionner un facture payé");
+                alertWarning.setContentText("cette facture n'est pas payé");
+                alertWarning.initOwner(this.tfRecherche.getScene().getWindow());
                 Button okButton = (Button) alertWarning.getDialogPane().lookupButton(ButtonType.OK);
                 okButton.setText("d'accord");
                 alertWarning.showAndWait();

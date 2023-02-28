@@ -45,7 +45,7 @@ public class AddController implements Initializable {
 
     private final ObservableList<String> dataComboMar = FXCollections.observableArrayList();
     private ArrayList<MarConBc> marConBcs = new ArrayList<>();
-
+    private boolean dateL = false;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.marSelected = new MarConBc();
@@ -135,8 +135,12 @@ public class AddController implements Initializable {
                     lbPeriod.setText("hors délai par " + (-1*defDate) + " jour");
                     lbPeriod.setTextFill(Color.RED);
                 }
+                dateL = true;
 
-            } else lbPeriod.setText("");
+            } else {
+                lbPeriod.setText("la date est erroné");
+                dateL = false;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -148,7 +152,7 @@ public class AddController implements Initializable {
         LocalDate date = dpDate.getValue();
         String montant = tfMontant.getText().trim();
 
-        if (!numero.isEmpty() && !date.toString().isEmpty()  && !montant.isEmpty()){
+        if (!numero.isEmpty() && !date.toString().isEmpty()  && !montant.isEmpty() && dateL){
 
             Facture facture = new Facture();
             facture.setIdMarConBc(this.marSelected.getId());

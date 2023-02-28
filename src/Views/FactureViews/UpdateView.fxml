@@ -38,8 +38,8 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbConvention" onAction="#ActionSelectComboConv" maxWidth="1.7976931348623157E308" prefWidth="150.0" HBox.hgrow="ALWAYS" />
-                        <ImageView onMouseClicked="#ActionSelectConv" fitHeight="29.0" fitWidth="108.0" pickOnBounds="true" preserveRatio="true">
+                        <ComboBox fx:id="cbConvention" maxWidth="1.7976931348623157E308" onAction="#ActionSelectComboConv" prefWidth="150.0" HBox.hgrow="ALWAYS" />
+                        <ImageView fitHeight="29.0" fitWidth="108.0" onMouseClicked="#ActionSelectConv" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../Icons/recherche.png.png" />
                            </image>
@@ -76,7 +76,12 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dpDate" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <DatePicker onAction="#calcPeriod" fx:id="dpDate" maxWidth="1.7976931348623157E308" />
+                              <Label fx:id="lbPeriod" />
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                   <HBox layoutX="10.0" layoutY="157.0">

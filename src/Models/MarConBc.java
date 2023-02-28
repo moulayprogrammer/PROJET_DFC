@@ -9,20 +9,23 @@ public class MarConBc {
     private int idProjet;
     private int idOrganisme;
     private String nomOrganisme;
+    private String numero;
     private String nom;
     private String type;
-    private String numero;
-    private int numbreLogts;
+    private String rebrique;
+    private String object;
     private LocalDate date;
+    private int numbreLogts;
+    private int duree;
+    private  String typeDuree;
+    private LocalDate ods;
     private double ht;
     private double tva;
     private double ttc;
     private String compteNumero;
     private String compteBank;
     private String compteAgence;
-    private  String typeDuree;
-    private int duree;
-    private LocalDate ods;
+
 
     public MarConBc() {
     }
@@ -85,6 +88,29 @@ public class MarConBc {
         this.ods = ods;
     }
 
+    public MarConBc(int id, int idProjet, int idOrganisme, String nomOrganisme, String numero, String nom, String type, String rebrique, String object, LocalDate date, int numbreLogts, int duree, String typeDuree, LocalDate ods, double ht, double tva, double ttc, String compteNumero, String compteBank, String compteAgence) {
+        this.id = id;
+        this.idProjet = idProjet;
+        this.idOrganisme = idOrganisme;
+        this.nomOrganisme = nomOrganisme;
+        this.numero = numero;
+        this.nom = nom;
+        this.type = type;
+        this.rebrique = rebrique;
+        this.object = object;
+        this.date = date;
+        this.numbreLogts = numbreLogts;
+        this.duree = duree;
+        this.typeDuree = typeDuree;
+        this.ods = ods;
+        this.ht = ht;
+        this.tva = tva;
+        this.ttc = ttc;
+        this.compteNumero = compteNumero;
+        this.compteBank = compteBank;
+        this.compteAgence = compteAgence;
+    }
+
     public int getId() {
         return id;
     }
@@ -109,6 +135,22 @@ public class MarConBc {
         this.idOrganisme = idOrganisme;
     }
 
+    public String getNomOrganisme() {
+        return nomOrganisme;
+    }
+
+    public void setNomOrganisme(String nomOrganisme) {
+        this.nomOrganisme = nomOrganisme;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
     public String getNom() {
         return nom;
     }
@@ -125,12 +167,28 @@ public class MarConBc {
         this.type = type;
     }
 
-    public String getNumero() {
-        return numero;
+    public String getRebrique() {
+        return rebrique;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setRebrique(String rebrique) {
+        this.rebrique = rebrique;
+    }
+
+    public String getObject() {
+        return object;
+    }
+
+    public void setObject(String object) {
+        this.object = object;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public int getNumbreLogts() {
@@ -141,12 +199,28 @@ public class MarConBc {
         this.numbreLogts = numbreLogts;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public int getDuree() {
+        return duree;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDuree(int duree) {
+        this.duree = duree;
+    }
+
+    public String getTypeDuree() {
+        return typeDuree;
+    }
+
+    public void setTypeDuree(String typeDuree) {
+        this.typeDuree = typeDuree;
+    }
+
+    public LocalDate getOds() {
+        return ods;
+    }
+
+    public void setOds(LocalDate ods) {
+        this.ods = ods;
     }
 
     public double getHt() {
@@ -195,37 +269,5 @@ public class MarConBc {
 
     public void setCompteAgence(String compteAgence) {
         this.compteAgence = compteAgence;
-    }
-
-    public String getNomOrganisme() {
-        return nomOrganisme;
-    }
-
-    public void setNomOrganisme(String nomOrganisme) {
-        this.nomOrganisme = nomOrganisme;
-    }
-
-    public String getTypeDuree() {
-        return typeDuree;
-    }
-
-    public void setTypeDuree(String typeDuree) {
-        this.typeDuree = typeDuree;
-    }
-
-    public int getDuree() {
-        return duree;
-    }
-
-    public void setDuree(int duree) {
-        this.duree = duree;
-    }
-
-    public LocalDate getOds() {
-        return ods;
-    }
-
-    public void setOds(LocalDate ods) {
-        this.ods = ods;
     }
 }
