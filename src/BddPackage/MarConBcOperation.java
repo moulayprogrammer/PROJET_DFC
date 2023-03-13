@@ -15,7 +15,7 @@ public class MarConBcOperation extends BDD<MarConBc>{
         boolean ins = false;
         String query = "INSERT INTO `MAR_CON_BC`(`ID_PROJET`, `ID_ORGANISME`, `NOM`, `TYPE`, `NUMERO`," +
                 " `REBRIQUE`, `OBJECT`, `HT`, `TVA`, `TTC`, `COMPTE_NUMERO`, `COMPTE_BANCK`, `COMPTE_AGENCE`, `NUMBER_LOGTS`," +
-                " `DATE`, `TYPE_DUREE`, `DUREE`, `ODS`) VALUES (?,?,?,?,?,?,,?,?,?,?,?,?,?,?,?,?,?)";
+                " `DATE`, `TYPE_DUREE`, `DUREE`, `ODS`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1,o.getIdProjet());
@@ -47,8 +47,9 @@ public class MarConBcOperation extends BDD<MarConBc>{
     @Override
     public boolean update(MarConBc o, MarConBc o2) {
         boolean upd = false;
-        String query = "UPDATE `mar_con_bc` SET `ID_PROJET`= ?,`ID_ORGANISME`= ?,`NOM`= ?,`TYPE`= ?," +
-                " `NUMERO`= ?,`HT`= ?,`TVA`= ?,`TTC`= ?,`COMPTE_NUMERO`= ?,`COMPTE_BANCK`= ?,`COMPTE_AGENCE`= ?," +
+        String query = "UPDATE `mar_con_bc` SET `ID_PROJET`= ?,`ID_ORGANISME`= ?,`NOM`= ?,`TYPE`= ?, `REBRIQUE`= ?," +
+                " `OBJECT`= ?," +
+                " `NUMERO`= ? ,`HT`= ?,`TVA`= ?,`TTC`= ?,`COMPTE_NUMERO`= ?,`COMPTE_BANCK`= ?,`COMPTE_AGENCE`= ?," +
                 " `NUMBER_LOGTS`= ?,`DATE`= ?,`TYPE_DUREE`= ?,`DUREE`= ?,`ODS`= ? WHERE `ID` = ?";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -56,19 +57,21 @@ public class MarConBcOperation extends BDD<MarConBc>{
             preparedStmt.setInt(2,o.getIdOrganisme());
             preparedStmt.setString(3,o.getNom());
             preparedStmt.setString(4,o.getType());
-            preparedStmt.setString(5,o.getNumero());
-            preparedStmt.setDouble(6,o.getHt());
-            preparedStmt.setDouble(7,o.getTva());
-            preparedStmt.setDouble(8,o.getTtc());
-            preparedStmt.setString(9,o.getCompteNumero());
-            preparedStmt.setString(10,o.getCompteBank());
-            preparedStmt.setString(11,o.getCompteAgence());
-            preparedStmt.setInt(12,o.getNumbreLogts());
-            preparedStmt.setDate(13,Date.valueOf(o.getDate()));
-            preparedStmt.setString(14,o.getTypeDuree());
-            preparedStmt.setInt(15,o.getDuree());
-            preparedStmt.setDate(16,Date.valueOf(o.getOds()));
-            preparedStmt.setInt(17,o2.getId());
+            preparedStmt.setString(5,o.getRebrique());
+            preparedStmt.setString(6,o.getObject());
+            preparedStmt.setString(7,o.getNumero());
+            preparedStmt.setDouble(8,o.getHt());
+            preparedStmt.setDouble(9,o.getTva());
+            preparedStmt.setDouble(10,o.getTtc());
+            preparedStmt.setString(11,o.getCompteNumero());
+            preparedStmt.setString(12,o.getCompteBank());
+            preparedStmt.setString(13,o.getCompteAgence());
+            preparedStmt.setInt(14,o.getNumbreLogts());
+            preparedStmt.setDate(15,Date.valueOf(o.getDate()));
+            preparedStmt.setString(16,o.getTypeDuree());
+            preparedStmt.setInt(17,o.getDuree());
+            preparedStmt.setDate(18,Date.valueOf(o.getOds()));
+            preparedStmt.setInt(19,o2.getId());
             int update = preparedStmt.executeUpdate();
             if(update != -1) upd = true;
         } catch (SQLException e) {
@@ -100,10 +103,10 @@ public class MarConBcOperation extends BDD<MarConBc>{
     @Override
     public ArrayList<MarConBc> getAll() {
         ArrayList<MarConBc> list = new ArrayList<>();
-        String query = "SELECT `MAR_CON_BC`.`ID`, `ID_PROJET`, `ID_ORGANISME`, `NOM`, `TYPE`, `NUMERO`, `HT`, `TVA`, `TTC`," +
-                " `COMPTE_NUMERO`, `COMPTE_BANCK`, `COMPTE_AGENCE`, `NUMBER_LOGTS`, `DATE`, `MAR_CON_BC`.`ARCHIVE` ," +
-                " `TYPE_DUREE`, `DUREE`, `ODS`, " +
-                " `ORGANISME`.`ID` , `ORGANISME`.`RAISON_SOCIAL` FROM `MAR_CON_BC` , `ORGANISME`" +
+        String query = "SELECT `MAR_CON_BC`.`ID`, `ID_PROJET`, `ID_ORGANISME`, `NUMERO`, `NOM`, `TYPE`, `REBRIQUE`, `OBJECT`" +
+                ", `DATE`, `NUMBER_LOGTS`, `DUREE`, `TYPE_DUREE`, `ODS`, `HT`, `TVA`, `TTC`, `COMPTE_NUMERO`" +
+                ", `COMPTE_BANCK`, `COMPTE_AGENCE` " +
+                ", `ORGANISME`.`RAISON_SOCIAL` FROM `MAR_CON_BC` , `ORGANISME`" +
                 " WHERE  `ORGANISME`.`ID` = `ID_ORGANISME` AND `MAR_CON_BC`.`ARCHIVE` = 0";
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -114,20 +117,22 @@ public class MarConBcOperation extends BDD<MarConBc>{
                 marConBc.setIdProjet(resultSet.getInt("ID_PROJET"));
                 marConBc.setIdOrganisme(resultSet.getInt("ID_ORGANISME"));
                 marConBc.setNomOrganisme(resultSet.getString("RAISON_SOCIAL"));
+                marConBc.setNumero(resultSet.getString("NUMERO"));
                 marConBc.setNom(resultSet.getString("NOM"));
                 marConBc.setType(resultSet.getString("TYPE"));
-                marConBc.setNumero(resultSet.getString("NUMERO"));
+                marConBc.setRebrique(resultSet.getString("REBRIQUE"));
+                marConBc.setObject(resultSet.getString("OBJECT"));
+                marConBc.setDate(resultSet.getDate("DATE").toLocalDate());
+                marConBc.setNumbreLogts(resultSet.getInt("NUMBER_LOGTS"));
+                marConBc.setDuree(resultSet.getInt("DUREE"));
+                marConBc.setTypeDuree(resultSet.getString("TYPE_DUREE"));
+                marConBc.setOds(resultSet.getDate("ODS").toLocalDate());
                 marConBc.setHt(resultSet.getDouble("HT"));
                 marConBc.setTva(resultSet.getDouble("TVA"));
                 marConBc.setTtc(resultSet.getDouble("TTC"));
                 marConBc.setCompteNumero(resultSet.getString("COMPTE_NUMERO"));
                 marConBc.setCompteBank(resultSet.getString("COMPTE_BANCK"));
                 marConBc.setCompteAgence(resultSet.getString("COMPTE_AGENCE"));
-                marConBc.setNumbreLogts(resultSet.getInt("NUMBER_LOGTS"));
-                marConBc.setDate(resultSet.getDate("DATE").toLocalDate());
-                marConBc.setTypeDuree(resultSet.getString("TYPE_DUREE"));
-                marConBc.setDuree(resultSet.getInt("DUREE"));
-                marConBc.setOds(resultSet.getDate("ODS").toLocalDate());
 
                 list.add(marConBc);
             }
@@ -247,11 +252,12 @@ public class MarConBcOperation extends BDD<MarConBc>{
     public MarConBc get(Integer id) {
         MarConBc marConBc = new MarConBc();
 
-        String query = "SELECT `MAR_CON_BC`.`ID`, `ID_PROJET`, `ID_ORGANISME`, `NOM`, `TYPE`, `NUMERO`, `HT`, `TVA`, `TTC`," +
-                " `COMPTE_NUMERO`, `COMPTE_BANCK`, `COMPTE_AGENCE`, `NUMBER_LOGTS`, `DATE`, `MAR_CON_BC`.`ARCHIVE` ," +
-                " `TYPE_DUREE`, `DUREE`, `ODS`, " +
-                " `ORGANISME`.`ID` , `ORGANISME`.`RAISON_SOCIAL` FROM `MAR_CON_BC` , `ORGANISME`" +
-                " WHERE  `ORGANISME`.`ID` = `ID_ORGANISME` AND `MAR_CON_BC`.`ID` = ?";
+        String query ="SELECT `MAR_CON_BC`.`ID`, `ID_PROJET`, `ID_ORGANISME`, `NUMERO`, `NOM`, `TYPE`, `REBRIQUE`, `OBJECT`" +
+                ", `DATE`, `NUMBER_LOGTS`, `DUREE`, `TYPE_DUREE`, `ODS`, `HT`, `TVA`, `TTC`, `COMPTE_NUMERO`" +
+                ", `COMPTE_BANCK`, `COMPTE_AGENCE` " +
+                ", `ORGANISME`.`RAISON_SOCIAL` FROM `MAR_CON_BC` , `ORGANISME`" +
+                " WHERE  `ORGANISME`.`ID` = `ID_ORGANISME` AND `MAR_CON_BC`.`ARCHIVE` = 0 AND `MAR_CON_BC`.`ID` = ? ";
+
         try {
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setInt(1,id);
@@ -262,20 +268,22 @@ public class MarConBcOperation extends BDD<MarConBc>{
                 marConBc.setIdProjet(resultSet.getInt("ID_PROJET"));
                 marConBc.setIdOrganisme(resultSet.getInt("ID_ORGANISME"));
                 marConBc.setNomOrganisme(resultSet.getString("RAISON_SOCIAL"));
+                marConBc.setNumero(resultSet.getString("NUMERO"));
                 marConBc.setNom(resultSet.getString("NOM"));
                 marConBc.setType(resultSet.getString("TYPE"));
-                marConBc.setNumero(resultSet.getString("NUMERO"));
+                marConBc.setRebrique(resultSet.getString("REBRIQUE"));
+                marConBc.setObject(resultSet.getString("OBJECT"));
+                marConBc.setDate(resultSet.getDate("DATE").toLocalDate());
+                marConBc.setNumbreLogts(resultSet.getInt("NUMBER_LOGTS"));
+                marConBc.setDuree(resultSet.getInt("DUREE"));
+                marConBc.setTypeDuree(resultSet.getString("TYPE_DUREE"));
+                marConBc.setOds(resultSet.getDate("ODS").toLocalDate());
                 marConBc.setHt(resultSet.getDouble("HT"));
                 marConBc.setTva(resultSet.getDouble("TVA"));
                 marConBc.setTtc(resultSet.getDouble("TTC"));
                 marConBc.setCompteNumero(resultSet.getString("COMPTE_NUMERO"));
                 marConBc.setCompteBank(resultSet.getString("COMPTE_BANCK"));
                 marConBc.setCompteAgence(resultSet.getString("COMPTE_AGENCE"));
-                marConBc.setNumbreLogts(resultSet.getInt("NUMBER_LOGTS"));
-                marConBc.setDate(resultSet.getDate("DATE").toLocalDate());
-                marConBc.setTypeDuree(resultSet.getString("TYPE_DUREE"));
-                marConBc.setDuree(resultSet.getInt("DUREE"));
-                marConBc.setOds(resultSet.getDate("ODS").toLocalDate());
 
 
             }

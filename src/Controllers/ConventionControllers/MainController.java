@@ -40,7 +40,7 @@ public class MainController implements Initializable {
     @FXML
     TableColumn<List<StringProperty>,String> organismeColumnn,NomColumnn,NumerColumn,typeColumn,MontInit,AvnSup,AvnDem,MontEnga,dateColumn;
     @FXML
-    TableColumn<List<StringProperty>,String> idColumn,idOrgColumn,nbLogtsColumn;
+    TableColumn<List<StringProperty>,String> idColumn,idOrgColumn,nbLogtsColumn,ObjectColumnn,rebriqueColumn,dureeColumn,odsColumn;
 
     private Project project;
     private final ObservableList<List<StringProperty>> dataTable = FXCollections.observableArrayList();
@@ -53,16 +53,20 @@ public class MainController implements Initializable {
 
         idColumn.setCellValueFactory(data -> data.getValue().get(0));
         idOrgColumn.setCellValueFactory(data -> data.getValue().get(1));
-        organismeColumnn.setCellValueFactory(data -> data.getValue().get(2));
+        NumerColumn.setCellValueFactory(data -> data.getValue().get(2));
         NomColumnn.setCellValueFactory(data -> data.getValue().get(3));
-        NumerColumn.setCellValueFactory(data -> data.getValue().get(4));
-        typeColumn.setCellValueFactory(data -> data.getValue().get(5));
-        MontInit.setCellValueFactory(data -> data.getValue().get(6));
-        AvnSup.setCellValueFactory(data -> data.getValue().get(7));
-        AvnDem.setCellValueFactory(data -> data.getValue().get(8));
-        MontEnga.setCellValueFactory(data -> data.getValue().get(9));
-        nbLogtsColumn.setCellValueFactory(data -> data.getValue().get(10));
-        dateColumn.setCellValueFactory(data -> data.getValue().get(11));
+        ObjectColumnn.setCellValueFactory(data -> data.getValue().get(4));
+        organismeColumnn.setCellValueFactory(data -> data.getValue().get(5));
+        typeColumn.setCellValueFactory(data -> data.getValue().get(6));
+        rebriqueColumn.setCellValueFactory(data -> data.getValue().get(7));
+        dateColumn.setCellValueFactory(data -> data.getValue().get(8));
+        nbLogtsColumn.setCellValueFactory(data -> data.getValue().get(9));
+        dureeColumn.setCellValueFactory(data -> data.getValue().get(10));
+        odsColumn.setCellValueFactory(data -> data.getValue().get(11));
+        MontInit.setCellValueFactory(data -> data.getValue().get(12));
+        AvnSup.setCellValueFactory(data -> data.getValue().get(13));
+        AvnDem.setCellValueFactory(data -> data.getValue().get(14));
+        MontEnga.setCellValueFactory(data -> data.getValue().get(15));
 
 
         this.project = new Project();
@@ -461,18 +465,23 @@ public class MainController implements Initializable {
             double AvnSup = avnentOperation.getSum(marConBc.getId(), "SUPLEMENTAIRE") ;
             double AvnDem = avnentOperation.getSum(marConBc.getId(), "DEMENITIVE") ;
 
+
             data.add(0, new SimpleStringProperty(String.valueOf(marConBc.getId())));
             data.add(1, new SimpleStringProperty(String.valueOf(marConBc.getIdOrganisme())));
-            data.add(2, new SimpleStringProperty(marConBc.getNomOrganisme()));
+            data.add(2, new SimpleStringProperty(marConBc.getNumero()));
             data.add(3, new SimpleStringProperty(marConBc.getNom()));
-            data.add(4, new SimpleStringProperty(marConBc.getNumero()));
-            data.add(5, new SimpleStringProperty(marConBc.getType()));
-            data.add(6, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",marConBc.getTtc())));
-            data.add(7, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",AvnSup)));
-            data.add(8, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",AvnDem)));
-            data.add(9, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",(marConBc.getTtc() + AvnSup + AvnDem) )));
-            data.add(10, new SimpleStringProperty(String.valueOf(marConBc.getNumbreLogts())));
-            data.add(11, new SimpleStringProperty(marConBc.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+            data.add(4, new SimpleStringProperty(marConBc.getObject()));
+            data.add(5, new SimpleStringProperty(marConBc.getNomOrganisme()));
+            data.add(6, new SimpleStringProperty(marConBc.getType()));
+            data.add(7, new SimpleStringProperty(marConBc.getRebrique()));
+            data.add(8, new SimpleStringProperty(marConBc.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+            data.add(9, new SimpleStringProperty(String.valueOf(marConBc.getNumbreLogts())));
+            data.add(10, new SimpleStringProperty(marConBc.getDuree() +"  " + marConBc.getTypeDuree()));
+            data.add(11, new SimpleStringProperty(marConBc.getOds().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+            data.add(12, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",marConBc.getTtc())));
+            data.add(13, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",AvnSup)));
+            data.add(14, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",AvnDem)));
+            data.add(15, new SimpleStringProperty(String.format(Locale.FRANCE,"%,.2f",(marConBc.getTtc() + AvnSup + AvnDem) )));
 
             dataTable.add(data);
         });

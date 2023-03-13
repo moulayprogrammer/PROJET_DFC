@@ -206,17 +206,21 @@
       <TableView fx:id="tvConvention" onMouseClicked="#tableClick" prefHeight="200.0" prefWidth="200.0" styleClass="container-table" BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="199.99996948242188" text="id" visible="false" />
-            <TableColumn fx:id="idOrgColumn" prefWidth="199.99996948242188" text="idOrg" visible="false" />
-            <TableColumn fx:id="organismeColumnn" prefWidth="200.0" text="Organisme" />
+            <TableColumn fx:id="idOrgColumn" prefWidth="100.0" text="idOrg" visible="false" />
             <TableColumn fx:id="NumerColumn" prefWidth="110.0" text=" N°" />
             <TableColumn fx:id="NomColumnn" prefWidth="300.0" text="Intitulé" />
-            <TableColumn fx:id="typeColumn" prefWidth="110.0" text="Type" />
-            <TableColumn fx:id="dateColumn" minWidth="0.0" prefWidth="110.0" text="Date" />
-            <TableColumn fx:id="nbLogtsColumn" prefWidth="110.0" text="Nomber LOGTS" />
-            <TableColumn fx:id="MontInit" prefWidth="186.0" text="MONTANT INITIAL" />
-            <TableColumn fx:id="AvnSup" prefWidth="152.0" text="AVENANT SUP" />
-            <TableColumn fx:id="AvnDem" minWidth="0.0" prefWidth="186.0" text="AVENANT DEM" />
-            <TableColumn fx:id="MontEnga" minWidth="0.0" prefWidth="220.0" text="MONTANT D'ENGAGEMENT" />
+            <TableColumn fx:id="ObjectColumnn" prefWidth="300.0" text="Objet" />
+            <TableColumn fx:id="organismeColumnn" prefWidth="200.0" text="Organisme" />
+            <TableColumn fx:id="typeColumn" prefWidth="140.0" text="Type" />
+            <TableColumn fx:id="rebriqueColumn" prefWidth="160.0" text="Rebrique" />
+            <TableColumn fx:id="dateColumn" minWidth="0.0" prefWidth="100.0" text="Date" />
+            <TableColumn fx:id="nbLogtsColumn" prefWidth="100.0" text="Nomber LOGTS" />
+            <TableColumn fx:id="dureeColumn" minWidth="0.0" prefWidth="100.0" text="Durée" />
+            <TableColumn fx:id="odsColumn" minWidth="0.0" prefWidth="100.0" text="Ods" />
+            <TableColumn fx:id="MontInit" prefWidth="200.0" text="MONTANT INITIAL" />
+            <TableColumn fx:id="AvnSup" prefWidth="200.0" text="AVENANT SUP" />
+            <TableColumn fx:id="AvnDem" minWidth="0.0" prefWidth="200.0" text="AVENANT DEM" />
+            <TableColumn fx:id="MontEnga" minWidth="0.0" prefWidth="200.0" text="MONTANT D'ENGAGEMENT" />
          </columns>
          <BorderPane.margin>
             <Insets left="5.0" right="5.0" />
