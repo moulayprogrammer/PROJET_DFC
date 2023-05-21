@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -107,7 +106,7 @@ public class ListAvnantController implements Initializable {
 
                     if (avnentCout != null){
                         try {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/UpdateAvnantView.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/Avenant/UpdateAvnantView.fxml"));
                             DialogPane temp = loader.load();
                             UpdateAvnantController controller = loader.getController();
                             controller.Init(avnentCout);

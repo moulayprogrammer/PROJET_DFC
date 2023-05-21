@@ -38,6 +38,7 @@ public class    LoginController implements Initializable {
         String password = pfPass.getText().trim();
 
         if ( !username.isEmpty() && !password.isEmpty() ){
+
             User user = new User(username,password);
             login(user);
         }else {

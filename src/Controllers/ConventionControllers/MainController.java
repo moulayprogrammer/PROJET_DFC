@@ -244,7 +244,7 @@ public class MainController implements Initializable {
             MarConBc convention = operation.get(Integer.valueOf(selected.get(0).getValue()));
 
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/AddAvnantView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/Avenant/AddAvnantView.fxml"));
                 DialogPane temp = loader.load();
                 AddAvnantController controller = loader.getController();
                 controller.Init(convention);
@@ -281,7 +281,7 @@ public class MainController implements Initializable {
             MarConBc convention = operation.get(Integer.valueOf(selected.get(0).getValue()));
 
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/ListAvnantView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ConventionViews/Avenant/ListAvnantView.fxml"));
                 DialogPane temp = loader.load();
                 ListAvnantController controller = loader.getController();
                 controller.Init(convention);

@@ -107,7 +107,7 @@ public class AddController implements Initializable {
     private void calcPeriod(){
         try {
 
-            LocalDate dateLimiter = this.marSelected.getDate();
+            LocalDate dateLimiter = this.marSelected.getOds();
             LocalDate dateSit = dpDate.getValue();
             if (dateLimiter.isBefore(dateSit)) {
                 if (this.marSelected.getTypeDuree().equals("JOURS"))

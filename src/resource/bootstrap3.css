@@ -8,6 +8,7 @@
     src: url('HSDream-Bold.otf');
 }
 
+
 .root {
 	-fx-body-color : #F5F5F5;
 	-fx-outer-border : #cecece;
@@ -396,7 +397,7 @@ VBox > .split-menu-button.last > .arrow-button {
 .text-field {
 	-fx-pref-height: 25;
 	-fx-font-family: 'HSDream-Regular' ;
-	-fx-font-size: 14 px ;
+	-fx-font-size: 15 px ;
 }
 
 .combo-box, .choice-box {
