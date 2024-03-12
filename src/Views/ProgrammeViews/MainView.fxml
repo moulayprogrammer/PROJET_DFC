@@ -72,7 +72,7 @@
                   </HBox>
                   <HBox layoutX="10.0" layoutY="10.0" spacing="18.0">
                      <children>
-                        <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="31.0" fitWidth="40.0" onMousePressed="#ActionPrintReport" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../Icons/print.png" />
                            </image>

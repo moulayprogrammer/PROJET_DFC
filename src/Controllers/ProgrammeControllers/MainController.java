@@ -1,5 +1,6 @@
 package Controllers.ProgrammeControllers;
 
+import BddPackage.ConnectBD;
 import BddPackage.ProgrammeOperation;
 import Models.Programme;
 import javafx.collections.FXCollections;
@@ -18,6 +19,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.File;
 import java.io.IOException;
@@ -170,6 +176,21 @@ public class MainController implements Initializable {
 
             refresh();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void ActionPrintReport(){
+        try {
+
+            String path = "src/JasperFiles/TestJasper.jrxml";
+            JasperReport jasperReport = JasperCompileManager.compileReport(path);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,null, operation.connect());
+            JasperViewer.viewReport(jasperPrint,false);
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

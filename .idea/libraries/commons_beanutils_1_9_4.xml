@@ -1,0 +1,24 @@
+<component name="libraryTable">
+  <library name="commons-beanutils-1.9.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/commons-beanutils-1.9.4.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/commons-collections-3.2.2.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/commons-collections4-4.2.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/commons-digester-2.1.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/ecj-3.21.0.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/jackson-annotations-2.15.3.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/jackson-core-2.15.3.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/jackson-databind-2.15.3.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/jackson-dataformat-xml-2.15.3.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/jasperreports-6.21.0.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/jcommon-1.0.23.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/jfreechart-1.0.19.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/openpdf-1.3.30.jaspersoft.3.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/stax2-api-4.2.1.jar!/" />
+      <root url="jar://$USER_HOME$/Bib/Jasper Jars/woodstox-core-6.5.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
